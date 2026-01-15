@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Login Admin </title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/imgs/theme/favicon.svg" />
+    <!-- Template CSS -->
+    <script src="assets/js/vendors/color-modes.js"></script>
+    <link href="assets/css/main.css?v=6.1" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <main>
+        <header class="main-header style-2 navbar">
+            <div class="col-brand">
+                <a href="index.html" class="brand-wrap">
+                    <img src="assets/imgs/theme/logo.svg" class="logo" alt="Nest Dashboard" />
+                </a>
+            </div>
+            <div class="col-nav">
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link btn-icon darkmode" href="#"> <i
+                                class="material-icons md-nights_stay"></i> </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="requestfullscreen nav-link btn-icon"><i
+                                class="material-icons md-cast"></i></a>
+                    </li>
+
+                </ul>
+            </div>
+        </header>
+        <section class="content-main mt-80 mb-80">
+            <div class="card mx-auto card-login">
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Sign in</h4>
+                        <form>
+                            <div class="mb-3">
+                                <input class="form-control" type="email" name="email" value="{{ old('email') }}"
+                                    placeholder="Username or email" type="text" />
+                                @error('email')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <!-- form-group// -->
+                            <div class="mb-3">
+                                <input class="form-control" placeholder="Password" type="password" name="password" />
+                                @error('password')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <!-- form-group// -->
+                            <div class="mb-3">
+                                <a href="#" class="float-end font-sm text-muted">Forgot password?</a>
+                                <label class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="remember"
+                                        {{ old('remember') ? 'checked' : '' }} />
+                                    <span class="form-check-label">Remember</span>
+                                </label>
+                            </div>
+                            <!-- form-group form-check .// -->
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-primary w-100">Login</button>
+                            </div>
+                            <!-- form-group// -->
+                        </form>
+
+                        {{-- <p class="text-center mb-4">Don't have account? <a href="#">Sign up</a></p> --}}
+                    </div>
+
+                </form>
+            </div>
+        </section>
+        <footer class="main-footer text-center">
+            <p class="font-xs">
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+                &copy; Nest - HTML Ecommerce Template .
+            </p>
+            <p class="font-xs mb-30">All rights reserved</p>
+        </footer>
+    </main>
+    <script src="assets/js/vendors/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <!-- Main Script -->
+    <script src="assets/js/main.js?v=6.1" type="text/javascript"></script>
+</body>
+
+</html>
