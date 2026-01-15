@@ -11,16 +11,13 @@ Route::group(['middleware' => ['auth']], function () {
 
 
        
-        // require_once 'admin/dosen.php';
-        require_once 'admin/alternatif.php';
-        require_once 'admin/pengajuan.php';
-        require_once 'admin/konversi.php';
-        require_once 'admin/kriteria.php';
-        require_once 'admin/pendampingan.php';
-        require_once 'admin/pengaduan.php';
-        require_once 'admin/petugas.php';
-        require_once 'admin/rekomendasi.php';
-        require_once 'admin/nilai.php';
-      
+        require_once 'admin/jenissurat.php';
+        require_once 'admin/pengumuman.php';
+        require_once 'admin/rt.php';
+        require_once 'admin/rw.php';
+        require_once 'admin/surat.php';
+        require_once 'admin/warga.php';
+        require_once 'admin/user.php';
+
     });
 });

@@ -70,7 +70,7 @@
                 </div>
               <!-- /Logo -->
               {{-- <h4 class="mb-2 mt-5 text-center">Selamat Datang</h4> --}}
-              <p class="mb-4 text-center">Silakan masuk ke akun Anda untuk mengakses Sistem Manajemen Pelayanan Desa</p>
+              <p class="mb-4 text-center">Silakan masuk ke akun Anda untuk mengakses Sistem Manajemen Pelayanan Desa </p>
 
               <form id="formAuthentication" class="mb-3"  method="POST" action="{{ route('login') }}">
                  @csrf

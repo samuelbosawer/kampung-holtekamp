@@ -15,82 +15,50 @@ class UserSeeder extends Seeder
     {
    
 
-        $user = User::create([
-            'email' => 'admindinas@master.com',
-            'password' =>  bcrypt('admindinas@master.com'),
+        $admin = User::create([
+            'email' => 'admin@holl.com',
+            'password' =>  bcrypt('admin@holl.com'),
 
         ]);
 
-               $user->assignRole('admindinas');
+        $admin->assignRole('admin');
 
-         $user = User::create([
-            'email' => 'petugas@master.com',
-            'password' =>  bcrypt('petugas@master.com'),
+
+        $rt = User::create([
+            'email' => 'kepala@holl.com',
+            'password' =>  bcrypt('kepala@holl.com'),
 
         ]);
-        $user->assignRole('petugas');
+
+       $rt->assignRole('kepala');
+
+         $rw = User::create([
+            'email' => 'rw001@holl.com',
+            'password' =>  bcrypt('rw001@holl.com'),
+
+        ]);
+
+        $rw->assignRole('rw');
 
 
-       
+        $rt = User::create([
+            'email' => 'rt001@holl.com',
+            'password' =>  bcrypt('rt001@holl.com'),
+
+        ]);
+
+       $rt->assignRole('rt');
+
+
+       $warga = User::create([
+            'email' => 'septer@gmail.com',
+            'password' =>  bcrypt('septer@gmail.com'),
+
+        ]);
+
+       $warga->assignRole('warga');
 
         
-         $user = User::create([
-            'email' => 'kepaladinas@master.com',
-            'password' =>  bcrypt('kepaladinas@master.com'),
-
-        ]);
-
-        $user->assignRole('kepaladinas');
-
-          $user = User::create([
-            'email' => 'mira@gmail.com',
-            'password' =>  bcrypt('mira@gmail.com'),
-
-        ]);
-        $user->assignRole('masyarakat');
-
-
-         $user = User::create([
-            'email' => 'angel@gmail.com',
-            'password' =>  bcrypt('angel@gmail.com'),
-
-        ]);
-        $user->assignRole('masyarakat');
-
-
-           $user = User::create([
-            'email' => 'julia@gmail.com',
-            'password' =>  bcrypt('julia@gmail.com'),
-
-        ]);
-        $user->assignRole('masyarakat');
-
-
-        
-           $user = User::create([
-            'email' => 'maria@gmail.com',
-            'password' =>  bcrypt('maria@gmail.com'),
-
-        ]);
-        $user->assignRole('masyarakat');
-
-
-        $user = User::create([
-            'email' => 'melan@gmail.com',
-            'password' =>  bcrypt('melan@gmail.com'),
-
-        ]);
-        $user->assignRole('masyarakat');
-
-
-          $user = User::create([
-            'email' => 'petugas2@master.com',
-            'password' =>  bcrypt('petugas2@master.com'),
-
-        ]);
-        $user->assignRole('petugas');
-
-
         
 
 

@@ -5,7 +5,7 @@
                  <img src="{{ asset('assets/img/logo.png') }}" width="40px" class="img-fluid" alt=""
                      srcset="">
              </span>
-             <span class=" menu-text fw-bolder ms-2">SPK-KDRT</span>
+             <span class=" menu-text fw-bolder ms-2">SIMPEL DESA</span>
          </a>
 
          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -17,13 +17,15 @@
 
      <ul class="menu-inner py-1">
 
-         @if (Auth::user()->hasRole('admindinas'))
+         @if (Auth::user()->hasRole('admin'))
              @include('admin.layout.sidebar.admin')
-         @elseif (Auth::user()->hasRole('petugas'))
-             @include('admin.layout.sidebar.petugas')
-         @elseif (Auth::user()->hasRole('masyarakat'))
-             @include('admin.layout.sidebar.masyarakat')
-         @elseif (Auth::user()->hasRole('kepaladinas'))
+         @elseif (Auth::user()->hasRole('rw'))
+             @include('admin.layout.sidebar.rw')
+         @elseif (Auth::user()->hasRole('rt'))
+             @include('admin.layout.sidebar.rt')
+         @elseif (Auth::user()->hasRole('warga'))
+             @include('admin.layout.sidebar.warga')
+         @elseif (Auth::user()->hasRole('kepala'))
              @include('admin.layout.sidebar.kepala')
          @endif
 

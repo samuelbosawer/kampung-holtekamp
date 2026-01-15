@@ -3,27 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Alternatif;
-use App\Models\Kriteria;
-use App\Models\PendampinganKasus;
-use App\Models\PengaduanMasyarakat;
-use App\Models\Pengajuan;
-use App\Models\PentugasPendamping;
-use App\Models\Rekomendasi;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class RwController extends Controller
 {
-     // Tampilkan semua data
+    // Tampilkan semua data
     public function index()
     {
-       
-
-
-        return view('admin.crud_tamplate.create-update-show');
-
-
-        // return view('admin.dashboard.index',compact('kriteria','alternatif','pengaduan','petugas', 'rekomendasi','pendampingan','pengajuan'));
+        return view('admin.crud_tamplate.index');
     }
 
     // Tampilkan form tambah data
@@ -41,13 +28,13 @@ class DashboardController extends Controller
     // Tampilkan detail satu data
     public function show($id)
     {
-         return view('admin.crud_tamplate.create-update-show');
+        return view('admin.crud_tamplate.create-update-show');
     }
 
     // Tampilkan form edit data
     public function edit($id)
     {
-         return view('admin.crud_tamplate.create-update-show');
+        return view('admin.crud_tamplate.create-update-show');
     }
 
     // Update data
