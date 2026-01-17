@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pengumumen', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // PK
+            $table->string('judul');
+            $table->text('isi_pengumuman');
+            $table->date('tanggal');
+            $table->string('cover')->nullable();
+            $table->unsignedBigInteger('user_id');
+
         });
     }
 

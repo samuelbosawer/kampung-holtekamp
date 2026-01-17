@@ -52,3 +52,12 @@
    </li>
 
 
+   
+    <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'pengumuman') active @endif">
+       <a href="{{ route('dashboard.pengumuman') }}" class="menu-link">
+           <i class="menu-icon tf-icons bx bx-news"></i>
+           <div data-i18n="Analytics">Data Pengumuman</div>
+       </a>
+   </li>
+
+

@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jenis_surats', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // PK
+            $table->string('nama');
+            $table->text('keterangan')->nullable();
         });
     }
 

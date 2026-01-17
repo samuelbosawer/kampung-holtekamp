@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('surats', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // PK
+            $table->string('nama_surat');
+            $table->unsignedBigInteger('id_jenis_surat');
+            $table->string('nomor_surat')->nullable();
+            $table->date('tanggal_pengajuan');
+            $table->unsignedBigInteger('warga_id');
+            $table->string('status_admin')->default('menunggu');
+            $table->string('status_rw')->default('menunggu');
+            $table->string('status')->default('diproses');
+
         });
     }
 
