@@ -1,508 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>SI KDRT </title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMPEL DESA | Kampung Holtekamp</title>
+    
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
 
-    <!-- Favicons -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/assets/vendor/fonts/boxicons.css') }}" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <link href="{{ asset('assets/img/logo.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/logo.png') }}" rel="apple-touch-icon">
+    <style>
+        :root {
+            --primary: #918c00;
+            --primary-dark: #666436;
+            --light-bg: #f8f9fa;
+        }
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+        body { font-family: 'Public Sans', sans-serif; scroll-behavior: smooth; color: #444; }
 
-    <!-- Vendor CSS Files -->
-    <link href="assets-visitor/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets-visitor/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets-visitor/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets-visitor/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="assets-visitor/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="assets-visitor/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        /* --- NAVBAR --- */
+        .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); sticky-top; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .nav-link { font-weight: 600; color: #555 !important; }
+        .nav-link:hover, .nav-link.active { color: var(--primary) !important; }
 
-    <!-- Main CSS File -->
-    <link href="assets-visitor/css/main.css" rel="stylesheet">
+        /* --- HERO --- */
+        .carousel-item { height: 85vh; min-height: 500px; }
+        .btn-custom { background: var(--primary); color: white; border-radius: 50px; padding: 12px 30px; border: none; font-weight: 600; }
+        .btn-custom:hover { background: var(--primary-dark); color: white; }
 
-    <!-- =======================================================
-  * Template Name: MediTrust
-  * Template URL: https://bootstrapmade.com/meditrust-bootstrap-hospital-website-template/
-  * Updated: Jul 04 2025 with Bootstrap v5.3.7
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+        /* --- SECTIONS --- */
+        section { padding: 100px 0; }
+        .section-title h2 { font-weight: 700; position: relative; padding-bottom: 15px; margin-bottom: 20px; }
+        .section-title h2::after { content: ''; position: absolute; display: block; width: 50px; height: 3px; background: var(--primary); bottom: 0; left: 0; }
+        .section-title.text-center h2::after { left: 50%; transform: translateX(-50%); }
+
+        /* --- PENGUMUMAN SLIDER --- */
+        .card-announcement { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .card-announcement img { height: 220px; object-fit: cover; }
+
+        /* --- LAYANAN --- */
+        .icon-box { padding: 30px; border-radius: 15px; background: #fff; border: 1px solid #eee; transition: 0.3s; height: 100%; }
+        .icon-box:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .icon-box i { font-size: 35px; color: var(--primary); margin-bottom: 15px; display: block; }
+
+        /* --- KONTAK (NEW DESIGN) --- */
+        .contact-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 30px; }
+        .info-item i { font-size: 24px; color: #fff; background: var(--primary); padding: 12px; border-radius: 12px; margin-right: 20px; }
+        .info-item h5 { font-size: 18px; font-weight: 700; margin-bottom: 5px; }
+        .map-container { min-height: 400px; border-radius: 20px; overflow: hidden; border: 1px solid #eee; }
+
+        footer { background: #1a1a1a; color: #ccc; padding: 30px 0; }
+    </style>
 </head>
+<body data-bs-spy="scroll" data-bs-target="#mainNav">
 
-<body class="index-page">
-
-    <header id="header" class="header d-flex align-items-center fixed-top">
-        <div
-            class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
-            <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-                <img src="{{ asset('assets/img/logo.png') }}" alt="">
-
-
-                <h1 class="sitename">SI KDRT</h1>
+    <nav id="mainNav" class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo" class="me-2" width="40">
+                <span class="fw-bold" style="color: var(--primary);">SIMPEL DESA</span>
             </a>
-
-            <nav id="navmenu" class="navmenu">
-                <ul>
-                    <li><a href="/">Beranda</a></li>
-                    <li><a href="#tentang">Tentang</a></li>
-                    <li><a href="#layanan">Layanan</a></li>
-                    <li><a href="{{ route('dashboard.pengaduan.tambah') }}">Pengaduan</a></li>
-                    <li><a href="#kontak">Kontak</a></li>
-                    @if (Auth::check() != null)
-                        <li><a href="{{ route('dashboard.home') }}">Dashboard</a></li>
-                        <li>
-                            <a href="#"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Keluar
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pengumuman">Pengumuman</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+                    <li class="nav-item ms-lg-3">
+                        @auth
+                            <form action="{{ route('logout') }}" method="POST" class="m-0">
                                 @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-4">Logout</button>
                             </form>
-                        </li>
-                    @else
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('daftar') }}">Daftar</a></li>
-                    @endif
-
-                </ul>
-                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-            </nav>
-
-            {{-- <a class="btn-getstarted" href="appointment.html">Appointment</a> --}}
-
-        </div>
-    </header>
-
-    <main class="main">
-
-        <!-- Hero Section -->
-        <section id="hero" class="hero section dark-background">
-            <div class="container-fluid p-0">
-                <div class="hero-wrapper">
-                    <div class="hero-image">
-                        <img src="assets-visitor/img/health/showcase-1.webp" alt="DP3AP2KB Kabupaten Mimika"
-                            class="img-fluid">
-                    </div>
-
-                    <div class="hero-content">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-10 col-md-10" data-aos="fade-right" data-aos-delay="100">
-                                    <div class="content-box">
-                                        <span class="badge-accent" data-aos="fade-up" data-aos-delay="150">DP3AP2KB
-                                            Kabupaten Mimika</span>
-                                        <h1 class="" data-aos="fade-up" data-aos-delay="200">Sistem Pendukung
-                                            Keputusan <br>Penanganan Kasus Kekerasan Dalam Rumah Tangga </h1>
-                                        {{-- <p data-aos="fade-up" data-aos-delay="250">Penanganan Kasus Kekerasan Dalam Rumah Tangga</p> --}}
-
-                                        <div class="cta-group" data-aos="fade-up" data-aos-delay="300">
-
-                                              @if (Auth::check() != null)
-                                                    <a href="{{ route('dashboard.home') }}" class="btn btn-primary">Dashboard</a>
-                                              @else
-                                                      <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
-                                              @endif
-                                          
-                                            <a href="{{ route('dashboard.pengaduan.tambah') }}"
-                                                class="btn btn-outline">Buat Pengaduan</a>
-                                        </div>
-
-                                        <div class="info-badges" data-aos="fade-up" data-aos-delay="350">
-                                            <div class="badge-item">
-                                                <i class="bi bi-telephone-fill"></i>
-                                                <div class="badge-content">
-                                                    <span>Nomor Telepon</span>
-                                                    <strong>+62 821 9988 9821</strong>
-                                                </div>
-                                            </div>
-                                            <div class="badge-item">
-                                                <i class="bi bi-clock-fill"></i>
-                                                <div class="badge-content">
-                                                    <span>Jam Kerja</span>
-                                                    <strong>Senin-Jumat: 08:00-18:00</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="features-wrapper">
-                                <div class="row gy-4">
-
-                                    <div class="col-lg-4">
-                                        <div class="feature-item" data-aos="fade-up" data-aos-delay="450">
-                                            <div class="feature-icon">
-                                                <i class="bi bi-person-fill"></i>
-                                            </div>
-                                            <div class="feature-text">
-                                                <h3>Petugas Profesional</h3>
-                                                <p>Mendukung kinerja petugas melalui sistem yang terarah dan berbasis
-                                                    data</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="feature-item" data-aos="fade-up" data-aos-delay="500">
-                                            <div class="feature-icon">
-                                                <i class="bi bi-pc-display"></i>
-                                            </div>
-                                            <div class="feature-text">
-                                                <h3>Pendampingan Cepat</h3>
-                                                <p>Mempercepat proses penanganan agar korban segera mendapatkan bantuan.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="feature-item" data-aos="fade-up" data-aos-delay="550">
-                                            <div class="feature-icon">
-                                                <i class="bi bi-file-bar-graph-fill"></i>
-                                            </div>
-                                            <div class="feature-text">
-                                                <h3>Pelayanan Terpadu</h3>
-                                                <p>Mengintegrasikan berbagai layanan dalam satu sistem yang saling
-                                                    terhubung.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section><!-- /Hero Section -->
-
-        <!-- Home About Section -->
-        <section id="tentang" class="home-about section">
-
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="row gy-5 align-items-center">
-                    <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-                        <div class="about-image">
-                            <img src="assets-visitor/img/health/facilities-1.webp" alt="Modern Healthcare Facility"
-                                class="img-fluid rounded-3 mb-2">
-                            {{-- <div class="experience-badge">
-                <span class="years">25+</span>
-                <span class="text">Years of Excellence</span>
-              </div> --}}
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
-                        <div class="about-content">
-                            <h2>Sistem Pendukung Keputusan
-                                Penanganan Kasus Kekerasan Dalam Rumah Tangga</h2>
-                            {{-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p> --}}
-
-                            <p style="text-align: justify">Sistem Pendukung Keputusan Penanganan Kasus Kekerasan Dalam
-                                Rumah Tangga adalah sistem berbasis teknologi yang membantu petugas dalam menilai,
-                                menganalisis, dan menentukan prioritas penanganan kasus KDRT secara objektif, cepat, dan
-                                terstruktur guna meningkatkan perlindungan serta keselamatan korban.</p>
-
-                            <div class="row g-4 mt-4">
-                                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-                                    <div class="feature-item text-center">
-                                        <div class="icon">
-                                            <i class="bi bi-person-fill"></i>
-                                        </div>
-                                        <h4>Petugas Profesional</h4>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
-                                    <div class="feature-item text-center">
-                                        <div class="icon">
-                                            <i class="bi bi-pc-display"></i>
-                                        </div>
-                                        <h4>Pendampingan Cepat</h4>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
-                                    <div class="feature-item text-center">
-                                        <div class="icon">
-                                            <i class="bi bi-file-bar-graph-fill"></i>
-                                        </div>
-                                        <h4>Pelayanan Terpadu</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cta-wrapper mt-4">
-
-                                  @if (Auth::check() != null)
-                                        <a href="{{ route('dashboard.home') }}" class="btn btn-primary">Dashboard</a>
-                                  @else
-                                        <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
-                                  @endif
-                                <a href="{{ route('dashboard.pengaduan.tambah') }}" class="btn btn-outline">Laporkan
-                                    Pengaduan</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-        </section><!-- /Home About Section -->
-
-
-
-        <!-- Call To Action Section -->
-        <section id="layanan" class="call-to-action section" style="background-color: gray">
-
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="fw-bolder" data-aos="fade-up" data-aos-delay="200">Layanan</h2>
-                        <p data-aos="fade-up" data-aos-delay="250">Kami menyediakan layanan pelaporan dan pengaduan
-                            kekerasan terhadap perempuan dan anak yang mudah diakses, aman, dan terpercaya untuk
-                            mendukung penanganan kasus secara cepat dan tepat.</p>
-
-                    </div>
-                </div>
-
-                <div class="row features-row" data-aos="fade-up" data-aos-delay="400">
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="feature-card">
-                            <div class="icon-wrapper">
-                                <i class="bi bi-megaphone"></i>
-                            </div>
-                            <h5>Layanan Pengaduan</h5>
-                            <p>Menyediakan layanan pelaporan dan pengaduan kekerasan terhadap perempuan dan anak secara
-                                aman, mudah, dan terpercaya.</p>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="feature-card">
-                            <div class="icon-wrapper">
-                                <i class="bi bi-people-fill"></i>
-                            </div>
-                            <h5>Layanan Pendampingan</h5>
-                            <p>Memberikan pendampingan cepat dan berkelanjutan bagi korban melalui dukungan psikologis,
-                                hukum, dan sosial.</p>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="feature-card">
-                            <div class="icon-wrapper">
-                                <i class="bi bi-diagram-3-fill"></i>
-                            </div>
-                            <h5>Pengambilan Keputusan</h5>
-                            <p>Mendukung petugas dalam menentukan prioritas penanganan kasus secara objektif dan
-                                berbasis data.</p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="emergency-alert" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <div class="emergency-content">
-                                <div class="emergency-icon">
-                                    <i class="bi bi-telephone-fill"></i>
-                                </div>
-                                <div class="emergency-text">
-                                    <h4>Butuh Bantuan Segera?</h4>
-                                    <p>Hubungi layanan pengaduan KDRT untuk mendapatkan bantuan dan penanganan cepat</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 text-end">
-                            <a href="tel:+6282199889821" class="emergency-btn">
-                                <i class="bi bi-telephone-fill"></i>
-                                Call +62 821 9988 9821
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </section><!-- /Call To Action Section -->
-
-        <!-- Emergency Info Section -->
-        <section id="kontak" class="emergency-info section">
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Kontak</h2>
-                <p>Jika Anda memerlukan informasi lebih lanjut, bantuan, atau ingin menyampaikan pengaduan, <br> jangan
-                    ragu untuk menghubungi kami. Tim kami siap membantu dan memberikan layanan terbaik secara cepat,
-                    aman, dan terpercaya.</p>
-            </div><!-- End Section Title -->
-
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="row mx-auto">
-                    <div class="col-lg-12 col-md-12 mx-auto">
-
-
-
-                        <!-- Emergency Contact Grid -->
-                        <div class="row emergency-contacts" data-aos="fade-up" data-aos-delay="200">
-
-                            <div class="col-md-6 mb-6">
-                                <div class="contact-card ">
-                                    <div class="card-icon">
-                                        <i class="bi bi bi-telephone"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h4>Telepon</h4>
-                                        <p class="contact-info">
-                                            <i class="bi bi-telephone"></i>
-                                            <span>+62 821 9988 9821</span>
-                                        </p>
-
-                                    </div>
-
-                                </div>
-                            </div><!-- End Emergency Room Card -->
-
-
-                            <div class="col-md-6 mb-6">
-                                <div class="contact-card ">
-                                    <div class="card-icon">
-                                        <i class="bi bi-pin-map"></i>
-                                    </div>
-                                    <div class="card-content">
-                                        <h4>Alamat</h4>
-                                        <p class="contact-info">
-                                            <i class="bi bi-telephone"></i>
-                                            <span>Jl. Yos Sudarso, Utikini Baru, Kuala Kencana, Mimika Papua
-                                                Tengah</span>
-                                        </p>
-
-                                    </div>
-
-                                </div>
-                            </div><!-- End Emergency Room Card -->
-
-
-
-
-
-                        </div><!-- End Emergency Contacts -->
-
-
-
-                    </div>
-                </div>
-
-            </div>
-
-        </section><!-- /Emergency Info Section -->
-
-    </main>
-
-    <footer id="footer" class="footer  light-background">
-
-        <div class="container footer-top ">
-            <div class="row  d-flex align-items-center">
-                <div class="col-lg-4 col-md-4 footer-about">
-                    <a href="index.html" class="logo d-flex align-items-center">
-                        <span class="sitename">SI KDRT</span>
-                    </a>
-
-                    <div class="footer-contact pt-3">
-                        <p>Jl. Yos Sudarso, Utikini Baru</p>
-                        <p>Kuala Kencana, Mimika Papua Tengah</p>
-                    </div>
-
-                    <div class="social-links d-flex mt-4">
-                        <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-4 footer-links mt-3">
-                    <h4>Kontak</h4>
-                    <ul>
-                        <p class="mt-3"><strong>No Hp:</strong> <span>+62 821 9988 9821</span></p>
-                        <p><strong>Email:</strong> <span>info@sikdrt.com</span></p>
-                    </ul>
-                </div>
-
-
-                <div class="col-lg-4 col-md-4 footer-links">
-                    <h4>Link Shortcut</h4>
-                    <ul>
-                        <li><a href="#">Beranda</a></li>
-                        <li><a href="#tentang">Tentang</a></li>
-
-                        @if (Auth::check() != null)
-                            <li>
-                                <a href="{{ route('dashboard.home') }}">Dashboard</a>
-                            </li>
                         @else
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('daftar') }}">Daftar Akun</a></li>
-                        @endif
-                        <li><a href="#">Pengaduan</a></li>
-                    </ul>
+                            <a href="{{ route('login') }}" class="btn btn-custom btn-sm rounded-pill px-4">Login</a>
+                        @endauth
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="beranda" class="p-0">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/img/bg.png'); background-size: cover; background-position: center;">
+                    <div class="container h-100 d-flex align-items-center text-white">
+                        <div>
+                            <h1 class="display-3 fw-bold mb-3">Kampung Holtekamp</h1>
+                            <p class="fs-5 mb-4 opacity-75">Sistem Manajemen Pelayanan Desa yang transparan, efisien, dan modern <br> untuk masyarakat Muara Tami.</p>
+                            <a href="#layanan" class="btn btn-custom">Mulai Layanan</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
+    </section>
 
-        <div class="container copyright text-center mt-4">
-            <p>© <span>Copyright IT SI KDRT MIMIKA </p>
+    <section id="tentang">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <img src="{{ asset('assets/img/profile.jpg') }}" class="img-fluid rounded-4 shadow-lg" alt="Tentang">
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Profil Desa</h6>
+                        <h2>Mengenal Lebih Dekat <br> Kampung Holtekamp</h2>
+                    </div>
+                    <p>Terletak di Distrik Muara Tami, Kota Jayapura, Kampung Holtekamp memiliki luas wilayah 18,73 km² dengan jumlah penduduk mencapai 1.668 jiwa. Wilayah ini berkembang pesat sebagai pusat aktivitas kependudukan yang dinamis.</p>
+                    <div class="row g-4 mt-2">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center p-3 border rounded-3">
+                                <i class='bx bx-group fs-2 me-3 text-primary'></i>
+                                <div><h4 class="mb-0 fw-bold">1.668</h4><small class="text-muted">Total Penduduk</small></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center p-3 border rounded-3">
+                                <i class='bx bx-map-alt fs-2 me-3 text-primary'></i>
+                                <div><h4 class="mb-0 fw-bold">18,73</h4><small class="text-muted">Luas Wilayah (km²)</small></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
+    </section>
 
+    <section id="pengumuman" class="bg-light">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Update Terkini</h6>
+                <h2>Pengumuman Kampung</h2>
+            </div>
+            <div class="swiper mySwiper pb-5">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="card card-announcement">
+                            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1949" class="card-img-top" alt="...">
+                            <div class="card-body p-4">
+                                <span class="badge bg-primary mb-2">Kegiatan</span>
+                                <h5 class="fw-bold">Penyaluran BLT Tahap III</h5>
+                                <p class="text-muted small">Diharapkan warga hadir tepat waktu di balai kampung membawa dokumen asli.</p>
+                                <hr>
+                                <small class="text-muted"><i class='bx bx-calendar me-1'></i> 20 Jan 2026</small>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layanan">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Fitur Utama</h6>
+                <h2>Layanan Masyarakat</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="icon-box">
+                        <i class='bx bx-data'></i>
+                        <h5>Rekap Data Penduduk</h5>
+                        <p class="text-muted small">Penyediaan data kependudukan yang akurat dan terupdate untuk warga.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="icon-box">
+                        <i class='bx bx-file-blank'></i>
+                        <h5>Surat Kependudukan</h5>
+                        <p class="text-muted small">Penanganan surat-surat administrasi dasar yang umum diajukan warga.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="icon-box">
+                        <i class='bx bx-check-double'></i>
+                        <h5>Validasi Berjenjang</h5>
+                        <p class="text-muted small">Validasi langsung dari Kepala Kampung dan Ketua RT setempat.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="icon-box">
+                        <i class='bx bx-bolt-circle'></i>
+                        <h5>Penyederhanaan Pelayanan</h5>
+                        <p class="text-muted small">Memangkas birokrasi lama menjadi sistem digital yang lebih cepat.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="icon-box">
+                        <i class='bx bx-info-square'></i>
+                        <h5>Informasi Publik</h5>
+                        <p class="text-muted small">Akses data dan informasi kependudukan secara terbuka dan mandiri.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="icon-box">
+                        <i class='bx bx-megaphone'></i>
+                        <h5>Pusat Pengumuman</h5>
+                        <p class="text-muted small">Penyebaran informasi pelayanan desa secara real-time kepada warga.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="bg-light">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Hubungi Kami</h6>
+                <h2>Pusat Informasi Desa</h2>
+            </div>
+            
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-5">
+                    <div class="contact-card p-5 h-100">
+                        <div class="info-item">
+                            <i class='bx bx-map'></i>
+                            <div>
+                                <h5>Kantor Kampung</h5>
+                                <p class="text-muted mb-0">Jl. Utama Holtekamp, Distrik Muara Tami, Kota Jayapura, Papua.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class='bx bx-time-five'></i>
+                            <div>
+                                <h5>Jam Pelayanan</h5>
+                                <p class="text-muted mb-0">Senin - Jumat: 08:00 - 15:00 WIT</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class='bx bx-phone-call'></i>
+                            <div>
+                                <h5>Telepon / WA</h5>
+                                <p class="text-muted mb-0">+62 812-3456-7890</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class='bx bx-envelope'></i>
+                            <div>
+                                <h5>Email Resmi</h5>
+                                <p class="text-muted mb-0">info@holtekamp.go.id</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="map-container h-100">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31899.78201552552!2d140.7937905!3d-2.6146194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686cf13774883907%3A0x867499648937966b!2sHoltekamp%2C%20Muara%20Tami%2C%20Kota%20Jayapura%2C%20Papua!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center">
+        <div class="container">
+            <img src="{{ asset('assets/img/logo.png') }}" width="30" class="mb-3 opacity-50">
+            <p class="mb-0 small">&copy; 2026 SIMPEL DESA - Kampung Holtekamp. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Preloader -->
-    <div id="preloader"></div>
-
-    <!-- Vendor JS Files -->
-    <script src="assets-visitor/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets-visitor/vendor/php-email-form/validate.js"></script>
-    <script src="assets-visitor/vendor/aos/aos.js"></script>
-    <script src="assets-visitor/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets-visitor/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets-visitor/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="assets-visitor/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets-visitor/vendor/glightbox/js/glightbox.min.js"></script>
-
-    <!-- Main JS File -->
-    <script src="assets-visitor/js/main.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: { el: ".swiper-pagination", clickable: true },
+            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+    </script>
 </body>
-
 </html>
