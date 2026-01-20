@@ -12,19 +12,19 @@ class Surat extends Model
 
     protected $fillable = [
         'nama_surat',
-        'id_jenis_surat',
+        'jenis_surat_id',
         'nomor_surat',
         'tanggal_pengajuan',
         'warga_id',
-        'status_admin',
         'status_rw',
-        'status',
+        'status_kepala',
+        'keterangan',
     ];
 
     // Relasi ke Jenis Surat
     public function jenisSurat()
     {
-        return $this->belongsTo(JenisSurat::class, 'id_jenis_surat');
+        return $this->belongsTo(JenisSurat::class, 'jenis_surat_id');
     }
 
     // Relasi ke Warga

@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('surats', function (Blueprint $table) {
             $table->id(); // PK
             $table->string('nama_surat');
-            $table->unsignedBigInteger('id_jenis_surat');
             $table->string('nomor_surat')->nullable();
             $table->date('tanggal_pengajuan');
+            $table->string('status_rw')->nullable();
+            $table->string('status_kepala')->nullable();
+            $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('warga_id');
-            $table->string('status_admin')->default('menunggu');
-            $table->string('status_rw')->default('menunggu');
-            $table->string('status')->default('diproses');
-
+            $table->unsignedBigInteger('jenis_surat_id');
         });
     }
 

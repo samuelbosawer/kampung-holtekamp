@@ -17,37 +17,36 @@ class SuratSeeder extends Seeder
             // warga_id = 1
             [
                 'nama_surat'        => 'Pengajuan Surat Keterangan Domisili',
-                'id_jenis_surat'    => 1, // Surat Keterangan Domisili
-                'nomor_surat'       => null,
+                'jenis_surat_id'    => 1, // Surat Keterangan Domisili
+                'nomor_surat'       => 1112,
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 1,
-                'status_admin'      => 'disetujui',
-                'status_rw'         => 'disetujui',
-                'status'            => 'selesai',
+                'status_rw'      => 'Disetujui',
+                'status_kepala'         => 'Disetujui',
             ],
 
             // warga_id = 2
             [
                 'nama_surat'        => 'Pengajuan Surat Keterangan Usaha',
-                'id_jenis_surat'    => 4, // Surat Keterangan Usaha
-                'nomor_surat'       => null,
+                'jenis_surat_id'    => 4, // Surat Keterangan Usaha
+                'nomor_surat'       => 1113,
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 2,
-                'status_admin'      => 'menunggu',
-                'status_rw'         => 'menunggu',
-                'status'            => 'diproses',
+                'status_rw'      => 'Menunggu',
+                'status_kepala'         => 'Menunggu',
+                
             ],
 
             // warga_id = 3
             [
                 'nama_surat'        => 'Pengajuan Surat Keterangan Tidak Mampu',
-                'id_jenis_surat'    => 2, // SKTM
-                'nomor_surat'       => null,
+                'jenis_surat_id'    => 2, // SKTM
+                'nomor_surat'       => 11112,
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 3,
-                'status_admin'      => 'disetujui',
-                'status_rw'         => 'menunggu',
-                'status'            => 'diproses',
+                'status_rw'      => 'Disetujui',
+                'status_kepala'         => 'Menunggu',
+                
             ],
         ];
 
