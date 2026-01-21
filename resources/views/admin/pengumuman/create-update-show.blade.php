@@ -80,6 +80,9 @@
 
                 {{-- BUTTON --}}
                 <div class="col-md-12 mt-3">
+
+                            @if (Auth::user()->hasRole('kepala|admin'))
+
                     @if (Request::segment(3) == 'detail')
                         <a href="{{ route('dashboard.pengumuman.ubah', $data->id) }}" class="btn btn-dark">
                             <i class="bx bx-pencil"></i> UBAH DATA
@@ -88,6 +91,8 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="bx bx-save"></i> SIMPAN
                         </button>
+                    @endif
+
                     @endif
 
                     <a href="{{ route('dashboard.pengumuman') }}" class="btn btn-dark">

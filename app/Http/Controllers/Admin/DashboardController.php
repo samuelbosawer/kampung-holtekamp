@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Alternatif;
-use App\Models\Kriteria;
-use App\Models\PendampinganKasus;
-use App\Models\PengaduanMasyarakat;
-use App\Models\Pengajuan;
-use App\Models\PentugasPendamping;
-use App\Models\Rekomendasi;
+use App\Models\JenisSurat;
+use App\Models\Pengumuman;
+use App\Models\Rt;
+use App\Models\Rw;
+use App\Models\Surat;
+use App\Models\User;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -18,12 +18,17 @@ class DashboardController extends Controller
     public function index()
     {
        
+        $rw = Rw::count();
+        $rt = Rt::count();
+        $warga = Warga::count();
+        $user = User::count();
+        $jenissurat = JenisSurat::count();
+        $surat = Surat::count();
+        $pengumuman = Pengumuman::count();
+
+        return view('admin.crud_tamplate.create-update-show',compact('rw','rt','warga','user','jenissurat','surat','pengumuman'));
 
 
-        return view('admin.crud_tamplate.create-update-show');
-
-
-        // return view('admin.dashboard.index',compact('kriteria','alternatif','pengaduan','petugas', 'rekomendasi','pendampingan','pengajuan'));
     }
 
     // Tampilkan form tambah data

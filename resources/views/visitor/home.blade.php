@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMPEL DESA | Kampung Holtekamp</title>
-    
+
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
 
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/assets/vendor/fonts/boxicons.css') }}" />
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
@@ -21,43 +22,158 @@
             --light-bg: #f8f9fa;
         }
 
-        body { font-family: 'Public Sans', sans-serif; scroll-behavior: smooth; color: #444; }
+        body {
+            font-family: 'Public Sans', sans-serif;
+            scroll-behavior: smooth;
+            color: #444;
+        }
 
         /* --- NAVBAR --- */
-        .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); sticky-top; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .nav-link { font-weight: 600; color: #555 !important; }
-        .nav-link:hover, .nav-link.active { color: var(--primary) !important; }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            sticky-top;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: #555 !important;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary) !important;
+        }
 
         /* --- HERO --- */
-        .carousel-item { height: 85vh; min-height: 500px; }
-        .btn-custom { background: var(--primary); color: white; border-radius: 50px; padding: 12px 30px; border: none; font-weight: 600; }
-        .btn-custom:hover { background: var(--primary-dark); color: white; }
+        .carousel-item {
+            height: 85vh;
+            min-height: 500px;
+        }
+
+        .btn-custom {
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-custom:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
 
         /* --- SECTIONS --- */
-        section { padding: 100px 0; }
-        .section-title h2 { font-weight: 700; position: relative; padding-bottom: 15px; margin-bottom: 20px; }
-        .section-title h2::after { content: ''; position: absolute; display: block; width: 50px; height: 3px; background: var(--primary); bottom: 0; left: 0; }
-        .section-title.text-center h2::after { left: 50%; transform: translateX(-50%); }
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title h2 {
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .section-title.text-center h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
         /* --- PENGUMUMAN SLIDER --- */
-        .card-announcement { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .card-announcement img { height: 220px; object-fit: cover; }
+        .card-announcement {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-announcement img {
+            height: 220px;
+            object-fit: cover;
+        }
 
         /* --- LAYANAN --- */
-        .icon-box { padding: 30px; border-radius: 15px; background: #fff; border: 1px solid #eee; transition: 0.3s; height: 100%; }
-        .icon-box:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .icon-box i { font-size: 35px; color: var(--primary); margin-bottom: 15px; display: block; }
+        .icon-box {
+            padding: 30px;
+            border-radius: 15px;
+            background: #fff;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .icon-box:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .icon-box i {
+            font-size: 35px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
 
         /* --- KONTAK (NEW DESIGN) --- */
-        .contact-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
-        .info-item { display: flex; align-items: flex-start; margin-bottom: 30px; }
-        .info-item i { font-size: 24px; color: #fff; background: var(--primary); padding: 12px; border-radius: 12px; margin-right: 20px; }
-        .info-item h5 { font-size: 18px; font-weight: 700; margin-bottom: 5px; }
-        .map-container { min-height: 400px; border-radius: 20px; overflow: hidden; border: 1px solid #eee; }
+        .contact-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
 
-        footer { background: #1a1a1a; color: #ccc; padding: 30px 0; }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .info-item i {
+            font-size: 24px;
+            color: #fff;
+            background: var(--primary);
+            padding: 12px;
+            border-radius: 12px;
+            margin-right: 20px;
+        }
+
+        .info-item h5 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .map-container {
+            min-height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 30px 0;
+        }
     </style>
 </head>
+
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
 
     <nav id="mainNav" class="navbar navbar-expand-lg sticky-top">
@@ -80,7 +196,8 @@
                         @auth
                             <form action="{{ route('logout') }}" method="POST" class="m-0">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-4">Logout</button>
+                                <button type="submit"
+                                    class="btn btn-outline-danger btn-sm rounded-pill px-4">Logout</button>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-custom btn-sm rounded-pill px-4">Login</a>
@@ -94,11 +211,13 @@
     <section id="beranda" class="p-0">
         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/img/bg.png'); background-size: cover; background-position: center;">
+                <div class="carousel-item active"
+                    style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/img/bg.png'); background-size: cover; background-position: center;">
                     <div class="container h-100 d-flex align-items-center text-white">
                         <div>
                             <h1 class="display-3 fw-bold mb-3">Kampung Holtekamp</h1>
-                            <p class="fs-5 mb-4 opacity-75">Sistem Manajemen Pelayanan Desa yang transparan, efisien, dan modern <br> untuk masyarakat Muara Tami.</p>
+                            <p class="fs-5 mb-4 opacity-75">Sistem Manajemen Pelayanan Desa yang transparan, efisien,
+                                dan modern <br> untuk masyarakat Muara Tami.</p>
                             <a href="#layanan" class="btn btn-custom">Mulai Layanan</a>
                         </div>
                     </div>
@@ -111,25 +230,34 @@
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-6">
-                    <img src="{{ asset('assets/img/profile.jpg') }}" class="img-fluid rounded-4 shadow-lg" alt="Tentang">
+                    <img src="{{ asset('assets/img/profile.jpg') }}" class="img-fluid rounded-4 shadow-lg"
+                        alt="Tentang">
                 </div>
                 <div class="col-lg-6">
                     <div class="section-title">
                         <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Profil Desa</h6>
                         <h2>Mengenal Lebih Dekat <br> Kampung Holtekamp</h2>
                     </div>
-                    <p>Terletak di Distrik Muara Tami, Kota Jayapura, Kampung Holtekamp memiliki luas wilayah 18,73 km² dengan jumlah penduduk mencapai 1.668 jiwa. Wilayah ini berkembang pesat sebagai pusat aktivitas kependudukan yang dinamis.</p>
+                    <p>Terletak di Distrik Muara Tami, Kota Jayapura, Kampung Holtekamp memiliki luas wilayah 18,73 km²
+                        dengan jumlah penduduk mencapai 1.668 jiwa. Wilayah ini berkembang pesat sebagai pusat aktivitas
+                        kependudukan yang dinamis.</p>
                     <div class="row g-4 mt-2">
                         <div class="col-sm-6">
                             <div class="d-flex align-items-center p-3 border rounded-3">
                                 <i class='bx bx-group fs-2 me-3 text-primary'></i>
-                                <div><h4 class="mb-0 fw-bold">1.668</h4><small class="text-muted">Total Penduduk</small></div>
+                                <div>
+                                    <h4 class="mb-0 fw-bold">{{ $warga }}</h4><small class="text-muted">Total
+                                        Penduduk</small>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="d-flex align-items-center p-3 border rounded-3">
                                 <i class='bx bx-map-alt fs-2 me-3 text-primary'></i>
-                                <div><h4 class="mb-0 fw-bold">18,73</h4><small class="text-muted">Luas Wilayah (km²)</small></div>
+                                <div>
+                                    <h4 class="mb-0 fw-bold">18,73</h4><small class="text-muted">Luas Wilayah
+                                        (km²)</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -146,19 +274,37 @@
             </div>
             <div class="swiper mySwiper pb-5">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
+                    @foreach ($pengumuman as $p )
+                         <div class="swiper-slide">
                         <div class="card card-announcement">
-                            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1949" class="card-img-top" alt="...">
+
+
+                          
+
+                                 @if ($p->cover && file_exists(public_path($p->cover)))
+                                                <img src="{{ asset($p->cover) }}" alt="Cover"
+                                                    class="card-img-top">
+                                            @else
+                                                <img src="https://placehold.co/100x100/EEE/999?text=No+Image" alt="No Image"
+                                                    class="card-img-top">
+                                            @endif
+
+
                             <div class="card-body p-4">
-                                <span class="badge bg-primary mb-2">Kegiatan</span>
-                                <h5 class="fw-bold">Penyaluran BLT Tahap III</h5>
-                                <p class="text-muted small">Diharapkan warga hadir tepat waktu di balai kampung membawa dokumen asli.</p>
+                                <h5 class="fw-bold">{{ $p->judul }}</h5>
+                                <p class="text-muted small"> {{ $p->isi_pengumuman }} </p>
                                 <hr>
-                                <small class="text-muted"><i class='bx bx-calendar me-1'></i> 20 Jan 2026</small>
+                                <small class="text-muted"><i class='bx bx-calendar me-1'></i> {{ \Carbon\Carbon::parse($p->tanggal)->translatedFormat('d F Y') }}</small>
                             </div>
                         </div>
                     </div>
-                    </div>
+                        
+                    @endforeach
+                   
+
+                    
+
+                </div>
                 <div class="swiper-pagination"></div>
             </div>
         </div>
@@ -175,14 +321,16 @@
                     <div class="icon-box">
                         <i class='bx bx-data'></i>
                         <h5>Rekap Data Penduduk</h5>
-                        <p class="text-muted small">Penyediaan data kependudukan yang akurat dan terupdate untuk warga.</p>
+                        <p class="text-muted small">Penyediaan data kependudukan yang akurat dan terupdate untuk warga.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="icon-box">
                         <i class='bx bx-file-blank'></i>
                         <h5>Surat Kependudukan</h5>
-                        <p class="text-muted small">Penanganan surat-surat administrasi dasar yang umum diajukan warga.</p>
+                        <p class="text-muted small">Penanganan surat-surat administrasi dasar yang umum diajukan warga.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -196,21 +344,24 @@
                     <div class="icon-box">
                         <i class='bx bx-bolt-circle'></i>
                         <h5>Penyederhanaan Pelayanan</h5>
-                        <p class="text-muted small">Memangkas birokrasi lama menjadi sistem digital yang lebih cepat.</p>
+                        <p class="text-muted small">Memangkas birokrasi lama menjadi sistem digital yang lebih cepat.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="icon-box">
                         <i class='bx bx-info-square'></i>
                         <h5>Informasi Publik</h5>
-                        <p class="text-muted small">Akses data dan informasi kependudukan secara terbuka dan mandiri.</p>
+                        <p class="text-muted small">Akses data dan informasi kependudukan secara terbuka dan mandiri.
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="icon-box">
-                        <i class='bx bx-megaphone'></i>
+                        <i class='bx bx-news'></i>
                         <h5>Pusat Pengumuman</h5>
-                        <p class="text-muted small">Penyebaran informasi pelayanan desa secara real-time kepada warga.</p>
+                        <p class="text-muted small">Penyebaran informasi pelayanan desa secara real-time kepada warga.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -223,7 +374,7 @@
                 <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Hubungi Kami</h6>
                 <h2>Pusat Informasi Desa</h2>
             </div>
-            
+
             <div class="row g-4 align-items-stretch">
                 <div class="col-lg-5">
                     <div class="contact-card p-5 h-100">
@@ -231,7 +382,8 @@
                             <i class='bx bx-map'></i>
                             <div>
                                 <h5>Kantor Kampung</h5>
-                                <p class="text-muted mb-0">Jl. Utama Holtekamp, Distrik Muara Tami, Kota Jayapura, Papua.</p>
+                                <p class="text-muted mb-0">Jl. Utama Holtekamp, Distrik Muara Tami, Kota Jayapura,
+                                    Papua.</p>
                             </div>
                         </div>
                         <div class="info-item">
@@ -257,11 +409,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-7">
                     <div class="map-container h-100">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31899.78201552552!2d140.7937905!3d-2.6146194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686cf13774883907%3A0x867499648937966b!2sHoltekamp%2C%20Muara%20Tami%2C%20Kota%20Jayapura%2C%20Papua!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31899.78201552552!2d140.7937905!3d-2.6146194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686cf13774883907%3A0x867499648937966b!2sHoltekamp%2C%20Muara%20Tami%2C%20Kota%20Jayapura%2C%20Papua!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
                             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
                         </iframe>
                     </div>
@@ -283,9 +435,20 @@
         var swiper = new Swiper(".mySwiper", {
             slidesPerView: 1,
             spaceBetween: 20,
-            pagination: { el: ".swiper-pagination", clickable: true },
-            breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            }
         });
     </script>
 </body>
+
 </html>

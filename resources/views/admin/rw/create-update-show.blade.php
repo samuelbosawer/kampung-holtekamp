@@ -57,7 +57,7 @@
 
 
                             </div>
-
+@if (!Auth::user()->hasRole('kepala|rt|rw|warga'))
                             <div class="col-md-8">
                                 <p class="p-2 rounded bg-primary text-white fw-bold">AKSES AKUN </p>
                             </div>
@@ -92,9 +92,11 @@
                                 @enderror
                             </div>
 
+                            @endif
+
                             <div class="col-md-12 mb-3 mx-auto">
 
-
+@if (!Auth::user()->hasRole('kepala|rt|rw|warga'))
                                 @if (Request::segment(3) == 'detail')
                                     <a href="{{ route('dashboard.rw.ubah', $data->id) }}" class="btn btn-dark text-white">
                                         <i class="menu-icon tf-icons bx bx-pencil"></i>
@@ -102,6 +104,8 @@
                                 @elseif ((Request::segment(3) == 'tambah' || Request::segment(4) == 'ubah') && Request::segment(2) == 'rw')
                                     <button type="submit" class="btn btn-primary text-white">SIMPAN <i
                                             class="menu-icon tf-icons bx bx-save"></i></button>
+                                @endif
+
                                 @endif
 
                                 <a href="{{ route('dashboard.rw') }}" class="btn btn-dark text-white"> KEMBALI </a>

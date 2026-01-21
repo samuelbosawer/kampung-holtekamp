@@ -49,7 +49,7 @@
         .auth-announcement {
             flex: 1.2;
             background: linear-gradient(135deg, rgba(145, 140, 0, 0.95) 0%, rgba(102, 100, 54, 0.95) 100%), 
-                        url('https://images.unsplash.com/photo-1516939884455-1445c8652f83?q=80&w=1974&auto=format&fit=crop'); /* Ganti dengan asset('assets/img/desa-bg.jpg') */
+                        url('assets/img/profile.jpg'); /* Ganti dengan asset('assets/img/desa-bg.jpg') */
             background-size: cover;
             background-position: center;
             padding: 50px;
@@ -176,7 +176,7 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember-me" {{ old('remember') ? 'checked' : '' }} />
                                     <label class="form-check-label small" for="remember-me"> Ingat Saya </label>
                                 </div>
-                                <a href="{{ route('daftar') }}" class="small fw-bold text-primary-custom">Daftar Akun</a>
+                                {{-- <a href="{{ route('daftar') }}" class="small fw-bold text-primary-custom">Daftar Akun</a> --}}
                             </div>
                         </div>
 

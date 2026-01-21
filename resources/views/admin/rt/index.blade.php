@@ -19,9 +19,12 @@
             <div class="table-responsive text-nowrap p-5">
                 <div class="row g-2 mb-3 align-items-center">
                     <div class="col-md-6 col-12">
+
+                        @if (!Auth::user()->hasRole('kepala|rt|rw|warga'))
                         <a href="{{ route('dashboard.rt.tambah') }}" class="btn btn-primary w-md-auto">
                             Tambah Data RT <i class="bx bx-plus ms-1"></i>
                         </a>
+                        @endif
                     </div>
                     <div class="col-md-6 col-12">
                         @include('admin.layout.search')
@@ -74,6 +77,8 @@
                                                 <i class="bx bx-box me-1"></i> Detail
                                             </a>
 
+                                            @if (!Auth::user()->hasRole('kepala|rt|rw|warga'))
+
                                             <a class="dropdown-item"
                                                 href="{{ route('dashboard.rt.ubah', $data->id) }}">
                                                 <i class="bx bx-edit-alt me-1"></i> Ubah
@@ -89,6 +94,10 @@
                                                     <i class="bx bx-trash me-1"></i> Hapus
                                                 </button>
                                             </form>
+
+                                            @endif
+
+
                                         </div>
                                     </div>
                                 </td>

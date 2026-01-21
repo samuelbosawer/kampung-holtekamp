@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengumuman;
 use App\Models\User;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -25,7 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-               return view('visitor.home');
+        $pengumuman = Pengumuman::get();
+        $warga = Warga::count();
+        return view('visitor.home',compact('warga','pengumuman'));
 
     }
 

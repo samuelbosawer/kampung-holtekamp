@@ -13,9 +13,12 @@
                     <div class="table-responsive text-nowrap p-5">
                         <div class="row g-2 mb-3 align-items-center">
                             <div class="col-md-6 col-12">
-                                <a href="{{ route('dashboard.pengumuman.tambah') }}" class="btn btn-primary  w-md-auto">
-                                    Tambah Data Pengumuman<i class="bx bx-plus ms-1"></i>
-                                </a>
+
+                                @if (Auth::user()->hasRole('kepala|admin'))
+                                    <a href="{{ route('dashboard.pengumuman.tambah') }}" class="btn btn-primary  w-md-auto">
+                                        Tambah Data Pengumuman<i class="bx bx-plus ms-1"></i>
+                                    </a>
+                                @endif
                             </div>
                             <div class="col-md-6 col-12">
                                 @include('admin.layout.search')
@@ -60,23 +63,30 @@
                                                     <i class="bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
+
+
                                                     <a class="dropdown-item"
                                                         href="{{ route('dashboard.pengumuman.detail', $data->id) }}">
                                                         <i class="bx bx-box me-1"></i> Detail</a>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('dashboard.pengumuman.ubah', $data->id) }}"><i
-                                                            class="bx bx-edit-alt me-1"></i> Ubah</a>
+                                                    @if (Auth::user()->hasRole('kepala|admin'))
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('dashboard.pengumuman.ubah', $data->id) }}"><i
+                                                                class="bx bx-edit-alt me-1"></i> Ubah</a>
 
-                                                    <form action="{{ route('dashboard.pengumuman.hapus', $data->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                                                        @csrf
-                                                        @method('DELETE')
 
-                                                        <button type="submit" class="dropdown-item text-danger">
-                                                            <i class="bx bx-trash me-1"></i> Hapus
-                                                        </button>
-                                                    </form>
+
+
+                                                        <form action="{{ route('dashboard.pengumuman.hapus', $data->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="bx bx-trash me-1"></i> Hapus
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </div>
                                             </div>
 

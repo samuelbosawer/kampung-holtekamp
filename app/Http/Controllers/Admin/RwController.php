@@ -85,7 +85,7 @@ class RwController extends Controller
     public function show($id)
     {
         $data = Rw::with('user')->where('id', $id)->first();
-        $judul = 'Ubah Data RW';
+        $judul = 'Detail Data RW';
         return view('admin.rw.create-update-show', compact('data', 'judul'));
     }
 
