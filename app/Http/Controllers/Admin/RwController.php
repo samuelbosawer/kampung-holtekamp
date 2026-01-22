@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Rw;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -13,27 +14,32 @@ class RwController extends Controller
 {
     // Tampilkan semua data
     public function index(Request $request)
-    { 
-            $datas = Rw::with('user')
-                ->whereNotNull('nama_rw')
-                ->when($request->s, function ($query) use ($request) {
-                    $s = $request->s;
+    {
+        if (Auth::user()->hasRole('rw')) {
+            return redirect()->route('dashboard.rw.detail', Auth::user()->rws->id);
+        }
+          if (Auth::user()->hasRole('rt')) {
+            return redirect()->route('dashboard.rw.detail', Auth::user()->rts->rw_id);
+        }
+        $datas = Rw::with('user')
+            ->whereNotNull('nama_rw')
+            ->when($request->s, function ($query) use ($request) {
+                $s = $request->s;
 
-                    $query->where(function ($q) use ($s) {
-                        $q->where('nama_rw', 'LIKE', "%{$s}%")
-                            ->orWhere('kepala_rw', 'LIKE', "%{$s}%")
-                            ->orWhere('keterangan', 'LIKE', "%{$s}%")
-                            ->orWhereHas('user', function ($uq) use ($s) {
-                                $uq->where('email', 'LIKE', "%{$s}%");
-                            });
-                    });
-                })
-                ->orderBy('id', 'desc')
-                ->paginate(7);
+                $query->where(function ($q) use ($s) {
+                    $q->where('nama_rw', 'LIKE', "%{$s}%")
+                        ->orWhere('kepala_rw', 'LIKE', "%{$s}%")
+                        ->orWhere('keterangan', 'LIKE', "%{$s}%")
+                        ->orWhereHas('user', function ($uq) use ($s) {
+                            $uq->where('email', 'LIKE', "%{$s}%");
+                        });
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(7);
 
-            return view('admin.rw.index', compact('datas'))
-                ->with('i', (request()->input('page', 1) - 1) * 7);
-        
+        return view('admin.rw.index', compact('datas'))
+            ->with('i', (request()->input('page', 1) - 1) * 7);
     }
 
     // Tampilkan form tambah data
@@ -67,7 +73,7 @@ class RwController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-            $user->assignRole('rw');
+        $user->assignRole('rw');
 
         // Simpan RW
         Rw::create([

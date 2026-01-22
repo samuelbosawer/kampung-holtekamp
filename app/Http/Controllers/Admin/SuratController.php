@@ -7,6 +7,7 @@ use App\Models\JenisSurat;
 use App\Models\Surat;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rule;
 class SuratController extends Controller
@@ -14,29 +15,47 @@ class SuratController extends Controller
     // Tampilkan semua data
     public function index(Request $request)
     {
-        $datas = Surat::with('jenissurat', 'warga')->whereNotNull('nama_surat')
-            ->when($request->s, function ($query) use ($request) {
-                $s = $request->s;
+        $datas = Surat::with('jenissurat', 'warga')
+    ->whereNotNull('nama_surat')
 
-                $query->where(function ($q) use ($s) {
-                    $q->where('nama_surat', 'LIKE', "%{$s}%")
-                        ->orWhere('keterangan', 'LIKE', "%{$s}%")
-                        ->orWhere('nomor_surat', 'LIKE', "%{$s}%")
-                        ->orWhere('tanggal_pengajuan', 'LIKE', "%{$s}%")
-                        ->orWhere('status_rw', 'LIKE', "%{$s}%")
-                        ->orWhere('status_kepala', 'LIKE', "%{$s}%")
+    // 🔐 FILTER JIKA LOGIN SEBAGAI RW
+    ->when(Auth::user()->hasRole('rw'), function ($query) {
+        if (Auth::user()->rws) {
+            $query->whereHas('warga', function ($wq) {
+                $wq->where('rw_id', Auth::user()->rws->id);
+            });
+        }
+    })
 
-                        // relasi ke jenis surat
-                        ->orWhereHas('jenissurat', function ($rq) use ($s) {
-                            $rq->where('nama', 'LIKE', "%{$s}%");
-                        });
-                });
-            })
-            ->orderBy('id', 'desc')
-            ->paginate(7);
+    // 🔍 FITUR SEARCH
+    ->when($request->s, function ($query) use ($request) {
+        $s = $request->s;
 
-        return view('admin.surat.index', compact('datas'))
-            ->with('i', (request()->input('page', 1) - 1) * 7);
+        $query->where(function ($q) use ($s) {
+            $q->where('nama_surat', 'LIKE', "%{$s}%")
+              ->orWhere('keterangan', 'LIKE', "%{$s}%")
+              ->orWhere('nomor_surat', 'LIKE', "%{$s}%")
+              ->orWhere('tanggal_pengajuan', 'LIKE', "%{$s}%")
+              ->orWhere('status_rw', 'LIKE', "%{$s}%")
+              ->orWhere('status_kepala', 'LIKE', "%{$s}%")
+
+              // relasi ke jenis surat
+              ->orWhereHas('jenissurat', function ($rq) use ($s) {
+                  $rq->where('nama', 'LIKE', "%{$s}%");
+              })
+
+              // 🔍 tambahan search lewat warga
+              ->orWhereHas('warga', function ($wq) use ($s) {
+                  $wq->where('nama_lengkap', 'LIKE', "%{$s}%");
+              });
+        });
+    })
+
+    ->orderBy('id', 'desc')
+    ->paginate(7);
+
+return view('admin.surat.index', compact('datas'))
+    ->with('i', (request()->input('page', 1) - 1) * 7);
     }
 
     // Tampilkan form tambah data

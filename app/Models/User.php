@@ -52,6 +52,18 @@ class User extends Authenticatable
         return $this->hasMany(Rw::class, 'user_id');
     }
 
+        public function rws()
+    {
+        return $this->hasOne(\App\Models\Rw::class, 'user_id');
+    }
+
+
+        public function rts()
+    {
+        return $this->hasOne(\App\Models\Rt::class, 'user_id');
+    }
+
+
     public function rt()
     {
         return $this->hasOne(Rt::class, 'user_id');

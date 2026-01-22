@@ -8,6 +8,7 @@ use App\Models\Rw;
 use App\Models\User;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rule;
@@ -18,6 +19,16 @@ class WargaController extends Controller
     public function index(Request $request)
     {
         $datas = Warga::with(['rt', 'rw', 'user'])
+
+        // 🔐 FILTER JIKA YANG LOGIN ADALAH RW
+    ->when(Auth::user()->hasRole('rw'), function ($query) {
+        if (Auth::user()->rws) {
+            $query->where('rw_id', Auth::user()->rws->id);
+        }
+    })
+
+
+    
             ->when($request->s, function ($query) use ($request) {
                 $s = $request->s;
 

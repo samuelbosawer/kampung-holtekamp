@@ -16,17 +16,15 @@ class Rt extends Model
         'user_id'
     ];
 
-    // Relasi ke RW
     public function rw()
-    {
-        return $this->belongsTo(Rw::class, 'rw_id');
-    }
+{
+    return $this->belongsTo(\App\Models\Rw::class, 'rw_id');
+}
 
-    // Relasi ke User
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+public function user()
+{
+    return $this->belongsTo(\App\Models\User::class, 'user_id');
+}
 
     public function wargas()
     {

@@ -7,6 +7,7 @@ use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,26 +17,38 @@ class RtController extends Controller
     public function index(Request $request)
     {
         $datas = Rt::with(['rw', 'user'])
-            ->whereNotNull('nama_rt')
-            ->when($request->s, function ($query) use ($request) {
-                $s = $request->s;
+    ->whereNotNull('nama_rt')
 
-                $query->where(function ($q) use ($s) {
-                    $q->where('nama_rt', 'LIKE', "%{$s}%")
-                        ->orWhere('kepala_rt', 'LIKE', "%{$s}%")
-                        ->orWhere('keterangan', 'LIKE', "%{$s}%")
-                        // relasi ke RW
-                        ->orWhereHas('rw', function ($rq) use ($s) {
-                            $rq->where('nama_rw', 'LIKE', "%{$s}%");
-                        })
-                        // relasi ke User
-                        ->orWhereHas('user', function ($uq) use ($s) {
-                            $uq->where('email', 'LIKE', "%{$s}%");
-                        });
-                });
-            })
-            ->orderBy('id', 'desc')
-            ->paginate(7);
+    // 🔐 FILTER JIKA YANG LOGIN ADALAH RW
+    ->when(Auth::user()->hasRole('rw'), function ($query) {
+        if (Auth::user()->rws) {
+            $query->where('rw_id', Auth::user()->rws->id);
+        }
+    })
+
+    // 🔍 FITUR SEARCH
+    ->when($request->s, function ($query) use ($request) {
+        $s = $request->s;
+
+        $query->where(function ($q) use ($s) {
+            $q->where('nama_rt', 'LIKE', "%{$s}%")
+              ->orWhere('kepala_rt', 'LIKE', "%{$s}%")
+              ->orWhere('keterangan', 'LIKE', "%{$s}%")
+
+              // relasi ke RW
+              ->orWhereHas('rw', function ($rq) use ($s) {
+                  $rq->where('nama_rw', 'LIKE', "%{$s}%");
+              })
+
+              // relasi ke User
+              ->orWhereHas('user', function ($uq) use ($s) {
+                  $uq->where('email', 'LIKE', "%{$s}%");
+              });
+        });
+    })
+
+    ->orderBy('id', 'desc')
+    ->paginate(7);
 
         return view('admin.rt.index', compact('datas'));
     }
