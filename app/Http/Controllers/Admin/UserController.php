@@ -16,7 +16,7 @@ class UserController extends Controller
     // Tampilkan semua data
     public function index(Request $request)
     {
-        if (Auth::user()->hasRole('rw')) {
+        if (Auth::user()->hasAnyRole(['rw', 'rt', 'warga'])) {
             return redirect()->route('dashboard.user.detail', Auth::user()->id);
         }
 
@@ -52,6 +52,12 @@ class UserController extends Controller
     public function show($id)
     {
 
+
+        if (Auth::user()->hasAnyRole(['rw', 'rt', 'warga'])) {
+            $id = Auth::user()->id;
+        }
+
+
         $data = User::where('id', $id)->first();
         $judul = 'Detail Data Pengguna';
         return view('admin.pengguna.create-update-show', compact('data', 'judul'));
@@ -60,6 +66,10 @@ class UserController extends Controller
     // Tampilkan form edit data
     public function edit($id)
     {
+        if (Auth::user()->hasAnyRole(['rw', 'rt', 'warga'])) {
+            $id = Auth::user()->id;
+        }
+
         $data = User::where('id', $id)->first();
         return view('admin.pengguna.create-update-show', compact('data'));
     }
@@ -89,6 +99,12 @@ class UserController extends Controller
 
 
         Alert::success('Berhasil', 'Data pengguna berhasil diperbarui');
+
+        $user = Auth::user();
+
+        if ($user->hasAnyRole(['rw', 'rt', 'warga'])) {
+            return redirect()->route('dashboard.user.detail', $user->id);
+        }
 
         return redirect()->route('dashboard.user');
     }

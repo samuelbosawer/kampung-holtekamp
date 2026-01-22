@@ -11,13 +11,14 @@ use App\Models\Surat;
 use App\Models\User;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-     // Tampilkan semua data
+    // Tampilkan semua data
     public function index()
     {
-       
+
         $rw = Rw::count();
         $rt = Rt::count();
         $warga = Warga::count();
@@ -26,9 +27,49 @@ class DashboardController extends Controller
         $surat = Surat::count();
         $pengumuman = Pengumuman::count();
 
-        return view('admin.crud_tamplate.create-update-show',compact('rw','rt','warga','user','jenissurat','surat','pengumuman'));
+        if (Auth::user()->hasRole('rt')) {
+            if (Auth::user()->rt) {
+                // Hitung warga hanya di RT ini
+                $warga = Warga::where('rt_id', Auth::user()->rt->id)->count();
+                // Hitung surat hanya dari warga di RT ini
+                $surat = Surat::whereHas('warga', function ($q) {
+                    $q->where('rt_id', Auth::user()->rt->id);
+                })->count();
+            } else {
+                // fallback jika relasi RT belum ada
+                $warga = 0;
+                $surat = 0;
+            }
+        }
+
+        if (Auth::user()->hasRole('rw')) {
+            if (Auth::user()->rws)
+                // Hitung warga hanya di RT ini
+                $warga = Warga::where('rw_id', Auth::user()->rws->id)->count();
+                $rt = Rt::where('rw_id', Auth::user()->rws->id)->count();
+            // Hitung surat hanya dari warga di RT ini
+            $surat = Surat::whereHas('warga', function ($q) {
+                $q->where('rw_id', Auth::user()->rws->id);
+            })->count();
+        } else {
+            // fallback jika relasi RT belum ada
+            $warga = 0;
+            $surat = 0;
+              $rt = 0;
+        }
 
 
+
+
+
+
+
+
+
+
+
+
+        return view('admin.dashboard.index', compact('rw', 'rt', 'warga', 'user', 'jenissurat', 'surat', 'pengumuman'));
     }
 
     // Tampilkan form tambah data
@@ -46,13 +87,13 @@ class DashboardController extends Controller
     // Tampilkan detail satu data
     public function show($id)
     {
-         return view('admin.crud_tamplate.create-update-show');
+        return view('admin.crud_tamplate.create-update-show');
     }
 
     // Tampilkan form edit data
     public function edit($id)
     {
-         return view('admin.crud_tamplate.create-update-show');
+        return view('admin.crud_tamplate.create-update-show');
     }
 
     // Update data

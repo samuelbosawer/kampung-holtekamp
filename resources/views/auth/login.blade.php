@@ -34,7 +34,7 @@
         }
 
         /* --- LAYOUT LOGIN MODERN --- */
-        .authentication-inner {
+        .inner {
             max-width: 1000px !important;
             display: flex;
             flex-wrap: wrap;
@@ -115,7 +115,7 @@
             .auth-announcement {
                 display: none; /* Sembunyikan pengumuman di mobile agar ringkas */
             }
-            .authentication-inner {
+            .inner {
                 max-width: 450px !important;
             }
         }
@@ -127,7 +127,7 @@
 
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner shadow-lg">
+            <div class="inner shadow-lg">
                 
                 <div class="auth-announcement">
                     <div class="announcement-tag">Info Desa</div>
@@ -136,7 +136,7 @@
                         Sistem Manajemen Pelayanan Desa (SIMPEL DESA) hadir untuk mempermudah warga dalam mengurus administrasi secara mandiri, transparan, dan efisien.
                     </p>
                     <div class="announcement-date">
-                        <i class="bx bx-calendar me-2"></i> Diperbarui: 21 Januari 2026
+                        {{-- <i class="bx bx-calendar me-2"></i> Diperbarui: 21 Januari 2026 --}}
                     </div>
                 </div>
 

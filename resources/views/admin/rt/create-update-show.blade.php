@@ -106,8 +106,8 @@
                                 @else
                                     <button class="btn btn-primary">SIMPAN</button>
                                 @endif
+                                <a href="{{ route('dashboard.rt') }}" class="btn btn-dark">KEMBALI</a>
                             @endif
-                            <a href="{{ route('dashboard.rt') }}" class="btn btn-dark">KEMBALI</a>
                         </div>
 
                         </form>

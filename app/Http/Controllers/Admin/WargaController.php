@@ -18,17 +18,29 @@ class WargaController extends Controller
     // Tampilkan semua data
     public function index(Request $request)
     {
+
+        if (Auth::user()->hasRole('warga')) {
+            return redirect()->route('dashboard.warga.detail', Auth::user()->wargas->id);
+        }
+
         $datas = Warga::with(['rt', 'rw', 'user'])
 
-        // 🔐 FILTER JIKA YANG LOGIN ADALAH RW
-    ->when(Auth::user()->hasRole('rw'), function ($query) {
-        if (Auth::user()->rws) {
-            $query->where('rw_id', Auth::user()->rws->id);
-        }
-    })
+            // 🔐 FILTER JIKA YANG LOGIN ADALAH RW
+            ->when(Auth::user()->hasRole('rw'), function ($query) {
+                if (Auth::user()->rws) {
+                    $query->where('rw_id', Auth::user()->rws->id);
+                }
+            })
+
+             // 🔐 FILTER JIKA YANG LOGIN ADALAH RT
+            ->when(Auth::user()->hasRole('rt'), function ($query) {
+                if (Auth::user()->rts) {
+                    $query->where('rt_id', Auth::user()->rts->id);
+                }
+            })
 
 
-    
+
             ->when($request->s, function ($query) use ($request) {
                 $s = $request->s;
 

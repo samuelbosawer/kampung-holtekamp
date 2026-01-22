@@ -95,6 +95,33 @@
                                 </div>
 
 
+                                   <div class="col-md-8 mb-3">
+                                    <label class="form-label">Validasi Kepala Kampung</label>
+                                    <select name="status_kepala" class="form-control"
+                                        @if (Request::segment(3) == 'detail') disabled @endif>
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="Disetujui"
+                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Disetujui' ? 'selected' : '' }}>
+                                            Disetujui
+                                        </option>
+
+                                        <option value="Menunggu"
+                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Menunggu' ? 'selected' : '' }}>
+                                            Menunggu
+                                        </option>
+
+                                        <option value="Ditolak"
+                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Ditolak' ? 'selected' : '' }}>
+                                            Ditolak
+                                        </option>
+                                    </select>
+                                    @error('status_kepala')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+
+
                                 <div class="col-md-8 mb-3">
                                     <label class="form-label">Validasi Ketua RW</label>
                                     <select name="status_rw" class="form-control"
@@ -120,31 +147,32 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-8 mb-3">
-                                    <label class="form-label">Validasi Kepala Kampung</label>
-                                    <select name="status_kepala" class="form-control"
+                                 <div class="col-md-8 mb-3">
+                                    <label class="form-label">Validasi Ketua RT</label>
+                                    <select name="status_rw" class="form-control"
                                         @if (Request::segment(3) == 'detail') disabled @endif>
                                         <option value="">-- Pilih Status --</option>
                                         <option value="Disetujui"
-                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Disetujui' ? 'selected' : '' }}>
+                                            {{ old('status_rw', $data->status_rw ?? '') == 'Disetujui' ? 'selected' : '' }}>
                                             Disetujui
                                         </option>
 
                                         <option value="Menunggu"
-                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Menunggu' ? 'selected' : '' }}>
+                                            {{ old('status_rw', $data->status_rw ?? '') == 'Menunggu' ? 'selected' : '' }}>
                                             Menunggu
                                         </option>
 
                                         <option value="Ditolak"
-                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Ditolak' ? 'selected' : '' }}>
+                                            {{ old('status_rw', $data->status_rw ?? '') == 'Ditolak' ? 'selected' : '' }}>
                                             Ditolak
                                         </option>
                                     </select>
-                                    @error('status_kepala')
+                                    @error('status_rw')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
 
+                             
                                 <div class="col-md-8 mb-3">
                                     <label for="keterangan" class="form-label">Keterangan</label>
                                     <textarea class="form-control" id="keterangan" name ="keterangan" rows="3"

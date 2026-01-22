@@ -28,12 +28,12 @@
                         <table class="table table-bordered">
                             <thead class="">
                                 <tr class="bg-primary ">
-                                    <th class="text-white text-center  p-3 fw-bolder" width="10px" hight="10px">Nomor</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Nama </th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Jenis</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Pengajuan</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Validasi K. Kampung</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Validasi RW</th>
+                                    <th class="text-white text-center  p-3 fw-bolder" >Validasi RT</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Warga</th>
                                     <th class="text-white text-center  p-3 fw-bolder"></th>
                                 </tr>
@@ -41,7 +41,6 @@
                             <tbody class="table-border-bottom-0">
                                 @forelse($datas as $data)
                                     <tr>
-                                        <td>{{ $data->nomor_surat }}</td>
                                         <td class="fw-bolder"> <a
                                                 href="{{ route('dashboard.surat.detail', $data->id) }}">{{ $data->nama_surat }}</a>
                                         </td>
@@ -49,6 +48,7 @@
                                         <td>{{ \Carbon\Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y') }}</td>
                                         <td>{{ $data->status_kepala ?? 'Belum ada'}}</td>
                                         <td>{{ $data->status_rw ?? 'Belum ada'}}</td>
+                                        <td>{{ $data->status_rt ?? 'Belum ada'}}</td>
                                         <td>{{ $data->warga->nama_lengkap}}</td>        
                                         <td class="text-center">
                                             <div class="dropdown">

@@ -10,233 +10,262 @@
 
             <div class="row">
 
-                <div class="col-lg-12 col-md-12 order-1">
-                    <div class="row">
+
+                @if (Auth::user()->hasAnyRole(['admin|kepala']))
+                    <div class="col-lg-12 col-md-12 order-1">
+                        <div class="row">
 
 
 
-                        @if (Auth::user()->hasRole('admindinas'))
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
+
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bx-box bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
                                         </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">
-                                            Kriteria </h4>
-                                        <h1> {{ $kriteria }}</h1>
-                                        <a href="{{ route('dashboard.kriteria') }}">Detail</a>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">RW </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $rw ?? '0' }}</h3>
+
+
+
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">
-                                            Alternatif </h4>
-                                        <h1>{{ $alternatif }}</h1>
-                                        <a href="">Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pengaduan </h4>
-                                        <h1> {{ $pengaduan }} </h1>
-                                        <a href="{{ route('dashboard.pengaduan') }}">Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pendampingan </h4>
-                                        <h1>{{ $pendampingan }}</h1>
-                                        <a href="{{ route('dashboard.pendampingan') }}">Detail</a>
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.rw') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
 
 
 
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bx-box bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
                                         </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Petugas </h4>
-                                        <h1>{{ $petugas }}</h1>
-                                        <a href="{{ route('dashboard.petugas') }}">Detail</a>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">RT </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $rt ?? '0' }}</h3>
+
+
+
+                                    </div>
+
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.rt') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bx-user bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
+                                        </div>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Warga </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $warga ?? '0' }}</h3>
+
+
+
+                                    </div>
+
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.warga') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bx-user bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
+                                        </div>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Pengguna </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $user ?? '0' }}</h3>
+
+
+
+                                    </div>
+
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.user') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
 
 
 
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
+
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bxs-envelope bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
                                         </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pengajuan </h4>
-                                        <h1>{{ $pengajuan }}</h1>
-                                        <a href="{{ route('dashboard.pengajuan') }}">Detail</a>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Jenis Surat </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $jenissurat ?? '0' }}</h3>
+
+
+
                                     </div>
-                                </div>
-                            </div>
-                        @endif
 
-
-
-
-
-
-                        @if (Auth::user()->hasRole('petugas'))
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pengaduan </h4>
-                                        <h1> {{ $pengaduan }} </h1>
-                                        <a href="{{ route('dashboard.pengaduan') }}">Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pendampingan </h4>
-                                        <h1>{{ $pendampingan }}</h1>
-                                        <a href="{{ route('dashboard.pendampingan') }}">Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
-
-
-                         @if (Auth::user()->hasRole('masyarakat'))
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pengaduan </h4>
-                                        <h1> {{ $pengaduan }} </h1>
-                                        <a href="{{ route('dashboard.pengaduan') }}">Detail</a>
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.jenis-surat') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
+
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bxs-envelope bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
                                         </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pendampingan </h4>
-                                        <h1>{{ $pendampingan }}</h1>
-                                        <a href="{{ route('dashboard.pendampingan') }}">Detail</a>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Surat </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $surat ?? '0' }}</h3>
+
+
+
+                                    </div>
+
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.surat') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
-                        @endif
 
 
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
 
-                         @if (Auth::user()->hasRole('kepaladinas'))
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bxs-news bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
                                         </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pengaduan </h4>
-                                        <h1> {{ $pengaduan }} </h1>
-                                        <a href="{{ route('dashboard.pengaduan') }}">Detail</a>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Pengumuman </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $pengumuman ?? '0' }}</h3>
+
+
+
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pendampingan </h4>
-                                        <h1>{{ $pendampingan }}</h1>
-                                        <a href="{{ route('dashboard.pendampingan') }}">Detail</a>
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.pengumuman') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
                                     </div>
                                 </div>
                             </div>
 
 
 
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Petugas </h4>
-                                        <h1>{{ $petugas }}</h1>
-                                        <a href="{{ route('dashboard.petugas') }}">Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                                <div class="card text-center">
-                                    <div class="card-body ">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                                        </div>
-                                        <h4 class="fw-semibold d-block mb-1 text-dark ">Pengajuan </h4>
-                                        <h1>{{ $pengajuan }}</h1>
-                                        <a href="{{ route('dashboard.pengajuan') }}">Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
 
 
 
@@ -246,31 +275,196 @@
 
 
 
+
+                        </div>
                     </div>
-                </div>
+                @endif
+
+
+
+
+
+                @if (Auth::user()->hasAnyRole(['rt|rw']))
+                   
+                    <div class="col-lg-12 col-md-12 order-1">
+                        <div class="row">
+                             @if (Auth::user()->hasAnyRole(['rw']))
+                        <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                            <div class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                <!-- Gradient overlay untuk uniqueness -->
+                                <div class="card-gradient"></div>
+
+                                <div class="card-body text-center p-4 position-relative">
+                                    <!-- Avatar dengan status online -->
+                                    <div class="position-relative d-inline-block mb-3">
+                                        <div
+                                            class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                            <i class="bx bx-box bx-lg"></i>
+                                        </div>
+                                        <span
+                                            class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                            style="width: 15px; height: 15px;"></span>
+                                    </div>
+
+                                    <!-- Nama dan role -->
+                                    <h5 class="card-title mb-1 text-dark fw-bold">RT </h5>
+                                    <h3 class=" fw-bolder mb-3">{{ $rt ?? '0' }}</h3>
+
+
+
+                                </div>
+
+                                <!-- Tombol action di bawah (opsional) -->
+                                <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                    <a href="{{ route('dashboard.rt') }}"
+                                        class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+
+
+
+
+
+
+
+
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bx-user bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
+                                        </div>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Warga </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $warga ?? '0' }}</h3>
+
+
+
+                                    </div>
+
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.warga') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bxs-envelope bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
+                                        </div>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Surat </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $surat ?? '0' }}</h3>
+                                    </div>
+
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.surat') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
+                @if (Auth::user()->hasAnyRole(['warga']))
+                    <div class="col-lg-12 col-md-12 order-1">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+                                <div
+                                    class="card border-0 shadow-sm h-100 user-card-hover position-relative overflow-hidden">
+                                    <!-- Gradient overlay untuk uniqueness -->
+                                    <div class="card-gradient"></div>
+
+                                    <div class="card-body text-center p-4 position-relative">
+                                        <!-- Avatar dengan status online -->
+                                        <div class="position-relative d-inline-block mb-3">
+                                            <div
+                                                class="avatar avatar-xl rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                                                <i class="bx bxs-envelope bx-lg"></i>
+                                            </div>
+                                            <span
+                                                class="position-absolute bottom-0 end-0 translate-middle-x badge rounded-pill bg-success border border-3 border-white"
+                                                style="width: 15px; height: 15px;"></span>
+                                        </div>
+
+                                        <!-- Nama dan role -->
+                                        <h5 class="card-title mb-1 text-dark fw-bold">Surat </h5>
+                                        <h3 class=" fw-bolder mb-3">{{ $surat ?? '0' }}</h3>
+
+
+
+                                    </div>
+
+                                    <!-- Tombol action di bawah (opsional) -->
+                                    <div class="card-footer bg-transparent border-0 text-center pt-0">
+                                        <a href="{{ route('dashboard.surat') }}"
+                                            class="btn btn-outline-primary btn-sm rounded-pill px-4">Lihat Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                @endif
+
+
+
+
+
+
 
 
             </div>
 
         </div>
-        <!-- / Content -->
-
-        <!-- Footer -->
-        <footer class="content-footer footer bg-footer-theme">
-            <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                    © Copyright IT SI KDRT MIMIKA
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-
-                </div>
-
-            </div>
-        </footer>
-        <!-- / Footer -->
-
-        <div class="content-backdrop fade"></div>
-    </div>
-    <!-- Content wrapper -->
-@endsection
+    @endsection

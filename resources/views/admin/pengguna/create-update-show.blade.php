@@ -78,9 +78,9 @@
                                 @elseif ((Request::segment(3) == 'tambah' || Request::segment(4) == 'ubah') && Request::segment(2) == 'user')
                                     <button type="submit" class="btn btn-primary text-white">SIMPAN <i
                                             class="menu-icon tf-icons bx bx-save"></i></button>
+                                            <a href="{{ route('dashboard.user') }}" class="btn btn-dark text-white"> KEMBALI </a>
                                 @endif
 
-                                <a href="{{ route('dashboard.user') }}" class="btn btn-dark text-white"> KEMBALI </a>
 
                             </div>
 

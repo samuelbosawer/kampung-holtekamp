@@ -52,17 +52,20 @@ class User extends Authenticatable
         return $this->hasMany(Rw::class, 'user_id');
     }
 
-        public function rws()
+    public function rws()
     {
         return $this->hasOne(\App\Models\Rw::class, 'user_id');
     }
 
-
-        public function rts()
+    public function rts()
     {
         return $this->hasOne(\App\Models\Rt::class, 'user_id');
     }
 
+    public function wargas()
+    {
+        return $this->hasOne(\App\Models\Warga::class, 'user_id');
+    }
 
     public function rt()
     {
@@ -78,5 +81,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pengumuman::class, 'user_id');
     }
-
 }

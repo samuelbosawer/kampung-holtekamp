@@ -16,6 +16,12 @@ class RtController extends Controller
     // Tampilkan semua data
     public function index(Request $request)
     {
+
+       if (Auth::user()->hasRole('rt')) {
+            return redirect()->route('dashboard.rt.detail', Auth::user()->rts->id);
+        }
+
+
         $datas = Rt::with(['rw', 'user'])
     ->whereNotNull('nama_rt')
 

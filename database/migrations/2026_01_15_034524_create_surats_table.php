@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('surats', function (Blueprint $table) {
             $table->id(); // PK
             $table->string('nama_surat');
-            $table->string('nomor_surat')->nullable();
             $table->date('tanggal_pengajuan');
             $table->string('status_rw')->nullable();
             $table->string('status_kepala')->nullable();
+            $table->string('status_rt')->nullable();
             $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('warga_id');
             $table->unsignedBigInteger('jenis_surat_id');

@@ -106,9 +106,9 @@
                                             class="menu-icon tf-icons bx bx-save"></i></button>
                                 @endif
 
+                                <a href="{{ route('dashboard.rw') }}" class="btn btn-dark text-white"> KEMBALI </a>
                                 @endif
 
-                                <a href="{{ route('dashboard.rw') }}" class="btn btn-dark text-white"> KEMBALI </a>
 
                             </div>
 
