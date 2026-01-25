@@ -28,6 +28,14 @@ class DashboardController extends Controller
         $surat = Surat::count();
         $pengumuman = Pengumuman::count();
 
+
+          if (Auth::user()->hasRole('kepala')) {
+            
+              $status = Surat::whereNull('status_kepala')->count();
+        }
+
+
+
         if (Auth::user()->hasRole('rt')) {
             if (Auth::user()->rt) {
                 // Hitung warga hanya di RT ini
@@ -36,7 +44,13 @@ class DashboardController extends Controller
                 $surat = Surat::whereHas('warga', function ($q) {
                     $q->where('rt_id', Auth::user()->rt->id);
                 })->count();
-            } 
+            }
+            
+            
+              $status = Surat::whereHas('warga', function ($q) {
+                $q->where('rt_id', Auth::user()->rts->id);
+            })->whereNull('status_rt')->count();
+
         }
 
         if (Auth::user()->hasRole('rw')) {
