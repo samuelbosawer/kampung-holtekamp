@@ -191,6 +191,7 @@
                     <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pengumuman">Pengumuman</a></li>
                     <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#review">Saran</a></li>
                     <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
                     @auth
                         <li class="nav-item"><a class="nav-link" href="{{ route('dashboard.home') }}">Dashboard</a></li>
