@@ -13,24 +13,24 @@ class RwSeeder extends Seeder
      */
     public function run(): void
     {
-         $data = [
+       $data = [
             [
                 'nama_rw'    => 'RW 01',
-                'kepala_rw'  => 'Andi Saputra',
+                'kepala_rw'  => 'Antonius Sunarto',
                 'keterangan' => 'Wilayah RW 01',
-                'user_id'    => 3,
+                'user_id'    => 19,
             ],
             [
                 'nama_rw'    => 'RW 02',
-                'kepala_rw'  => 'Budi Santoso',
+                'kepala_rw'  => 'Jamaluddin',
                 'keterangan' => 'Wilayah RW 02',
-                'user_id'    => 4,
+                'user_id'    => 20,
             ],
             [
                 'nama_rw'    => 'RW 03',
-                'kepala_rw'  => 'Maria Yuliana',
+                'kepala_rw'  => 'Godlief Fatipeme',
                 'keterangan' => 'Wilayah RW 03',
-                'user_id'    => 5,
+                'user_id'    => 21,
             ],
         ];
 

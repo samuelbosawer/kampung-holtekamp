@@ -6,43 +6,6 @@
    </li>
 
 
-   <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'rw') active @endif">
-       <a href="{{ route('dashboard.rw') }}" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-box"></i>
-           <div data-i18n="Analytics">Informasi RW</div>
-       </a>
-   </li>
-
-   <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'rt') active @endif">
-       <a href="{{ route('dashboard.rt') }}" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-box"></i>
-           <div data-i18n="Analytics">Informasi RT</div>
-       </a>
-   </li>
-
-
-    <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'warga') active @endif">
-       <a href="{{ route('dashboard.warga') }}" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-user"></i>
-           <div data-i18n="Analytics">Informasi Warga</div>
-       </a>
-   </li>
-
-
-    <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'user') active @endif">
-       <a href="{{ route('dashboard.user') }}" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-user"></i>
-           <div data-i18n="Analytics">Informasi Pengguna</div>
-       </a>
-   </li>
-
-    <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'jenis-surat') active @endif">
-       <a href="{{ route('dashboard.jenis-surat') }}" class="menu-link">
-           <i class="menu-icon tf-icons bx bxs-envelope"></i>
-           <div data-i18n="Analytics">Informasi Jenis Surat</div>
-       </a>
-   </li>
-
    
 
 
@@ -50,7 +13,7 @@
     <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'pengumuman') active @endif">
        <a href="{{ route('dashboard.pengumuman') }}" class="menu-link">
            <i class="menu-icon tf-icons bx bx-news"></i>
-           <div data-i18n="Analytics">Informasi Pengumuman</div>
+           <div data-i18n="Analytics">Data Pengumuman</div>
        </a>
    </li>
 

@@ -14,6 +14,40 @@ class WargaSeeder extends Seeder
     public function run(): void
     {
          $data = [
+
+
+          // user_id = 13
+            [
+                'nik'            => '9171010101010111',
+                'nama_lengkap'   => 'Septer',
+                'jenis_kelamin'  => 'L',
+                'tempat_lahir'   => 'Jayapura',
+                'tanggal_lahir'  => '1995-05-12',
+                'alamat'         => 'RT 001 RW 01 Kampung Holtekamp',
+                'rt_id'          => 1,
+                'rw_id'          => 1,
+                'pekerjaan'      => 'Nelayan',
+                'status'         => 'Menikah',
+                'user_id'        => 13,
+            ],
+
+
+                     // user_id = 13
+            [
+                'nik'            => '917101010170111',
+                'nama_lengkap'   => 'Elia',
+                'jenis_kelamin'  => 'L',
+                'tempat_lahir'   => 'Jayapura',
+                'tanggal_lahir'  => '1995-05-12',
+                'alamat'         => 'RT 001 RW 01 Kampung Holtekamp',
+                'rt_id'          => 1,
+                'rw_id'          => 1,
+                'pekerjaan'      => 'Nelayan',
+                'status'         => 'Menikah',
+                'user_id'        => 14,
+            ],
+
+
             // user_id = 15
             [
                 'nik'            => '9171010101010001',

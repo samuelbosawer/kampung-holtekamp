@@ -29,7 +29,7 @@ class PengumumanSeeder extends Seeder
                 'isi_pengumuman' => 'Harap untuk setia peserta lomaba mengumpulkan formulir pendaftaran',
                 'tanggal'        => now()->toDateString(),
                 'cover'          => null,
-                'user_id'        => 2,
+                'user_id'        => 1,
             ],
         ];
 

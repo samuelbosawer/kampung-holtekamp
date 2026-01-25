@@ -192,6 +192,9 @@
                     <li class="nav-item"><a class="nav-link" href="#pengumuman">Pengumuman</a></li>
                     <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+                    @auth
+                        <li class="nav-item"><a class="nav-link" href="{{ route('dashboard.home') }}">Dashboard</a></li>
+                    @endauth
                     <li class="nav-item ms-lg-3">
                         @auth
                             <form action="{{ route('logout') }}" method="POST" class="m-0">
@@ -274,35 +277,34 @@
             </div>
             <div class="swiper mySwiper pb-5">
                 <div class="swiper-wrapper">
-                    @foreach ($pengumuman as $p )
-                         <div class="swiper-slide">
-                        <div class="card card-announcement">
+                    @foreach ($pengumuman as $p)
+                        <div class="swiper-slide">
+                            <div class="card card-announcement">
 
 
-                          
-
-                                 @if ($p->cover && file_exists(public_path($p->cover)))
-                                                <img src="{{ asset($p->cover) }}" alt="Cover"
-                                                    class="card-img-top">
-                                            @else
-                                                <img src="https://placehold.co/100x100/EEE/999?text=No+Image" alt="No Image"
-                                                    class="card-img-top">
-                                            @endif
 
 
-                            <div class="card-body p-4">
-                                <h5 class="fw-bold">{{ $p->judul }}</h5>
-                                <p class="text-muted small"> {{ $p->isi_pengumuman }} </p>
-                                <hr>
-                                <small class="text-muted"><i class='bx bx-calendar me-1'></i> {{ \Carbon\Carbon::parse($p->tanggal)->translatedFormat('d F Y') }}</small>
+                                @if ($p->cover && file_exists(public_path($p->cover)))
+                                    <img src="{{ asset($p->cover) }}" alt="Cover" class="card-img-top">
+                                @else
+                                    <img src="https://placehold.co/100x100/EEE/999?text=No+Image" alt="No Image"
+                                        class="card-img-top">
+                                @endif
+
+
+                                <div class="card-body p-4">
+                                    <h5 class="fw-bold">{{ $p->judul }}</h5>
+                                    <p class="text-muted small"> {{ $p->isi_pengumuman }} </p>
+                                    <hr>
+                                    <small class="text-muted"><i class='bx bx-calendar me-1'></i>
+                                        {{ \Carbon\Carbon::parse($p->tanggal)->translatedFormat('d F Y') }}</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                        
                     @endforeach
-                   
 
-                    
+
+
 
                 </div>
                 <div class="swiper-pagination"></div>
@@ -367,6 +369,60 @@
             </div>
         </div>
     </section>
+
+
+    <section id="review" class="bg-white">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Suara Warga</h6>
+            <h2>Kritik & Saran</h2>
+            <p class="text-muted">Masukan Anda sangat berharga untuk kemajuan pelayanan Kampung Holtekamp.</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                @auth
+                    <div class="card border-0 shadow-sm p-4" style="border-radius: 20px; border: 1px solid #f0f0f0 !important;">
+                        <form action="{{ route('dashboard.review.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
+                            
+                            <div class="mb-4">
+                                <label for="review" class="form-label fw-bold small text-uppercase">Tulis Kritik atau Saran Anda</label>
+                                <textarea 
+                                    class="form-control bg-light border-0 @error('review') is-invalid @enderror" 
+                                    id="review" 
+                                    name="review" 
+                                    rows="4" 
+                                    placeholder="Contoh: Mohon peningkatan kecepatan pelayanan administrasi pada jam pagi..."
+                                    style="border-radius: 12px;"></textarea>
+                                @error('review')
+                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-custom px-5">
+                                    <i class='bx bx-paper-plane me-2'></i>Kirim Masukan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                @else
+                    <div class="text-center p-5 bg-light rounded-4 border">
+                        <i class='bx bx-lock-alt display-4 text-muted mb-3'></i>
+                        <h5 class="fw-bold">Ingin Memberikan Saran?</h5>
+                        <p class="text-muted mb-4">Mohon maaf, Anda harus masuk ke akun Anda terlebih dahulu untuk memberikan kritik atau saran bagi kampung.</p>
+                        <a href="{{ route('login') }}" class="btn btn-custom rounded-pill">
+                            <i class='bx bx-log-in me-2'></i>Login Sekarang
+                        </a>
+                    </div>
+                @endauth
+            </div>
+        </div>
+    </div>
+</section>
 
     <section id="kontak" class="bg-light">
         <div class="container">

@@ -39,7 +39,7 @@ class HomeController extends Controller
         return view('visitor.daftar');
     }
 
-    public function register(Request $request)
+    public function saran(Request $request)
     {
          // 1. Validasi
          $validated = $request->validate([

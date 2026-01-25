@@ -29,6 +29,15 @@
              @include('admin.layout.sidebar.kepala')
          @endif
 
+         {{-- bx-comment --}}
+
+            <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'review') active @endif">
+       <a href="{{ route('dashboard.review') }}" class="menu-link">
+           <i class="menu-icon tf-icons bx bx-comment"></i>
+           <div data-i18n="Analytics">Komentar & Saran</div>
+       </a>
+   </li>
+
          <li class="menu-item ">
              <a href="{{ route('logout') }}"
                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="menu-link">

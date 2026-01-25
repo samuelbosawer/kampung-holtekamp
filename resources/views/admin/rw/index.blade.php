@@ -32,6 +32,8 @@
                                     <th class="text-white text-center  p-3 fw-bolder">RW</th>
 
                                     <th class="text-white text-center  p-3 fw-bolder">Kepala RW</th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Total RT</th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Total Warga</th>
 
 
 
@@ -47,6 +49,8 @@
                                                 href="{{ route('dashboard.rw.detail', $data->id) }}">{{ $data->nama_rw }}</a>
                                         </td>
                                         <td>{{ $data->kepala_rw }}</td>
+                                        <td class="text-center">{{ $data->rts->count() ?? '' }}</td>
+                                        <td class="text-center">{{ $data->wargas->count() ?? '' }}</td>
                                         <td class="text-center">
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

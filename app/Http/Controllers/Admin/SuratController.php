@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rule;
+use Mpdf\Mpdf;
 
 class SuratController extends Controller
 {
@@ -39,7 +40,7 @@ class SuratController extends Controller
             })
 
 
-             // 🔐 FILTER JIKA LOGIN SEBAGAI RW
+            // 🔐 FILTER JIKA LOGIN SEBAGAI RW
             ->when(Auth::user()->hasRole('warga'), function ($query) {
                 if (Auth::user()->wargas) {
                     $query->whereHas('warga', function ($wq) {
@@ -81,6 +82,65 @@ class SuratController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 7);
     }
 
+    public function validasi($id)
+    {
+        $surat = Surat::findOrFail($id);
+        $user  = Auth::user();
+
+        // RW hanya boleh ubah status_rw
+        if ($user->hasRole('rw')) {
+
+            $surat->update([
+                'status_rw' => 'Disetujui'
+            ]);
+        }
+
+        // RT hanya boleh ubah status_rt
+        elseif ($user->hasRole('rt')) {
+
+            $surat->update([
+                'status_rt' => 'Disetujui'
+            ]);
+        }
+
+        // Kepala hanya boleh ubah status_kepala
+        elseif ($user->hasRole('kepala')) {
+
+            $surat->update([
+                'status_kepala' => 'Disetujui'
+            ]);
+        }
+
+        // Role lain tidak boleh validasi
+        else {
+            Alert::error('Akses Ditolak', 'Anda tidak memiliki hak untuk memvalidasi surat');
+            return redirect()->back();
+        }
+
+        Alert::success('Berhasil', 'Data surat berhasil divalidasi');
+        return redirect()->route('dashboard.surat');
+    }
+
+
+    public function pdf($id)
+    {
+        $surat = Surat::with(['jenisSurat', 'warga.rt', 'warga.rw'])->findOrFail($id);
+
+        $html = view('admin.surat.pdf', compact('surat'))->render();
+
+        $mpdf = new Mpdf([
+            'format' => 'A4',
+            'margin_top' => 30,
+            'margin_bottom' => 25,
+            'margin_left' => 20,
+            'margin_right' => 20,
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+        return $mpdf->Output('Surat-' . $surat->nama_surat . '.pdf', 'I');
+    }
+
     // Tampilkan form tambah data
     public function create()
     {
@@ -94,7 +154,6 @@ class SuratController extends Controller
     {
         $request->validate([
             'nama_surat'        => 'required|string|max:255',
-            'nomor_surat'       => 'required|string|max:100|unique:surats,nomor_surat',
             'tanggal_pengajuan' => 'required|date',
             'warga_id'          => 'required|exists:wargas,id',
             'status_rw'         => 'nullable|in:Disetujui,Menunggu,Ditolak',
@@ -103,8 +162,6 @@ class SuratController extends Controller
             'keterangan'       => 'nullable|string',
         ], [
             'nama_surat.required' => 'Nama surat wajib diisi',
-            'nomor_surat.required' => 'Nomor surat wajib diisi',
-            'nomor_surat.unique' => 'Nomor surat sudah digunakan',
             'tanggal_pengajuan.required' => 'Tanggal pengajuan wajib diisi',
             'warga_id.required' => 'Warga wajib dipilih',
             'warga_id.exists' => 'Warga tidak valid',
@@ -115,7 +172,6 @@ class SuratController extends Controller
 
         Surat::create([
             'nama_surat'         => $request->nama_surat,
-            'nomor_surat'        => $request->nomor_surat,
             'tanggal_pengajuan' => $request->tanggal_pengajuan,
             'warga_id'           => $request->warga_id,
             'status_rw'          => $request->status_rw,
@@ -156,12 +212,6 @@ class SuratController extends Controller
 
         $request->validate([
             'nama_surat'        => 'required|string|max:255',
-            'nomor_surat'      => [
-                'required',
-                'string',
-                'max:100',
-                Rule::unique('surats', 'nomor_surat')->ignore($surat->id),
-            ],
             'tanggal_pengajuan' => 'required|date',
             'warga_id'          => 'required|exists:wargas,id',
             'status_rw'         => 'in:Disetujui,Menunggu,Ditolak',
@@ -170,8 +220,6 @@ class SuratController extends Controller
             'keterangan'       => 'nullable|string',
         ], [
             'nama_surat.required' => 'Nama surat wajib diisi',
-            'nomor_surat.required' => 'Nomor surat wajib diisi',
-            'nomor_surat.unique' => 'Nomor surat sudah digunakan',
             'tanggal_pengajuan.required' => 'Tanggal pengajuan wajib diisi',
             'warga_id.required' => 'Warga wajib dipilih',
             // 'status_rw.required' => 'Status RW wajib dipilih',
@@ -181,7 +229,6 @@ class SuratController extends Controller
 
         $surat->update([
             'nama_surat'         => $request->nama_surat,
-            'nomor_surat'        => $request->nomor_surat,
             'tanggal_pengajuan' => $request->tanggal_pengajuan,
             'warga_id'           => $request->warga_id,
             'status_rw'          => $request->status_rw,

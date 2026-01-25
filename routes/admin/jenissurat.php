@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\JenisSuratController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','role.custom:admin']], function () {
 
     Route::controller(JenisSuratController::class)->group(function(){
         Route::get('jenis-surat', [JenisSuratController::class, 'index'])->name('jenis-surat');

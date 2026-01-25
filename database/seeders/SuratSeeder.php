@@ -16,33 +16,47 @@ class SuratSeeder extends Seeder
         $data = [
             // warga_id = 1
             [
-                'nama_surat'        => 'Pengajuan Surat Keterangan Domisili',
+                'nama_surat'        => ' Keterangan Domisili',
                 'jenis_surat_id'    => 1, // Surat Keterangan Domisili
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 1,
+                // 'status_rw'      => '',
+                // 'status_kepala'         => '',
+                // 'status_rt'         => '',
+            ],
+
+
+              // warga_id = 1
+            [
+                'nama_surat'        => ' Keterangan Domisili',
+                'jenis_surat_id'    => 1, // Surat Keterangan Domisili
+                'tanggal_pengajuan' => now()->toDateString(),
+                'warga_id'          => 2,
                 'status_rw'      => 'Disetujui',
                 'status_kepala'         => 'Disetujui',
+                // 'status_rt'         => '',
             ],
+
 
             // warga_id = 2
             [
-                'nama_surat'        => 'Pengajuan Surat Keterangan Usaha',
+                'nama_surat'        => ' Keterangan Usaha',
                 'jenis_surat_id'    => 4, // Surat Keterangan Usaha
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 2,
-                'status_rw'      => 'Menunggu',
+                // 'status_rw'      => '',
                 'status_kepala'         => 'Menunggu',
                 
             ],
 
             // warga_id = 3
             [
-                'nama_surat'        => 'Pengajuan Surat Keterangan Tidak Mampu',
+                'nama_surat'        => ' Keterangan Tidak Mampu',
                 'jenis_surat_id'    => 2, // SKTM
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 3,
                 'status_rw'      => 'Disetujui',
-                'status_kepala'         => 'Menunggu',
+                // 'status_kepala'         => '',
                 
             ],
         ];

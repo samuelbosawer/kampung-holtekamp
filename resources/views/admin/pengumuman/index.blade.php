@@ -54,7 +54,7 @@
                                                     width="100" class="img-thumbnail">
                                             @endif
                                         </td>
-                                        <td> {{ $data->user->email }} </td>
+                                        <td> {{ $data->user->email ?? '-' }} </td>
 
                                         <td class="text-center">
                                             <div class="dropdown">

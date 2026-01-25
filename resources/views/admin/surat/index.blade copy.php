@@ -29,6 +29,8 @@
                             <thead class="">
                                 <tr class="bg-primary ">
                                     <th class="text-white text-center  p-3 fw-bolder" >Nama </th>
+                                    <th class="text-white text-center  p-3 fw-bolder" >Jenis</th>
+                                    <th class="text-white text-center  p-3 fw-bolder" >Pengajuan</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Validasi K. Kampung</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Validasi RW</th>
                                     <th class="text-white text-center  p-3 fw-bolder" >Validasi RT</th>
@@ -41,11 +43,9 @@
                                     <tr>
                                         <td class="fw-bolder"> <a
                                                 href="{{ route('dashboard.surat.detail', $data->id) }}">{{ $data->nama_surat }}</a>
-                                                <br>
-                                                {{ $data->jenissurat->nama ?? '-' }}
-                                                <br>
-                                                {{ \Carbon\Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y') }}
                                         </td>
+                                        <td>{{ $data->jenissurat->nama ?? '-' }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y') }}</td>
                                         <td>{{ $data->status_kepala ?? 'Belum ada'}}</td>
                                         <td>{{ $data->status_rw ?? 'Belum ada'}}</td>
                                         <td>{{ $data->status_rt ?? 'Belum ada'}}</td>
@@ -62,17 +62,11 @@
                                                         <i class="bx bx-box me-1"></i> Detail</a>
 
 
-                                                          <a class="dropdown-item"
-                                                        href="{{ route('dashboard.surat.validasi', $data->id) }}">
-                                 
-                                                        <i class="bx bxs-report me-1"></i> Validasi   {{ Auth::user()->roles->first()->name ?? '-' }}
-                                                    
-
-                                                    @if (!Auth::user()->hasRole('warga'))
-                                                        <a class="dropdown-item"
+                                                         @if (!Auth::user()->hasRole('admin|rt'))
+                                                    <a class="dropdown-item"
                                                         href="{{ route('dashboard.surat.ubah', $data->id) }}"><i
-                                                        class="bx bx-edit-alt me-1"></i> Ubah</a>
-                                                        
+                                                            class="bx bx-edit-alt me-1"></i> Ubah</a>
+
                                                     <form action="{{ route('dashboard.surat.hapus', $data->id) }}"
                                                         method="POST"
                                                         onsubmit="return confirm('Yakin ingin menghapus data ini?');">
@@ -83,15 +77,6 @@
                                                             <i class="bx bx-trash me-1"></i> Hapus
                                                         </button>
                                                     </form>
-                                                    @endif
-
-                                                    @if ($data->status_rw == 'Disetujui' && $data->status_rt == 'Disetujui' && $data->status_kepala == 'Disetujui')
-                                                            <a target="_blank" class="dropdown-item"
-                                                        href="{{ route('dashboard.surat.pdf', $data->id) }}">
-                                 
-                                                        <i class="bx bxs-file me-1"></i> PDF
-                                                    
-                                                    </a>
                                                     @endif
                                                 </div>
                                             </div>

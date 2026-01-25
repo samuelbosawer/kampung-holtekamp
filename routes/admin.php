@@ -18,6 +18,7 @@ Route::group(['middleware' => ['auth']], function () {
         require_once 'admin/surat.php';
         require_once 'admin/warga.php';
         require_once 'admin/user.php';
+        require_once 'admin/review.php';
 
     });
 });

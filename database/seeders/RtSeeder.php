@@ -14,67 +14,74 @@ class RtSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            // user_id = 6
+
+            // ===== RW 01 (id = 1) =====
             [
-                'nama_rt'    => 'RT 001',
-                'kepala_rt'  => 'Ahmad Yusuf',
-                'keterangan' => 'RT 001 RW 01',
+                'nama_rt'    => 'RT 01',
+                'kepala_rt'  => 'Harzah',
+                'keterangan' => 'RT 01 RW 01',
                 'rw_id'      => 1,
-                'user_id'    => 6,
+                'user_id'    => 22,
             ],
-
-            // user_id = 7
             [
-                'nama_rt'    => 'RT 002',
-                'kepala_rt'  => 'Rudi Hartono',
-                'keterangan' => 'RT 002 RW 01',
+                'nama_rt'    => 'RT 02',
+                'kepala_rt'  => 'Gerika Mansi',
+                'keterangan' => 'RT 02 RW 01',
                 'rw_id'      => 1,
-                'user_id'    => 7,
+                'user_id'    => 23,
+            ],
+            [
+                'nama_rt'    => 'RT 03',
+                'kepala_rt'  => 'Ferry Samallo',
+                'keterangan' => 'RT 03 RW 01',
+                'rw_id'      => 1,
+                'user_id'    => 24,
+            ],
+            [
+                'nama_rt'    => 'RT 04',
+                'kepala_rt'  => 'Thomas Samallo',
+                'keterangan' => 'RT 04 RW 01',
+                'rw_id'      => 1,
+                'user_id'    => 25,
             ],
 
-            // user_id = 8
+            // ===== RW 02 (id = 2) =====
             [
-                'nama_rt'    => 'RT 003',
-                'kepala_rt'  => 'Siti Aminah',
-                'keterangan' => 'RT 003 RW 02',
+                'nama_rt'    => 'RT 01',
+                'kepala_rt'  => 'Haba',
+                'keterangan' => 'RT 01 RW 02',
                 'rw_id'      => 2,
-                'user_id'    => 8,
+                'user_id'    => 26,
             ],
-
-            // user_id = 9
             [
-                'nama_rt'    => 'RT 004',
-                'kepala_rt'  => 'Dedi Saputra',
-                'keterangan' => 'RT 004 RW 02',
+                'nama_rt'    => 'RT 02',
+                'kepala_rt'  => 'Mujis',
+                'keterangan' => 'RT 02 RW 02',
                 'rw_id'      => 2,
-                'user_id'    => 9,
+                'user_id'    => 27,
             ],
 
-            // user_id = 10
+            // ===== RW 03 (id = 3) =====
             [
-                'nama_rt'    => 'RT 005',
-                'kepala_rt'  => 'Maria Lestari',
-                'keterangan' => 'RT 005 RW 03',
+                'nama_rt'    => 'RT 01',
+                'kepala_rt'  => 'Paula Korombani',
+                'keterangan' => 'RT 01 RW 03',
                 'rw_id'      => 3,
-                'user_id'    => 10,
+                'user_id'    => 28,
             ],
-
-            // user_id = 11
             [
-                'nama_rt'    => 'RT 006',
-                'kepala_rt'  => 'Yohanis Wenda',
-                'keterangan' => 'RT 006 RW 03',
+                'nama_rt'    => 'RT 02',
+                'kepala_rt'  => 'Amil N. Ansanay',
+                'keterangan' => 'RT 02 RW 03',
                 'rw_id'      => 3,
-                'user_id'    => 11,
+                'user_id'    => 29,
             ],
-
-            // user_id = 12
             [
-                'nama_rt'    => 'RT 007',
-                'kepala_rt'  => 'Agus Salim',
-                'keterangan' => 'RT 007 RW 03',
+                'nama_rt'    => 'RT 03',
+                'kepala_rt'  => 'Melianus Satya',
+                'keterangan' => 'RT 03 RW 03',
                 'rw_id'      => 3,
-                'user_id'    => 12,
+                'user_id'    => 30,
             ],
         ];
 

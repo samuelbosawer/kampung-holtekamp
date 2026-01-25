@@ -19,6 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
 
+        $status = null;
         $rw = Rw::count();
         $rt = Rt::count();
         $warga = Warga::count();
@@ -35,11 +36,7 @@ class DashboardController extends Controller
                 $surat = Surat::whereHas('warga', function ($q) {
                     $q->where('rt_id', Auth::user()->rt->id);
                 })->count();
-            } else {
-                // fallback jika relasi RT belum ada
-                $warga = 0;
-                $surat = 0;
-            }
+            } 
         }
 
         if (Auth::user()->hasRole('rw')) {
@@ -51,25 +48,16 @@ class DashboardController extends Controller
             $surat = Surat::whereHas('warga', function ($q) {
                 $q->where('rw_id', Auth::user()->rws->id);
             })->count();
-        } else {
-            // fallback jika relasi RT belum ada
-            $warga = 0;
-            $surat = 0;
-              $rt = 0;
-        }
+
+            $status = Surat::whereHas('warga', function ($q) {
+                $q->where('rw_id', Auth::user()->rws->id);
+            })->whereNull('status_rw')->count();
+
+        } 
 
 
 
-
-
-
-
-
-
-
-
-
-        return view('admin.dashboard.index', compact('rw', 'rt', 'warga', 'user', 'jenissurat', 'surat', 'pengumuman'));
+        return view('admin.dashboard.index', compact('rw', 'rt', 'warga', 'user', 'jenissurat', 'surat', 'pengumuman','status'));
     }
 
     // Tampilkan form tambah data

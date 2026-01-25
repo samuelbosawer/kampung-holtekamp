@@ -39,6 +39,7 @@
                             <th class="text-white text-center p-3 fw-bolder">RW</th>
                             <th class="text-white text-center p-3 fw-bolder">Kepala RT</th>
                             <th class="text-white text-center p-3 fw-bolder">Email</th>
+                            <th class="text-white text-center p-3 fw-bolder">Total Warga</th>
                             <th class="text-white text-center p-3 fw-bolder"></th>
                         </tr>
                     </thead>
@@ -63,6 +64,8 @@
                                 <td>{{ $data->kepala_rt }}</td>
 
                                 <td>{{ $data->user->email ?? '-' }}</td>
+
+                                <td class="text-center">{{ $data->wargas->count() ?? '' }}</td>
 
                                 <td class="text-center">
                                     <div class="dropdown">

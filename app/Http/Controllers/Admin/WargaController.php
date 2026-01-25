@@ -132,8 +132,10 @@ class WargaController extends Controller
     // Tampilkan detail satu data
     public function show($id)
     {
+          if (Auth::user()->hasRole('warga')) {
+           $id =  Auth::user()->wargas->id;
+        }
         $data = Warga::with(['rt', 'rw', 'user'])->findOrFail($id);
-
         return view('admin.warga.create-update-show', [
             'judul' => 'Detail Data Warga',
             'data'  => $data,
@@ -145,6 +147,10 @@ class WargaController extends Controller
     // Tampilkan form edit data
     public function edit($id)
     {
+
+     if (Auth::user()->hasRole('warga')) {
+           $id =  Auth::user()->wargas->id;
+        }
         $data = Warga::with(['rt', 'rw', 'user'])->findOrFail($id);
 
         return view('admin.warga.create-update-show', [

@@ -15,173 +15,169 @@ class UserSeeder extends Seeder
     {
 
 
-        // 1
-
-        $admin = User::create([
+// 13
+        $warga = User::create([
             'email' => 'admin@holl.com',
             'password' =>  bcrypt('admin@holl.com'),
 
         ]);
 
-        $admin->assignRole('admin');
-
-        // 2
-        $rt = User::create([
-            'email' => 'kepala@holl.com',
-            'password' =>  bcrypt('kepala@holl.com'),
-
-        ]);
-
-        $rt->assignRole('kepala');
-
-
-        // 3
-        $rw = User::create([
-            'email' => 'rw001@holl.com',
-            'password' =>  bcrypt('rw001@holl.com'),
-
-        ]);
-
-        $rw->assignRole('rw');
-
-
-
-        // 4
-        $rw = User::create([
-            'email' => 'rw002@holl.com',
-            'password' =>  bcrypt('rw002@holl.com'),
-
-        ]);
-
-        $rw->assignRole('rw');
-
-        // 5
-        $rw = User::create([
-            'email' => 'rw003@holl.com',
-            'password' =>  bcrypt('rw003@holl.com'),
-
-        ]);
-
-        $rw->assignRole('rw');
-
-
-
-
-
-
-        // 6
-        $rt = User::create([
-            'email' => 'rt001@holl.com',
-            'password' =>  bcrypt('rt001@holl.com'),
-
-        ]);
-
-        $rt->assignRole('rt');
-
-
-        // 7
-        $rt = User::create([
-            'email' => 'rt002@holl.com',
-            'password' =>  bcrypt('rt002@holl.com'),
-
-        ]);
-
-        $rt->assignRole('rt');
-
-        // 8
-        $rt = User::create([
-            'email' => 'rt003@holl.com',
-            'password' =>  bcrypt('rt003@holl.com'),
-
-        ]);
-
-        $rt->assignRole('rt');
-
-        // 9
-        $rt = User::create([
-            'email' => 'rt004@holl.com',
-            'password' =>  bcrypt('rt004@holl.com'),
-
-        ]);
-        $rt->assignRole('rt');
-
-
-        // 10
-        $rt = User::create([
-            'email' => 'rt005@holl.com',
-            'password' =>  bcrypt('rt005@holl.com'),
-
-        ]);
-
-        $rt->assignRole('rt');
-
-        // 11
-        $rt = User::create([
-            'email' => 'rt006@holl.com',
-            'password' =>  bcrypt('rt006@holl.com'),
-
-        ]);
-
-        $rt->assignRole('rt');
-
-        // 12
-        $rt = User::create([
-            'email' => 'rt007@holl.com',
-            'password' =>  bcrypt('rt007@holl.com'),
-
-        ]);
-
-        $rt->assignRole('rt');
-
+        $warga->assignRole('admin');
 
 
 
         // 13
-        $warga = User::create([
+          // 13
+        $user = User::create([
+            'id' => 13,
             'email' => 'septer@gmail.com',
-            'password' =>  bcrypt('septer@gmail.com'),
-
+            'password' => bcrypt('septer@gmail.com'),
         ]);
+        $user->assignRole('warga');
 
-        $warga->assignRole('warga');
-
-          // 14
-        $warga = User::create([
+        // 14
+        $user = User::create([
+            'id' => 14,
             'email' => 'elia@gmail.com',
-            'password' =>  bcrypt('elia@gmail.com'),
-
+            'password' => bcrypt('elia@gmail.com'),
         ]);
+        $user->assignRole('warga');
 
-        $warga->assignRole('warga');
-
-
-         // 15
-        $warga = User::create([
+        // 15
+        $user = User::create([
+            'id' => 15,
             'email' => 'yosep@gmail.com',
-            'password' =>  bcrypt('yosep@gmail.com'),
-
+            'password' => bcrypt('yosep@gmail.com'),
         ]);
-
-        $warga->assignRole('warga');
-
-        
-         // 16
-        $warga = User::create([
-            'email' => 'markus@gmail.com',
-            'password' =>  bcrypt('markus@gmail.com'),
-
-        ]);
-
-        $warga->assignRole('warga');
-
+        $user->assignRole('warga');
 
         // 16
-        $warga = User::create([
-            'email' => 'piska@gmail.com',
-            'password' =>  bcrypt('piska@gmail.com'),
-
+        $user = User::create([
+            'id' => 16,
+            'email' => 'markus@gmail.com',
+            'password' => bcrypt('markus@gmail.com'),
         ]);
+        $user->assignRole('warga');
 
-        $warga->assignRole('warga');
+        // 17
+        $user = User::create([
+            'id' => 17,
+            'email' => 'piska@gmail.com',
+            'password' => bcrypt('piska@gmail.com'),
+        ]);
+        $user->assignRole('warga');
+
+
+
+
+        // =========================
+        // KEPALA KAMPUNG (ID 18)
+        // =========================
+        $user = User::create([
+            'id' => 18,
+            'email' => 'kepala@holtekamp.id',
+            'password' => bcrypt('kepala@holtekamp.id'),
+        ]);
+        $user->assignRole('kepala');
+
+        // =========================
+        // RW (ID 19 - 21)
+        // =========================
+
+        $user = User::create([
+            'id' => 19,
+            'email' => 'rw01@holtekamp.id',
+            'password' => bcrypt('rw01@holtekamp.id'),
+        ]);
+        $user->assignRole('rw');
+
+        $user = User::create([
+            'id' => 20,
+            'email' => 'rw02@holtekamp.id',
+            'password' => bcrypt('rw02@holtekamp.id'),
+        ]);
+        $user->assignRole('rw');
+
+        $user = User::create([
+            'id' => 21,
+            'email' => 'rw03@holtekamp.id',
+            'password' => bcrypt('rw03@holtekamp.id'),
+        ]);
+        $user->assignRole('rw');
+
+        // =========================
+        // RT RW 01 (ID 22 - 25)
+        // =========================
+
+        $user = User::create([
+            'id' => 22,
+            'email' => 'rt01_rw01@holtekamp.id',
+            'password' => bcrypt('rt01_rw01@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        $user = User::create([
+            'id' => 23,
+            'email' => 'rt02_rw01@holtekamp.id',
+            'password' => bcrypt('rt02_rw01@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        $user = User::create([
+            'id' => 24,
+            'email' => 'rt03_rw01@holtekamp.id',
+            'password' => bcrypt('rt03_rw01@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        $user = User::create([
+            'id' => 25,
+            'email' => 'rt04_rw01@holtekamp.id',
+            'password' => bcrypt('rt04_rw01@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        // =========================
+        // RT RW 02 (ID 26 - 27)
+        // =========================
+
+        $user = User::create([
+            'id' => 26,
+            'email' => 'rt01_rw02@holtekamp.id',
+            'password' => bcrypt('rt01_rw02@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        $user = User::create([
+            'id' => 27,
+            'email' => 'rt02_rw02@holtekamp.id',
+            'password' => bcrypt('rt02_rw02@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        // =========================
+        // RT RW 03 (ID 28 - 30)
+        // =========================
+
+        $user = User::create([
+            'id' => 28,
+            'email' => 'rt01_rw03@holtekamp.id',
+            'password' => bcrypt('rt01_rw03@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        $user = User::create([
+            'id' => 29,
+            'email' => 'rt02_rw03@holtekamp.id',
+            'password' => bcrypt('rt02_rw03@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
+
+        $user = User::create([
+            'id' => 30,
+            'email' => 'rt03_rw03@holtekamp.id',
+            'password' => bcrypt('rt03_rw03@holtekamp.id'),
+        ]);
+        $user->assignRole('rt');
     }
 }
