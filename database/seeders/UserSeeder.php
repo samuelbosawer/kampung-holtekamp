@@ -25,8 +25,6 @@ class UserSeeder extends Seeder
         $warga->assignRole('admin');
 
 
-
-        // 13
           // 13
         $user = User::create([
             'id' => 13,

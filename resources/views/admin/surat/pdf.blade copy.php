@@ -74,10 +74,10 @@
 
 
 
-<table width="100%" style="border-bottom:3px solid #000; padding-bottom:10px; margin-bottom:10px;">
+<table width="100%" style="border-bottom:3px solid #000; padding-bottom:10px; margin-bottom:20px;">
     <tr>
         <td width="15%" align="center">
-            <img src="{{ public_path('assets/img/logo.png') }}" style="width:80px;">
+            <img src="{{ asset('assets/img/logo.png') }}" style="width:80px;">
         </td>
         <td width="85%" align="center">
             <h3 style="margin:0;">PEMERINTAH KAMPUNG HOLTEKAMP</h3>
@@ -89,7 +89,7 @@
 
 
 {{-- ================= JUDUL SURAT ================= --}}
-<div style="text-align:center; margin-bottom:10px;">
+<div style="text-align:center; margin-bottom:20px;">
     <h3 style="margin:0;"><u>SURAT {{ strtoupper($surat->jenisSurat->nama) }}</u></h3>
     <p style="margin-top:5px;">Nomor: {{ $nomorSurat }}</p>
 </div>
@@ -119,7 +119,7 @@
         <tr>
             <td>Tempat / Tanggal Lahir</td>
             <td>:</td>
-            <td>{{ $surat->warga->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->warga->tanggal_lahir)->isoFormat('D MMMM Y') }}</td>
+            <td>{{ $surat->warga->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->warga->tanggal_lahir)->translatedFormat('d F Y') }}</td>
         </tr>
         <tr>
             <td>Pekerjaan</td>

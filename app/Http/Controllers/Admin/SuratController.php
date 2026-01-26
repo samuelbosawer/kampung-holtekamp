@@ -124,17 +124,25 @@ class SuratController extends Controller
 
     public function pdf($id)
     {
-        $surat = Surat::with(['jenisSurat', 'warga.rt', 'warga.rw'])->findOrFail($id);
+        ini_set('memory_limit', '512M');
+        ini_set('max_execution_time', 300);
 
-        $html = view('admin.surat.pdf', compact('surat'))->render();
+        // set locale sekali saja
+        \Carbon\Carbon::setLocale('id');
 
-        $mpdf = new Mpdf([
+        $surat = Surat::with(['jenisSurat', 'warga.rt', 'warga.rw'])
+            ->findOrFail($id);
+
+        $mpdf = new \Mpdf\Mpdf([
             'format' => 'A4',
             'margin_top' => 30,
             'margin_bottom' => 25,
             'margin_left' => 20,
             'margin_right' => 20,
+            'tempDir' => storage_path('app/mpdf'),
         ]);
+
+        $html = view('admin.surat.pdf', compact('surat'))->render();
 
         $mpdf->WriteHTML($html);
 
@@ -146,6 +154,9 @@ class SuratController extends Controller
     {
         $jenis = JenisSurat::orderBy('id', 'desc')->get();
         $warga = Warga::orderBy('id', 'desc')->get();
+        if (Auth::user()->hasRole('warga')) {
+            $warga =  $warga = Warga::where('user_id', Auth::user()->id)->get();
+        }
         return view('admin.surat.create-update-show', compact('jenis', 'warga'));
     }
 
@@ -160,11 +171,13 @@ class SuratController extends Controller
             'status_rt'         => 'nullable|in:Disetujui,Menunggu,Ditolak',
             'status_kepala'    => 'nullable|in:Disetujui,Menunggu,Ditolak',
             'keterangan'       => 'nullable|string',
+            'jenis_surat_id'  => 'required',
         ], [
             'nama_surat.required' => 'Nama surat wajib diisi',
             'tanggal_pengajuan.required' => 'Tanggal pengajuan wajib diisi',
             'warga_id.required' => 'Warga wajib dipilih',
             'warga_id.exists' => 'Warga tidak valid',
+            'jenis_surat_id.required' => 'Jenis surat wajib diisi',
             // 'status_rw.required' => 'Status RW wajib dipilih',
             // 'status_rt.required' => 'Status RW wajib dipilih',
             // 'status_kepala.required' => 'Status Kepala Kampung wajib dipilih',
@@ -174,7 +187,7 @@ class SuratController extends Controller
             'nama_surat'         => $request->nama_surat,
             'tanggal_pengajuan' => $request->tanggal_pengajuan,
             'warga_id'           => $request->warga_id,
-            'status_rw'          => $request->status_rw,
+            'jenis_surat_id'          => $request->jenis_surat_id,
             'status_rw'          => $request->status_rw,
             'status_rt'          => $request->status_rt,
             'status_kepala'     => $request->status_kepala,
@@ -218,10 +231,12 @@ class SuratController extends Controller
             'status_rt'         => 'in:Disetujui,Menunggu,Ditolak',
             'status_kepala'    => 'in:Disetujui,Menunggu,Ditolak',
             'keterangan'       => 'nullable|string',
+            'jenis_surat_id'  => 'required',
         ], [
             'nama_surat.required' => 'Nama surat wajib diisi',
             'tanggal_pengajuan.required' => 'Tanggal pengajuan wajib diisi',
             'warga_id.required' => 'Warga wajib dipilih',
+            'jenis_surat_id.required' => 'Jenis surat wajib diisi',
             // 'status_rw.required' => 'Status RW wajib dipilih',
             // 'status_rt.required' => 'Status RW wajib dipilih',
             // 'status_kepala.required' => 'Status Kepala Kampung wajib dipilih',
@@ -231,7 +246,7 @@ class SuratController extends Controller
             'nama_surat'         => $request->nama_surat,
             'tanggal_pengajuan' => $request->tanggal_pengajuan,
             'warga_id'           => $request->warga_id,
-            'status_rw'          => $request->status_rw,
+            'jenis_surat_id'          => $request->jenis_surat_id,
             'status_rw'          => $request->status_rw,
             'status_rt'          => $request->status_rt,
             'status_kepala'     => $request->status_kepala,

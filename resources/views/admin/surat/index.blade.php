@@ -61,12 +61,13 @@
                                                         href="{{ route('dashboard.surat.detail', $data->id) }}">
                                                         <i class="bx bx-box me-1"></i> Detail</a>
 
-
+                                                         @if (!Auth::user()->hasRole('admin|warga'))
                                                           <a class="dropdown-item"
                                                         href="{{ route('dashboard.surat.validasi', $data->id) }}">
                                  
                                                         <i class="bx bxs-report me-1"></i> Validasi   {{ Auth::user()->roles->first()->name ?? '-' }}
-                                                    
+                                                          </a>
+                                                          @endif
 
                                                     @if (!Auth::user()->hasRole('warga'))
                                                         <a class="dropdown-item"
