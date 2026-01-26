@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id(); // PK
-            $table->text('review');
-            $table->date('tanggal');
-            $table->string('kategori');
-            $table->string('nilai');
+            $table->text('review')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->string('kategori')->nullable();
+            $table->string('nilai')->nullable();
             $table->unsignedBigInteger('user_id');
 
         });
