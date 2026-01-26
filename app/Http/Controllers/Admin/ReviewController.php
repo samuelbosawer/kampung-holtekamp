@@ -69,25 +69,29 @@ class ReviewController extends Controller
             return redirect()->route('dashboard.review.index');
         }
 
-        $request->validate([
+         $request->validate([
             'kategori' => 'required',
             'nilai'    => 'required',
-            'review'   => 'required|min:5',
+            'q1' => 'required|in:1,2,3,4,5',
+            'q2' => 'required|in:1,2,3,4,5',
+            'q3' => 'required|in:1,2,3,4,5',
+            'review' => 'nullable|string',
         ], [
-            'kategori.required' => 'Kategori penilaian wajib dipilih',
-            'nilai.required'    => 'Nilai penilaian wajib dipilih',
-            'review.required'   => 'Kritik dan saran wajib diisi',
+            'required' => ':attribute wajib diisi',
         ]);
 
         Review::create([
             'kategori' => $request->kategori,
             'nilai'    => $request->nilai,
-            'review'   => $request->review,
-            'tanggal'  => now(),
-            'user_id'  => Auth::id(),
+            'q1' => $request->q1,
+            'q2' => $request->q2,
+            'q3' => $request->q3,
+            'review' => $request->review,
+            'tanggal' => now(),
+            'user_id' => Auth::id(),
         ]);
 
-        Alert::success('Berhasil', 'Terima kasih atas penilaian Anda');
+        Alert::success('Berhasil', 'Penilaian berhasil dikirim');
         return redirect()->route('dashboard.review');
     }
 
@@ -121,21 +125,23 @@ class ReviewController extends Controller
     // ================= UPDATE =================
     public function update(Request $request, $id)
     {
-        $review = Review::findOrFail($id);
+          $data = Review::findOrFail($id);
+
+        if ($data->user_id != Auth::id()) {
+            abort(403);
+        }
 
         $request->validate([
             'kategori' => 'required',
             'nilai'    => 'required',
-            'review'   => 'required|min:5',
+            'q1' => 'required|in:1,2,3,4,5',
+            'q2' => 'required|in:1,2,3,4,5',
+            'q3' => 'required|in:1,2,3,4,5',
         ]);
 
-        $review->update([
-            'kategori' => $request->kategori,
-            'nilai'    => $request->nilai,
-            'review'   => $request->review,
-        ]);
+        $data->update($request->all());
 
-        Alert::success('Berhasil', 'Data review berhasil diperbarui');
+        Alert::success('Berhasil', 'Penilaian berhasil diperbarui');
         return redirect()->route('dashboard.review');
     }
 

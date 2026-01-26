@@ -372,98 +372,146 @@
     </section>
 
 
-    <section id="review" class="bg-white">
-        <div class="container">
-            <div class="section-title text-center mb-5">
-                <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Suara Warga</h6>
-                <h2>Kritik & Saran</h2>
-                <p class="text-muted">Masukan Anda sangat berharga untuk kemajuan pelayanan Kampung Holtekamp.</p>
-            </div>
+   <section id="review" class="bg-white">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Suara Warga</h6>
+            <h2>Kritik & Saran</h2>
+            <p class="text-muted">Partisipasi Anda membantu kami meningkatkan kualitas pelayanan kampung.</p>
+        </div>
 
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    @auth
-                        <div class="card border-0 shadow-sm p-4"
-                            style="border-radius: 20px; border: 1px solid #f0f0f0 !important;">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                @auth
+                <div class="card border-0 shadow-sm" style="border-radius: 20px; border: 1px solid #f0f0f0 !important;">
+                    <div class="card-body p-4 p-md-5">
+                        
+                        {{-- FORM OPEN --}}
+                        @if (Request::segment(4) == 'ubah')
+                            <form action="{{ route('dashboard.review.update', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                        @elseif (Request::segment(3) == 'tambah' || Request::segment(1) == '')
                             <form action="{{ route('dashboard.review.store') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
-                                {{-- KATEGORI PENILAIAN --}}
-                                <div class=" mb-3">
-                                    <label class="form-label fw-bold small text-uppercase">Kategori Penilaian</label>
-                                    <select name="kategori" class="form-control bg-light border-0"
-                                        style="border-radius: 10px;">
+                        @else
+                            <form>
+                        @endif
+
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
+
+                            <p class="fw-bold mb-4"><i class='bx bx-edit-alt me-2 text-primary'></i>Berikan penilaian sesuai pengalaman Anda:</p>
+
+                            {{-- TABEL PERTANYAAN --}}
+                            <div class="table-responsive mb-2">
+                                <table class="table table-bordered text-center align-middle">
+                                    <thead class="table-primary text-white" style="background-color: var(--primary) !important;">
+                                        <tr>
+                                            <th style="width: 50px;">No</th>
+                                            <th class="text-start">Pernyataan</th>
+                                            <th style="width: 80px;">STS (1)</th>
+                                            <th style="width: 80px;">TS (2)</th>
+                                            <th style="width: 80px;">N (3)</th>
+                                            <th style="width: 80px;">S (4)</th>
+                                            <th style="width: 80px;">SS (5)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- PERTANYAAN 1 --}}
+                                        <tr>
+                                            <td>1</td>
+                                            <td class="text-start small">Sistem ini membantu mempermudah pengurusan surat saya</td>
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <td>
+                                                    <input type="radio" name="q1" value="{{ $i }}" {{ old('q1', $data->q1 ?? '') == $i ? 'checked' : '' }} @if (Request::segment(3) == 'detail') disabled @endif>
+                                                </td>
+                                            @endfor
+                                        </tr>
+                                        @error('q1') <tr><td colspan="7" class="text-danger text-start small border-0 py-1"><i class='bx bx-error-circle'></i> Mohon isi penilaian untuk poin nomor 1</td></tr> @enderror
+
+                                        {{-- PERTANYAAN 2 --}}
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="text-start small">Sistem sesuai dengan kebutuhan pelayanan kampung</td>
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <td>
+                                                    <input type="radio" name="q2" value="{{ $i }}" {{ old('q2', $data->q2 ?? '') == $i ? 'checked' : '' }} @if (Request::segment(3) == 'detail') disabled @endif>
+                                                </td>
+                                            @endfor
+                                        </tr>
+                                        @error('q2') <tr><td colspan="7" class="text-danger text-start small border-0 py-1"><i class='bx bx-error-circle'></i> Mohon isi penilaian untuk poin nomor 2</td></tr> @enderror
+
+                                        {{-- PERTANYAAN 3 --}}
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="text-start small">Bahasa dan istilah mudah dipahami</td>
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <td>
+                                                    <input type="radio" name="q3" value="{{ $i }}" {{ old('q3', $data->q3 ?? '') == $i ? 'checked' : '' }} @if (Request::segment(3) == 'detail') disabled @endif>
+                                                </td>
+                                            @endfor
+                                        </tr>
+                                        @error('q3') <tr><td colspan="7" class="text-danger text-start small border-0 py-1"><i class='bx bx-error-circle'></i> Mohon isi penilaian untuk poin nomor 3</td></tr> @enderror
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="row g-3">
+                                {{-- KATEGORI --}}
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold small">KATEGORI PENILAIAN</label>
+                                    <select name="kategori" class="form-select bg-light border-0 @error('kategori') is-invalid @enderror" @if (Request::segment(3) == 'detail') disabled @endif>
                                         <option value="">-- Pilih Kategori --</option>
-                                        <option value="Pelayanan" {{ old('kategori') == 'Pelayanan' ? 'selected' : '' }}>
-                                            Pelayanan</option>
-                                        <option value="Sistem" {{ old('kategori') == 'Sistem' ? 'selected' : '' }}>Sistem
-                                            Aplikasi</option>
-                                        <option value="Petugas" {{ old('kategori') == 'Petugas' ? 'selected' : '' }}>Petugas
-                                        </option>
-                                        <option value="Fasilitas" {{ old('kategori') == 'Fasilitas' ? 'selected' : '' }}>
-                                            Fasilitas</option>
-                                        <option value="Lainnya" {{ old('kategori') == 'Lainnya' ? 'selected' : '' }}>Lainnya
-                                        </option>
+                                        @foreach (['Sistem', 'Pelayanan', 'Petugas'] as $kat)
+                                            <option value="{{ $kat }}" {{ old('kategori', $data->kategori ?? '') == $kat ? 'selected' : '' }}>{{ $kat }}</option>
+                                        @endforeach
                                     </select>
-                                    @error('kategori')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    @error('kategori') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
 
-                                {{-- NILAI / RATING --}}
-                                <div class=" mb-3">
-                                    <label class="form-label fw-bold small text-uppercase">Rating</label>
-                                    <select name="nilai" class="form-control bg-light border-0"
-                                        style="border-radius: 10px;">
+                                {{-- NILAI --}}
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold small">TINGKAT KEPUASAN</label>
+                                    <select name="nilai" class="form-select bg-light border-0 @error('nilai') is-invalid @enderror" @if (Request::segment(3) == 'detail') disabled @endif>
                                         <option value="">-- Pilih Nilai --</option>
-                                        <option value="Sangat Baik" {{ old('nilai') == 'Sangat Baik' ? 'selected' : '' }}>⭐⭐⭐⭐⭐
-                                            Sangat Baik</option>
-                                        <option value="Baik" {{ old('nilai') == 'Baik' ? 'selected' : '' }}>⭐⭐⭐⭐ Baik</option>
-                                        <option value="Cukup" {{ old('nilai') == 'Cukup' ? 'selected' : '' }}>⭐⭐⭐ Cukup
-                                        </option>
-                                        <option value="Kurang" {{ old('nilai') == 'Kurang' ? 'selected' : '' }}>⭐⭐ Kurang
-                                        </option>
-                                        <option value="Buruk" {{ old('nilai') == 'Buruk' ? 'selected' : '' }}>⭐ Buruk</option>
+                                        @foreach (['Sangat Baik', 'Baik', 'Cukup', 'Kurang'] as $n)
+                                            <option value="{{ $n }}" {{ old('nilai', $data->nilai ?? '') == $n ? 'selected' : '' }}>{{ $n }}</option>
+                                        @endforeach
                                     </select>
-                                    @error('nilai')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                                    @error('nilai') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
 
-                                <div class="mb-4">
-                                    <label for="review" class="form-label fw-bold small text-uppercase">Tulis Kritik
-                                        atau Saran Anda</label>
-                                    <textarea class="form-control bg-light border-0 @error('review') is-invalid @enderror" id="review" name="review"
-                                        rows="4" placeholder="Contoh: Mohon peningkatan kecepatan pelayanan administrasi pada jam pagi..."
-                                        style="border-radius: 12px;"></textarea>
-                                    @error('review')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                    @enderror
+                                {{-- KRITIK & SARAN --}}
+                                <div class="col-md-12 mb-4">
+                                    <label class="form-label fw-bold small">MASUKAN / KRITIK / SARAN</label>
+                                    <textarea name="review" rows="4" class="form-control bg-light border-0 @error('review') is-invalid @enderror" placeholder="Tulis masukan Anda secara mendetail..." @if (Request::segment(3) == 'detail') disabled @endif>{{ old('review', $data->review ?? '') }}</textarea>
+                                    @error('review') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
 
-                                <div class="text-end">
-                                    <button type="submit" class="btn btn-custom px-5">
-                                        <i class='bx bx-paper-plane me-2'></i>Kirim Masukan
-                                    </button>
+                                {{-- BUTTON GROUP --}}
+                                <div class="col-md-12 text-end">
+                                    @if (Request::segment(3) == 'detail')
+                                        <a href="{{ route('dashboard.review.ubah', $data->id) }}" class="btn btn-warning px-4 rounded-pill text-white shadow-sm">
+                                            <i class="bx bx-pencil me-1"></i> UBAH DATA
+                                        </a>
+                                    @else
+                                        <button type="submit" class="btn btn-custom px-5 rounded-pill shadow-sm">
+                                            SIMPAN PENILAIAN <i class="bx bx-save ms-1"></i>
+                                        </button>
+                                    @endif
+
+                                    <a href="{{ route('dashboard.review') }}" class="btn btn-light px-4 rounded-pill border ms-2 shadow-sm">KEMBALI</a>
                                 </div>
-                            </form>
-                        </div>
-                    @else
-                        <div class="text-center p-5 bg-light rounded-4 border">
-                            <i class='bx bx-lock-alt display-4 text-muted mb-3'></i>
-                            <h5 class="fw-bold">Ingin Memberikan Saran?</h5>
-                            <p class="text-muted mb-4">Mohon maaf, Anda harus masuk ke akun Anda terlebih dahulu untuk
-                                memberikan kritik atau saran bagi kampung.</p>
-                            <a href="{{ route('login') }}" class="btn btn-custom rounded-pill">
-                                <i class='bx bx-log-in me-2'></i>Login Sekarang
-                            </a>
-                        </div>
-                    @endauth
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                @endauth
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="kontak" class="bg-light">
         <div class="container">

@@ -13,10 +13,17 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id(); // PK
+            $table->tinyInteger('q1');
+            $table->tinyInteger('q2');
+            $table->tinyInteger('q3');
+            $table->tinyInteger('q4')->nullable();
+            $table->tinyInteger('q5')->nullable();
+
+            $table->string('kategori'); // Pelayanan, Sistem, dll
+            $table->string('nilai');    // Sangat Baik, Baik, Cukup, dll
+
             $table->text('review')->nullable();
-            $table->date('tanggal')->nullable();
-            $table->string('kategori')->nullable();
-            $table->string('nilai')->nullable();
+            $table->date('tanggal');
 
             $table->unsignedBigInteger('user_id');
         });

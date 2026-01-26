@@ -4,11 +4,13 @@
     <div class="container-xxl flex-grow-1 container-p-y">
 
         <div class="card">
-            <h5 class="card-header"><i class="bx bx-comment"></i> Data Review</h5>
+            <h5 class="card-header">
+                <i class="menu-icon tf-icons bx bx-star"></i> Data Penilaian Pengguna
+            </h5>
 
             <div class="table-responsive p-4">
 
-                <div class="row g-2 mb-3 align-items-center">
+              <div class="row g-2 mb-3 align-items-center">
                     <div class="col-md-6 col-12">
 
                         @if (!Auth::user()->hasRole('admin|rt|rw|kepala'))
@@ -21,31 +23,26 @@
                         @include('admin.layout.search')
                     </div>
                 </div>
-
                 <table class="table table-bordered">
                     <thead class="bg-primary text-white">
                         <tr>
                             <th class="text-white">No</th>
-                            <th class="text-white">Tanggal</th>
-                            <th class="text-white">Nama User</th>
-                            <th class="text-white">Review</th>
+                            <th class="text-white">Nama</th>
                             <th class="text-white">Kategori</th>
                             <th class="text-white">Nilai</th>
+                            <th class="text-white">Tanggal</th>
                             <th class="text-white"></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @forelse($datas as $data)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}</td>
-                                <td>{{ $data->user->email }}</td>
-                                <td>{{ $data->review }}</td>
-                                <td>{{ $data->kategori }}</td>
-                                <td>
-                                    <span class="badge bg-primary">{{ $data->nilai }}</span>
-                                </td>
 
+                    <tbody>
+                        @forelse($datas as $i => $data)
+                            <tr>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $data->user->email }}</td>
+                                <td>{{ $data->kategori }}</td>
+                                <td>{{ $data->nilai }}</td>
+                                <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-m-Y') }}</td>
                                 <td class="text-center">
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -81,19 +78,17 @@
                                     </div>
 
                                 </td>
-
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center">Data belum ada</td>
+                                <td colspan="6" class="text-center">Belum ada data</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
-
-                {{ $datas->links() }}
             </div>
         </div>
+
 
     </div>
 @endsection
