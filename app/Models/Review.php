@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-     public $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = [
         'review',
         'tanggal',
-        'user_id'
+        'user_id',
+        'kategori',
+        'nilai',
     ];
 
     // Relasi ke User

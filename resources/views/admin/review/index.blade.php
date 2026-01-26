@@ -26,9 +26,11 @@
                     <thead class="bg-primary text-white">
                         <tr>
                             <th class="text-white">No</th>
+                            <th class="text-white">Tanggal</th>
                             <th class="text-white">Nama User</th>
                             <th class="text-white">Review</th>
-                            <th class="text-white">Tanggal</th>
+                            <th class="text-white">Kategori</th>
+                            <th class="text-white">Nilai</th>
                             <th class="text-white"></th>
                         </tr>
                     </thead>
@@ -36,9 +38,13 @@
                         @forelse($datas as $data)
                             <tr>
                                 <td>{{ ++$i }}</td>
+                                <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}</td>
                                 <td>{{ $data->user->email }}</td>
                                 <td>{{ $data->review }}</td>
-                                <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}</td>
+                                <td>{{ $data->kategori }}</td>
+                                <td>
+                                    <span class="badge bg-primary">{{ $data->nilai }}</span>
+                                </td>
 
                                 <td class="text-center">
                                     <div class="dropdown">
@@ -49,9 +55,10 @@
                                         <div class="dropdown-menu">
 
 
-                                            <a class="dropdown-item" href="{{ route('dashboard.review.detail', $data->id) }}">
+                                            <a class="dropdown-item"
+                                                href="{{ route('dashboard.review.detail', $data->id) }}">
                                                 <i class="bx bx-box me-1"></i> Detail</a>
-                                            @if(Auth::user()->hasRole('warga') && $data->user_id == Auth::id())
+                                            @if (Auth::user()->hasRole('warga') && $data->user_id == Auth::id())
                                                 <a class="dropdown-item"
                                                     href="{{ route('dashboard.review.ubah', $data->id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Ubah</a>

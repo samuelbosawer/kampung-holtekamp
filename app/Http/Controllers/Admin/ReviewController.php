@@ -10,13 +10,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ReviewController extends Controller
 {
-     // ================= INDEX =================
-    public function index( Request $request)
+    // ================= INDEX =================
+    public function index(Request $request)
     {
         // $datas = Review::with('user')->orderBy('id','desc')->paginate(7);
 
 
-          $datas = Review::with('user')
+        $datas = Review::with('user')
             ->whereNotNull('review')
 
             // 🔍 FITUR SEARCH
@@ -33,7 +33,7 @@ class ReviewController extends Controller
                 });
             })
 
-              ->when(Auth::user()->hasRole('warga'), function ($query) {
+            ->when(Auth::user()->hasRole('warga'), function ($query) {
                 if (Auth::user()->wargas) {
                     $query->whereHas('user', function ($wq) {
                         $wq->where('id', Auth::user()->id);
@@ -45,7 +45,7 @@ class ReviewController extends Controller
             ->paginate(7);
 
         return view('admin.review.index', compact('datas'))
-            ->with('i', (request()->input('page',1)-1)*7);
+            ->with('i', (request()->input('page', 1) - 1) * 7);
     }
 
     // ================= CREATE =================
@@ -70,20 +70,24 @@ class ReviewController extends Controller
         }
 
         $request->validate([
-            'review' => 'required',
-            'tanggal' => 'required|date',
+            'kategori' => 'required',
+            'nilai'    => 'required',
+            'review'   => 'required|min:5',
         ], [
-            'review.required' => 'Review wajib diisi',
-            'tanggal.required' => 'Tanggal wajib diisi',
+            'kategori.required' => 'Kategori penilaian wajib dipilih',
+            'nilai.required'    => 'Nilai penilaian wajib dipilih',
+            'review.required'   => 'Kritik dan saran wajib diisi',
         ]);
 
         Review::create([
-            'review' => $request->review,
-            'tanggal' => $request->tanggal,
-            'user_id' => Auth::id(),
+            'kategori' => $request->kategori,
+            'nilai'    => $request->nilai,
+            'review'   => $request->review,
+            'tanggal'  => now(),
+            'user_id'  => Auth::id(),
         ]);
 
-        Alert::success('Berhasil', 'Review berhasil ditambahkan');
+        Alert::success('Berhasil', 'Terima kasih atas penilaian Anda');
         return redirect()->route('dashboard.review');
     }
 
@@ -117,24 +121,21 @@ class ReviewController extends Controller
     // ================= UPDATE =================
     public function update(Request $request, $id)
     {
-        $data = Review::findOrFail($id);
-
-        if (!Auth::user()->hasRole('warga') || $data->user_id != Auth::id()) {
-            Alert::error('Akses Ditolak', 'Anda tidak memiliki izin');
-            return redirect()->route('dashboard.review');
-        }
+        $review = Review::findOrFail($id);
 
         $request->validate([
-            'review' => 'required',
-            'tanggal' => 'required|date',
+            'kategori' => 'required',
+            'nilai'    => 'required',
+            'review'   => 'required|min:5',
         ]);
 
-        $data->update([
-            'review' => $request->review,
-            'tanggal' => $request->tanggal,
+        $review->update([
+            'kategori' => $request->kategori,
+            'nilai'    => $request->nilai,
+            'review'   => $request->review,
         ]);
 
-        Alert::success('Berhasil', 'Review berhasil diperbarui');
+        Alert::success('Berhasil', 'Data review berhasil diperbarui');
         return redirect()->route('dashboard.review');
     }
 

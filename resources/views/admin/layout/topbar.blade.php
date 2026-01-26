@@ -49,12 +49,12 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
+                      <a class="dropdown-item"  href="{{ route('logout') }}" onclick="logoutConfirm(event)" >
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Keluar</span>
                       </a>
           
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none" >
                         @csrf
                     </form>
 
@@ -66,4 +66,13 @@
             </div>
           </nav>
 
+<script>
+          function logoutConfirm(event) {
+    event.preventDefault();
+
+    if (confirm('Anda yakin ingin keluar?')) {
+        document.getElementById('logout-form').submit();
+    }
+}
+</script>
           <!-- / Navbar -->

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id(); // PK
             $table->text('review');
             $table->date('tanggal');
+            $table->string('kategori');
+            $table->string('nilai');
             $table->unsignedBigInteger('user_id');
 
         });
