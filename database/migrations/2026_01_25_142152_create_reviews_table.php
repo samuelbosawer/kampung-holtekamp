@@ -17,8 +17,8 @@ return new class extends Migration
             $table->date('tanggal')->nullable();
             $table->string('kategori')->nullable();
             $table->string('nilai')->nullable();
-            $table->unsignedBigInteger('user_id');
 
+            $table->unsignedBigInteger('user_id');
         });
     }
 
