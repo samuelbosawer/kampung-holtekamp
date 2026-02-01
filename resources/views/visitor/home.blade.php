@@ -175,6 +175,7 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#mainNav">
+    @include('sweetalert::alert')
 
     <nav id="mainNav" class="navbar navbar-expand-lg sticky-top">
         <div class="container">
@@ -372,20 +373,23 @@
     </section>
 
 
-   <section id="review" class="bg-white">
+<section id="review" class="bg-white">
     <div class="container">
         <div class="section-title text-center mb-5">
             <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Suara Warga</h6>
-            <h2>Kritik & Saran</h2>
-            <p class="text-muted">Partisipasi Anda membantu kami meningkatkan kualitas pelayanan kampung.</p>
+            <h2>Penilaian Sistem</h2>
+            <p class="text-muted">
+                Berikan penilaian Anda untuk membantu meningkatkan kualitas pelayanan Kampung Holtekamp.
+            </p>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 @auth
-                <div class="card border-0 shadow-sm" style="border-radius: 20px; border: 1px solid #f0f0f0 !important;">
+                <div class="card border-0 shadow-sm"
+                    style="border-radius: 20px; border: 1px solid #f0f0f0 !important;">
                     <div class="card-body p-4 p-md-5">
-                        
+
                         {{-- FORM OPEN --}}
                         @if (Request::segment(4) == 'ubah')
                             <form action="{{ route('dashboard.review.update', $data->id) }}" method="POST">
@@ -401,109 +405,106 @@
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
 
-                            <p class="fw-bold mb-4"><i class='bx bx-edit-alt me-2 text-primary'></i>Berikan penilaian sesuai pengalaman Anda:</p>
+                            <p class="fw-bold mb-4">
+                                <i class="bx bx-edit-alt me-2 text-primary"></i>
+                                Berikan penilaian sesuai pengalaman Anda
+                            </p>
+
+                            @php
+                                $pertanyaan = [
+                                    1  => 'Sistem ini membantu mempermudah pengurusan surat saya',
+                                    2  => 'Sistem sesuai dengan kebutuhan pelayanan kampung',
+                                    3  => 'Bahasa dan istilah yang digunakan mudah dipahami',
+                                    4  => 'Navigasi sistem mudah digunakan',
+                                    5  => 'Tampilan sistem menarik dan rapi',
+                                    6  => 'Sistem membantu mempercepat proses pelayanan',
+                                    7  => 'Fitur-fitur sistem berjalan dengan baik',
+                                    8  => 'Sistem lebih efektif dibandingkan cara manual',
+                                    9  => 'Saya merasa puas menggunakan sistem ini',
+                                    10 => 'Sistem ini layak digunakan secara berkelanjutan',
+                                    11 => 'Sistem membantu petugas kampung dalam pelayanan',
+                                    12 => 'Sistem meningkatkan kualitas pelayanan kampung',
+                                ];
+                            @endphp
 
                             {{-- TABEL PERTANYAAN --}}
-                            <div class="table-responsive mb-2">
+                            <div class="table-responsive">
                                 <table class="table table-bordered text-center align-middle">
-                                    <thead class="table-primary text-white" style="background-color: var(--primary) !important;">
+                                    <thead class="table-primary text-white"
+                                        style="background-color: var(--primary) !important;">
                                         <tr>
-                                            <th style="width: 50px;">No</th>
+                                            <th width="50">No</th>
                                             <th class="text-start">Pernyataan</th>
-                                            <th style="width: 80px;">STS (1)</th>
-                                            <th style="width: 80px;">TS (2)</th>
-                                            <th style="width: 80px;">N (3)</th>
-                                            <th style="width: 80px;">S (4)</th>
-                                            <th style="width: 80px;">SS (5)</th>
+                                            <th>STS<br>(1)</th>
+                                            <th>TS<br>(2)</th>
+                                            <th>N<br>(3)</th>
+                                            <th>S<br>(4)</th>
+                                            <th>SS<br>(5)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- PERTANYAAN 1 --}}
-                                        <tr>
-                                            <td>1</td>
-                                            <td class="text-start small">Sistem ini membantu mempermudah pengurusan surat saya</td>
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <td>
-                                                    <input type="radio" name="q1" value="{{ $i }}" {{ old('q1', $data->q1 ?? '') == $i ? 'checked' : '' }} @if (Request::segment(3) == 'detail') disabled @endif>
-                                                </td>
-                                            @endfor
-                                        </tr>
-                                        @error('q1') <tr><td colspan="7" class="text-danger text-start small border-0 py-1"><i class='bx bx-error-circle'></i> Mohon isi penilaian untuk poin nomor 1</td></tr> @enderror
-
-                                        {{-- PERTANYAAN 2 --}}
-                                        <tr>
-                                            <td>2</td>
-                                            <td class="text-start small">Sistem sesuai dengan kebutuhan pelayanan kampung</td>
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <td>
-                                                    <input type="radio" name="q2" value="{{ $i }}" {{ old('q2', $data->q2 ?? '') == $i ? 'checked' : '' }} @if (Request::segment(3) == 'detail') disabled @endif>
-                                                </td>
-                                            @endfor
-                                        </tr>
-                                        @error('q2') <tr><td colspan="7" class="text-danger text-start small border-0 py-1"><i class='bx bx-error-circle'></i> Mohon isi penilaian untuk poin nomor 2</td></tr> @enderror
-
-                                        {{-- PERTANYAAN 3 --}}
-                                        <tr>
-                                            <td>3</td>
-                                            <td class="text-start small">Bahasa dan istilah mudah dipahami</td>
-                                            @for ($i = 1; $i <= 5; $i++)
-                                                <td>
-                                                    <input type="radio" name="q3" value="{{ $i }}" {{ old('q3', $data->q3 ?? '') == $i ? 'checked' : '' }} @if (Request::segment(3) == 'detail') disabled @endif>
-                                                </td>
-                                            @endfor
-                                        </tr>
-                                        @error('q3') <tr><td colspan="7" class="text-danger text-start small border-0 py-1"><i class='bx bx-error-circle'></i> Mohon isi penilaian untuk poin nomor 3</td></tr> @enderror
+                                        @foreach ($pertanyaan as $no => $label)
+                                            <tr>
+                                                <td>{{ $no }}</td>
+                                                <td class="text-start">{{ $label }}</td>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <td>
+                                                        <input type="radio"
+                                                            name="q{{ $no }}"
+                                                            value="{{ $i }}"
+                                                            {{ old("q$no", $data->{"q$no"} ?? '') == $i ? 'checked' : '' }}
+                                                            @if (Request::segment(3) == 'detail') disabled @endif>
+                                                    </td>
+                                                @endfor
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="row g-3">
-                                {{-- KATEGORI --}}
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold small">KATEGORI PENILAIAN</label>
-                                    <select name="kategori" class="form-select bg-light border-0 @error('kategori') is-invalid @enderror" @if (Request::segment(3) == 'detail') disabled @endif>
-                                        <option value="">-- Pilih Kategori --</option>
-                                        @foreach (['Sistem', 'Pelayanan', 'Petugas'] as $kat)
-                                            <option value="{{ $kat }}" {{ old('kategori', $data->kategori ?? '') == $kat ? 'selected' : '' }}>{{ $kat }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('kategori') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                                </div>
-
-                                {{-- NILAI --}}
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label fw-bold small">TINGKAT KEPUASAN</label>
-                                    <select name="nilai" class="form-select bg-light border-0 @error('nilai') is-invalid @enderror" @if (Request::segment(3) == 'detail') disabled @endif>
-                                        <option value="">-- Pilih Nilai --</option>
-                                        @foreach (['Sangat Baik', 'Baik', 'Cukup', 'Kurang'] as $n)
-                                            <option value="{{ $n }}" {{ old('nilai', $data->nilai ?? '') == $n ? 'selected' : '' }}>{{ $n }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('nilai') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                                </div>
-
-                                {{-- KRITIK & SARAN --}}
-                                <div class="col-md-12 mb-4">
-                                    <label class="form-label fw-bold small">MASUKAN / KRITIK / SARAN</label>
-                                    <textarea name="review" rows="4" class="form-control bg-light border-0 @error('review') is-invalid @enderror" placeholder="Tulis masukan Anda secara mendetail..." @if (Request::segment(3) == 'detail') disabled @endif>{{ old('review', $data->review ?? '') }}</textarea>
-                                    @error('review') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                                </div>
-
-                                {{-- BUTTON GROUP --}}
-                                <div class="col-md-12 text-end">
-                                    @if (Request::segment(3) == 'detail')
-                                        <a href="{{ route('dashboard.review.ubah', $data->id) }}" class="btn btn-warning px-4 rounded-pill text-white shadow-sm">
-                                            <i class="bx bx-pencil me-1"></i> UBAH DATA
-                                        </a>
-                                    @else
-                                        <button type="submit" class="btn btn-custom px-5 rounded-pill shadow-sm">
-                                            SIMPAN PENILAIAN <i class="bx bx-save ms-1"></i>
-                                        </button>
-                                    @endif
-
-                                    <a href="{{ route('dashboard.review') }}" class="btn btn-light px-4 rounded-pill border ms-2 shadow-sm">KEMBALI</a>
-                                </div>
+                            {{-- KETERANGAN SKALA --}}
+                            <div class="mt-2 small text-muted">
+                                <strong>Keterangan:</strong>
+                                STS (1) = Sangat Tidak Setuju,
+                                TS (2) = Tidak Setuju,
+                                N (3) = Netral,
+                                S (4) = Setuju,
+                                SS (5) = Sangat Setuju
                             </div>
+
+                            {{-- ERROR GLOBAL --}}
+                            @if (
+                                $errors->has('q1') || $errors->has('q2') || $errors->has('q3') ||
+                                $errors->has('q4') || $errors->has('q5') || $errors->has('q6') ||
+                                $errors->has('q7') || $errors->has('q8') || $errors->has('q9') ||
+                                $errors->has('q10') || $errors->has('q11') || $errors->has('q12')
+                            )
+                                <small class="text-danger d-block mt-2">
+                                    <i class="bx bx-error-circle"></i>
+                                    Semua pernyataan wajib diisi.
+                                </small>
+                            @endif
+
+                            {{-- BUTTON --}}
+                            <div class="text-end mt-4">
+                                @if (Request::segment(3) == 'detail')
+                                    <a href="{{ route('dashboard.review.ubah', $data->id) }}"
+                                        class="btn btn-warning px-4 rounded-pill text-white shadow-sm">
+                                        <i class="bx bx-pencil"></i> UBAH DATA
+                                    </a>
+                                @else
+                                    <button type="submit"
+                                        class="btn btn-custom px-5 rounded-pill shadow-sm">
+                                        SIMPAN PENILAIAN <i class="bx bx-save ms-1"></i>
+                                    </button>
+                                @endif
+
+                                <a href="{{ route('dashboard.review') }}"
+                                    class="btn btn-light px-4 rounded-pill border ms-2 shadow-sm">
+                                    KEMBALI
+                                </a>
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -512,6 +513,8 @@
         </div>
     </div>
 </section>
+
+
 
     <section id="kontak" class="bg-light">
         <div class="container">

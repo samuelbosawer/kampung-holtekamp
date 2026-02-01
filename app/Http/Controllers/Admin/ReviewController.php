@@ -17,7 +17,6 @@ class ReviewController extends Controller
 
 
         $datas = Review::with('user')
-            ->whereNotNull('review')
 
             // 🔍 FITUR SEARCH
             ->when($request->s, function ($query) use ($request) {
@@ -51,47 +50,38 @@ class ReviewController extends Controller
     // ================= CREATE =================
     public function create()
     {
-        if (!Auth::user()->hasRole('warga')) {
-            Alert::error('Akses Ditolak', 'Anda tidak memiliki izin menambah review');
-            return redirect()->route('dashboard.review.index');
-        }
-
-        return view('admin.review.create-update-show', [
-            'judul' => 'Tambah Review'
-        ]);
+        abort_unless(Auth::user()->hasRole('warga'), 403);
+        return view('admin.review.create-update-show', ['mode' => 'create']);
     }
 
     // ================= STORE =================
     public function store(Request $request)
     {
-        if (!Auth::user()->hasRole('warga')) {
-            Alert::error('Akses Ditolak', 'Anda tidak memiliki izin');
-            return redirect()->route('dashboard.review.index');
-        }
+        abort_unless(Auth::user()->hasRole('warga'), 403);
 
-         $request->validate([
-            'kategori' => 'required',
-            'nilai'    => 'required',
-            'q1' => 'required|in:1,2,3,4,5',
-            'q2' => 'required|in:1,2,3,4,5',
-            'q3' => 'required|in:1,2,3,4,5',
-            'review' => 'nullable|string',
+        $request->validate([
+            'q1' => 'required|integer|min:1|max:5',
+            'q2' => 'required|integer|min:1|max:5',
+            'q3' => 'required|integer|min:1|max:5',
+            'q4' => 'required|integer|min:1|max:5',
+            'q5' => 'required|integer|min:1|max:5',
+            'q6' => 'required|integer|min:1|max:5',
+            'q7' => 'required|integer|min:1|max:5',
+            'q8' => 'required|integer|min:1|max:5',
+            'q9' => 'required|integer|min:1|max:5',
+            'q10' => 'required|integer|min:1|max:5',
+            'q11' => 'required|integer|min:1|max:5',
+            'q12' => 'required|integer|min:1|max:5',
         ], [
-            'required' => ':attribute wajib diisi',
+            '*.required' => 'Semua pertanyaan wajib diisi',
         ]);
 
-        Review::create([
-            'kategori' => $request->kategori,
-            'nilai'    => $request->nilai,
-            'q1' => $request->q1,
-            'q2' => $request->q2,
-            'q3' => $request->q3,
-            'review' => $request->review,
-            'tanggal' => now(),
-            'user_id' => Auth::id(),
-        ]);
+        Review::create(array_merge(
+            $request->all(),
+            ['user_id' => Auth::id(), 'tanggal' => now()]
+        ));
 
-        Alert::success('Berhasil', 'Penilaian berhasil dikirim');
+        Alert::success('Terima Kasih', 'Penilaian berhasil disimpan');
         return redirect()->route('dashboard.review');
     }
 
@@ -99,10 +89,9 @@ class ReviewController extends Controller
     public function show($id)
     {
         $data = Review::with('user')->findOrFail($id);
-
         return view('admin.review.create-update-show', [
-            'judul' => 'Detail Review',
-            'data'  => $data
+            'data' => $data,
+            'mode' => 'detail'
         ]);
     }
 
@@ -111,37 +100,42 @@ class ReviewController extends Controller
     {
         $data = Review::findOrFail($id);
 
-        if (!Auth::user()->hasRole('warga') || $data->user_id != Auth::id()) {
-            Alert::error('Akses Ditolak', 'Anda tidak dapat mengubah review ini');
-            return redirect()->route('dashboard.review');
-        }
+        abort_if(
+            !Auth::user()->hasRole('warga') || $data->user_id != Auth::id(),
+            403
+        );
 
         return view('admin.review.create-update-show', [
-            'judul' => 'Ubah Review',
-            'data'  => $data
+            'data' => $data,
+            'mode' => 'edit'
         ]);
     }
 
     // ================= UPDATE =================
     public function update(Request $request, $id)
     {
-          $data = Review::findOrFail($id);
+        $data = Review::findOrFail($id);
 
-        if ($data->user_id != Auth::id()) {
-            abort(403);
-        }
+        abort_if($data->user_id != Auth::id(), 403);
 
         $request->validate([
-            'kategori' => 'required',
-            'nilai'    => 'required',
-            'q1' => 'required|in:1,2,3,4,5',
-            'q2' => 'required|in:1,2,3,4,5',
-            'q3' => 'required|in:1,2,3,4,5',
+            'q1' => 'required|integer|min:1|max:5',
+            'q2' => 'required|integer|min:1|max:5',
+            'q3' => 'required|integer|min:1|max:5',
+            'q4' => 'required|integer|min:1|max:5',
+            'q5' => 'required|integer|min:1|max:5',
+            'q6' => 'required|integer|min:1|max:5',
+            'q7' => 'required|integer|min:1|max:5',
+            'q8' => 'required|integer|min:1|max:5',
+            'q9' => 'required|integer|min:1|max:5',
+            'q10' => 'required|integer|min:1|max:5',
+            'q11' => 'required|integer|min:1|max:5',
+            'q12' => 'required|integer|min:1|max:5',
         ]);
 
-        $data->update($request->all());
+        $data->update($request->except(['user_id', 'tanggal']));
 
-        Alert::success('Berhasil', 'Penilaian berhasil diperbarui');
+        Alert::success('Berhasil', 'Penilaian diperbarui');
         return redirect()->route('dashboard.review');
     }
 
@@ -150,14 +144,13 @@ class ReviewController extends Controller
     {
         $data = Review::findOrFail($id);
 
-        if (!Auth::user()->hasRole('warga') || $data->user_id != Auth::id()) {
-            Alert::error('Akses Ditolak', 'Anda tidak memiliki izin menghapus');
-            return redirect()->route('dashboard.review');
-        }
+        abort_if(
+            !Auth::user()->hasRole('warga') || $data->user_id != Auth::id(),
+            403
+        );
 
         $data->delete();
-
-        Alert::success('Berhasil', 'Review berhasil dihapus');
-        return redirect()->route('dashboard.review');
+        Alert::success('Dihapus', 'Data penilaian dihapus');
+        return back();
     }
 }

@@ -9,9 +9,9 @@ class Review extends Model
     public $timestamps = false;
 
   protected $fillable = [
-        'q1','q2','q3','q4','q5',
-        'kategori','nilai',
-        'review','tanggal','user_id'
+        'user_id','tanggal',
+        'q1','q2','q3','q4','q5','q6',
+        'q7','q8','q9','q10','q11','q12',
     ];
 
 

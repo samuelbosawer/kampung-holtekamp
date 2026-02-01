@@ -14,72 +14,25 @@ class ReviewSeeder extends Seeder
      */
     public function run(): void
     {
-       $data = [
+        $userIds = [13, 14, 15, 16, 17];
 
-            // USER ID 13 - septer@gmail.com
-            [
-                'q1' => 5,
-                'q2' => 4,
-                'q3' => 5,
-                'kategori' => 'Sistem',
-                'nilai' => 'Sangat Baik',
-                'review' => 'Sistem sangat membantu dan mudah digunakan.',
-                'tanggal' => Carbon::now()->subDays(5),
-                'user_id' => 13,
-            ],
-
-            // USER ID 14 - elia@gmail.com
-            [
-                'q1' => 4,
-                'q2' => 4,
-                'q3' => 4,
-                'kategori' => 'Pelayanan',
-                'nilai' => 'Baik',
-                'review' => 'Pelayanan cukup cepat dan sistem membantu.',
-                'tanggal' => Carbon::now()->subDays(4),
-                'user_id' => 14,
-            ],
-
-            // USER ID 15 - yosep@gmail.com
-            [
-                'q1' => 3,
-                'q2' => 3,
-                'q3' => 4,
-                'kategori' => 'Petugas',
-                'nilai' => 'Cukup',
-                'review' => 'Masih perlu perbaikan di beberapa bagian.',
-                'tanggal' => Carbon::now()->subDays(3),
-                'user_id' => 15,
-            ],
-
-            // USER ID 16 - markus@gmail.com
-            [
-                'q1' => 5,
-                'q2' => 5,
-                'q3' => 5,
-                'kategori' => 'Sistem',
-                'nilai' => 'Sangat Baik',
-                'review' => 'Sangat puas dengan sistem pelayanan ini.',
-                'tanggal' => Carbon::now()->subDays(2),
-                'user_id' => 16,
-            ],
-
-            // USER ID 17 - piska@gmail.com
-            [
-                'q1' => 4,
-                'q2' => 5,
-                'q3' => 4,
-                'kategori' => 'Pelayanan',
-                'nilai' => 'Baik',
-                'review' => 'Sistem bagus, tampilan mudah dipahami.',
-                'tanggal' => Carbon::now()->subDay(),
-                'user_id' => 17,
-            ],
-
-        ];
-
-        foreach ($data as $item) {
-            Review::create($item);
+        foreach ($userIds as $userId) {
+            Review::create([
+                'q1'  => rand(3, 5),
+                'q2'  => rand(3, 5),
+                'q3'  => rand(3, 5),
+                'q4'  => rand(3, 5),
+                'q5'  => rand(3, 5),
+                'q6'  => rand(3, 5),
+                'q7'  => rand(3, 5),
+                'q8'  => rand(3, 5),
+                'q9'  => rand(3, 5),
+                'q10' => rand(3, 5),
+                'q11' => rand(3, 5),
+                'q12' => rand(3, 5),
+                'tanggal' => Carbon::now()->subDays(rand(1, 10)),
+                'user_id' => $userId,
+            ]);
         }
     }
 }

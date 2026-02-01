@@ -28,8 +28,6 @@
                         <tr>
                             <th class="text-white">No</th>
                             <th class="text-white">Nama</th>
-                            <th class="text-white">Kategori</th>
-                            <th class="text-white">Nilai</th>
                             <th class="text-white">Tanggal</th>
                             <th class="text-white"></th>
                         </tr>
@@ -40,8 +38,6 @@
                             <tr>
                                 <td>{{ $i + 1 }}</td>
                                 <td>{{ $data->user->email }}</td>
-                                <td>{{ $data->kategori }}</td>
-                                <td>{{ $data->nilai }}</td>
                                 <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-m-Y') }}</td>
                                 <td class="text-center">
                                     <div class="dropdown">

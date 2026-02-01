@@ -12,20 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->id(); // PK
-            $table->tinyInteger('q1');
-            $table->tinyInteger('q2');
-            $table->tinyInteger('q3');
-            $table->tinyInteger('q4')->nullable();
-            $table->tinyInteger('q5')->nullable();
-
-            $table->string('kategori'); // Pelayanan, Sistem, dll
-            $table->string('nilai');    // Sangat Baik, Baik, Cukup, dll
-
-            $table->text('review')->nullable();
+            $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->date('tanggal');
 
-            $table->unsignedBigInteger('user_id');
+            // TABEL 1 – UI/UX
+            $table->tinyInteger('q1'); // Tampilan menarik & profesional
+            $table->tinyInteger('q2'); // Tata letak rapi
+            $table->tinyInteger('q3'); // Warna, ikon, teks mudah dipahami
+            $table->tinyInteger('q4'); // Navigasi mudah
+            $table->tinyInteger('q5'); // Mudah dipelajari
+            $table->tinyInteger('q6'); // Membantu mempercepat pelayanan
+
+            // TABEL 2 – Kepuasan
+            $table->tinyInteger('q7');
+            $table->tinyInteger('q8');
+            $table->tinyInteger('q9');
+            $table->tinyInteger('q10');
+            $table->tinyInteger('q11');
+            $table->tinyInteger('q12');
         });
     }
 
