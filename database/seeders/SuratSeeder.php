@@ -45,7 +45,7 @@ class SuratSeeder extends Seeder
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 2,
                 // 'status_rw'      => '',
-                'status_kepala'         => 'Menunggu',
+                'status_kepala'         => 'Disetujui',
                 
             ],
 
@@ -55,8 +55,6 @@ class SuratSeeder extends Seeder
                 'jenis_surat_id'    => 2, // SKTM
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 3,
-                'status_rw'      => 'Disetujui',
-                // 'status_kepala'         => '',
                 
             ],
         ];
