@@ -1,6 +1,22 @@
 @extends('admin.layout.tamplate')
 
 @section('content')
+
+
+@php
+    $isDetail = Request::segment(3) == 'detail';
+
+    $isAdmin  = Auth::user()->hasRole('admin');
+    $isKepala = Auth::user()->hasRole('kepala');
+    $isRw     = Auth::user()->hasRole('rw');
+    $isRt     = Auth::user()->hasRole('rt');
+    $isWarga  = Auth::user()->hasRole('warga');
+
+    $kepalaApproved = ($data->status_kepala ?? null) === 'Disetujui';
+    $rwApproved     = ($data->status_rw ?? null) === 'Disetujui';
+@endphp
+
+
     <div class="container-xxl flex-grow-1 container-p-y">
 
         <div class="row ">
@@ -84,68 +100,92 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-8 mb-3">
-                                    <label class="form-label">Validasi Kepala Kampung</label>
-                                    <select name="status_kepala" class="form-control"
-                                        @if (Request::segment(3) == 'detail' || Auth::user()->hasRole(['admin', 'rw', 'rt', 'warga'])) disabled @endif>
+                              <div class="col-md-8 mb-3">
+    <label class="form-label">Validasi Kepala Kampung</label>
+    <select name="status_kepala" class="form-control"
+        @if($isDetail || !$isKepala) disabled @endif>
 
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="Disetujui"
-                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Disetujui' ? 'selected' : '' }}>
-                                            Disetujui
-                                        </option>
-                                        <option value="Menunggu"
-                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Menunggu' ? 'selected' : '' }}>
-                                            Menunggu
-                                        </option>
-                                        <option value="Ditolak"
-                                            {{ old('status_kepala', $data->status_kepala ?? '') == 'Ditolak' ? 'selected' : '' }}>
-                                            Ditolak
-                                        </option>
-                                    </select>
-                                </div>
+        <option value="">-- Pilih Status --</option>
+        <option value="Disetujui"
+            {{ old('status_kepala', $data->status_kepala ?? '') == 'Disetujui' ? 'selected' : '' }}>
+            Disetujui
+        </option>
+        <option value="Menunggu"
+            {{ old('status_kepala', $data->status_kepala ?? '') == 'Menunggu' ? 'selected' : '' }}>
+            Menunggu
+        </option>
+        <option value="Ditolak"
+            {{ old('status_kepala', $data->status_kepala ?? '') == 'Ditolak' ? 'selected' : '' }}>
+            Ditolak
+        </option>
+    </select>
+</div>
 
-                                <div class="col-md-8 mb-3">
-                                    <label class="form-label">Validasi Ketua RW</label>
-                                    <select name="status_rw" class="form-control"
-                                        @if (Request::segment(3) == 'detail' || Auth::user()->hasRole(['admin', 'rt', 'kepala', 'warga'])) disabled @endif>
+<div class="col-md-8 mb-3">
+    <label class="form-label">Validasi Ketua RW</label>
+    <select name="status_rw" class="form-control"
+        @if(
+            $isDetail ||
+            !$isRw ||                 {{-- bukan RW --}}
+            !$kepalaApproved ||       {{-- Kepala belum Disetujui --}}
+            $isAdmin || $isRt || $isKepala || $isWarga
+        ) disabled @endif>
 
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="Disetujui"
-                                            {{ old('status_rw', $data->status_rw ?? '') == 'Disetujui' ? 'selected' : '' }}>
-                                            Disetujui
-                                        </option>
-                                        <option value="Menunggu"
-                                            {{ old('status_rw', $data->status_rw ?? '') == 'Menunggu' ? 'selected' : '' }}>
-                                            Menunggu
-                                        </option>
-                                        <option value="Ditolak"
-                                            {{ old('status_rw', $data->status_rw ?? '') == 'Ditolak' ? 'selected' : '' }}>
-                                            Ditolak
-                                        </option>
-                                    </select>
-                                </div>
+        <option value="">-- Pilih Status --</option>
+        <option value="Disetujui"
+            {{ old('status_rw', $data->status_rw ?? '') == 'Disetujui' ? 'selected' : '' }}>
+            Disetujui
+        </option>
+        <option value="Menunggu"
+            {{ old('status_rw', $data->status_rw ?? '') == 'Menunggu' ? 'selected' : '' }}>
+            Menunggu
+        </option>
+        <option value="Ditolak"
+            {{ old('status_rw', $data->status_rw ?? '') == 'Ditolak' ? 'selected' : '' }}>
+            Ditolak
+        </option>
+    </select>
 
-                                <div class="col-md-8 mb-3">
-                                    <label class="form-label">Validasi Ketua RT</label>
-                                    <select name="status_rt" class="form-control"
-                                        @if (Request::segment(3) == 'detail' || Auth::user()->hasRole(['admin', 'rw', 'kepala', 'warga'])) disabled @endif>
+    @if($isRw && !$kepalaApproved)
+        <small class="text-muted">
+            *Menunggu persetujuan Kepala Kampung.
+        </small>
+    @endif
+</div>
 
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="Disetujui"
-                                            {{ old('status_rt', $data->status_rt ?? '') == 'Disetujui' ? 'selected' : '' }}>
-                                            Disetujui
-                                        </option>
-                                        <option value="Menunggu"
-                                            {{ old('status_rt', $data->status_rt ?? '') == 'Menunggu' ? 'selected' : '' }}>
-                                            Menunggu
-                                        </option>
-                                        <option value="Ditolak"
-                                            {{ old('status_rt', $data->status_rt ?? '') == 'Ditolak' ? 'selected' : '' }}>
-                                            Ditolak
-                                        </option>
-                                    </select>
-                                </div>
+<div class="col-md-8 mb-3">
+    <label class="form-label">Validasi Ketua RT</label>
+    <select name="status_rt" class="form-control"
+        @if(
+            $isDetail ||
+            !$isRt ||                 {{-- bukan RT --}}
+            !$kepalaApproved ||       {{-- Kepala belum Disetujui --}}
+            !$rwApproved ||           {{-- RW belum Disetujui --}}
+            $isAdmin || $isRw || $isKepala || $isWarga
+        ) disabled @endif>
+
+        <option value="">-- Pilih Status --</option>
+        <option value="Disetujui"
+            {{ old('status_rt', $data->status_rt ?? '') == 'Disetujui' ? 'selected' : '' }}>
+            Disetujui
+        </option>
+        <option value="Menunggu"
+            {{ old('status_rt', $data->status_rt ?? '') == 'Menunggu' ? 'selected' : '' }}>
+            Menunggu
+        </option>
+        <option value="Ditolak"
+            {{ old('status_rt', $data->status_rt ?? '') == 'Ditolak' ? 'selected' : '' }}>
+            Ditolak
+        </option>
+    </select>
+
+    @if($isRt && (!$kepalaApproved || !$rwApproved))
+        <small class="text-muted">
+            *Menunggu persetujuan Kepala Kampung dan Ketua RW.
+        </small>
+    @endif
+</div>
+
 
 
 

@@ -65,9 +65,6 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole('warga');
 
-
-
-
         // =========================
         // KEPALA KAMPUNG (ID 18)
         // =========================

@@ -9,15 +9,15 @@
 
                 <div class="card">
                     <h5 class="card-header text-capitalize"> <i class="menu-icon tf-icons bx bxs-envelope"></i> Data Surat
-                        </h5>
+                    </h5>
                     <div class="table-responsive text-nowrap p-5">
                         <div class="row g-2 mb-3 align-items-center">
                             <div class="col-md-6 col-12">
 
                                 @if (!Auth::user()->hasRole('admin|rt|rw|kepala'))
-                                <a href="{{ route('dashboard.surat.tambah') }}" class="btn btn-primary  w-md-auto">
-                                    Tambah Data Surat<i class="bx bx-plus ms-1"></i>
-                                </a>
+                                    <a href="{{ route('dashboard.surat.tambah') }}" class="btn btn-primary  w-md-auto">
+                                        Tambah Data Surat<i class="bx bx-plus ms-1"></i>
+                                    </a>
                                 @endif
                             </div>
                             <div class="col-md-6 col-12">
@@ -28,11 +28,11 @@
                         <table class="table table-bordered">
                             <thead class="">
                                 <tr class="bg-primary ">
-                                    <th class="text-white text-center  p-3 fw-bolder" >Nama </th>
-                                    <th class="text-white text-center  p-3 fw-bolder" >Validasi K. Kampung</th>
-                                    <th class="text-white text-center  p-3 fw-bolder" >Validasi RW</th>
-                                    <th class="text-white text-center  p-3 fw-bolder" >Validasi RT</th>
-                                    <th class="text-white text-center  p-3 fw-bolder" >Warga</th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Nama </th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Validasi K. Kampung</th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Validasi RW</th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Validasi RT</th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Warga</th>
                                     <th class="text-white text-center  p-3 fw-bolder"></th>
                                 </tr>
                             </thead>
@@ -41,15 +41,15 @@
                                     <tr>
                                         <td class="fw-bolder"> <a
                                                 href="{{ route('dashboard.surat.detail', $data->id) }}">{{ $data->nama_surat }}</a>
-                                                <br>
-                                                {{ $data->jenissurat->nama ?? '-' }}
-                                                <br>
-                                                {{ \Carbon\Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y') }}
+                                            <br>
+                                            {{ $data->jenissurat->nama ?? '-' }}
+                                            <br>
+                                            {{ \Carbon\Carbon::parse($data->tanggal_pengajuan)->translatedFormat('d F Y') }}
                                         </td>
-                                        <td>{{ $data->status_kepala ?? 'Belum ada'}}</td>
-                                        <td>{{ $data->status_rw ?? 'Belum ada'}}</td>
-                                        <td>{{ $data->status_rt ?? 'Belum ada'}}</td>
-                                        <td>{{ $data->warga->nama_lengkap}}</td>        
+                                        <td>{{ $data->status_kepala ?? 'Belum ada' }}</td>
+                                        <td>{{ $data->status_rw ?? 'Belum ada' }}</td>
+                                        <td>{{ $data->status_rt ?? 'Belum ada' }}</td>
+                                        <td>{{ $data->warga->nama_lengkap }}</td>
                                         <td class="text-center">
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -61,38 +61,55 @@
                                                         href="{{ route('dashboard.surat.detail', $data->id) }}">
                                                         <i class="bx bx-box me-1"></i> Detail</a>
 
-                                                         @if (!Auth::user()->hasRole('admin|warga'))
-                                                          <a class="dropdown-item"
-                                                        href="{{ route('dashboard.surat.validasi', $data->id) }}">
-                                 
-                                                        <i class="bx bxs-report me-1"></i> Validasi   {{ Auth::user()->roles->first()->name ?? '-' }}
-                                                          </a>
-                                                          @endif
+                                                    @if (!Auth::user()->hasRole('admin|warga'))
+
+                                                    
+                                                        @if (Auth::user()->hasRole('rw') && $data->status_kepala == 'Disetujui') 
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('dashboard.surat.validasi', $data->id) }}">
+
+                                                                <i class="bx bxs-report me-1"></i> Validasi
+                                                                {{ Auth::user()->roles->first()->name ?? '-' }}
+                                                            </a>
+                                                        @endif
+
+
+                                                         @if (Auth::user()->hasRole('rt') && $data->status_kepala == 'Disetujui'  && $data->status_rw == 'Disetujui') 
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('dashboard.surat.validasi', $data->id) }}">
+
+                                                                <i class="bx bxs-report me-1"></i> Validasi
+                                                                {{ Auth::user()->roles->first()->name ?? '-' }}
+                                                            </a>
+                                                        @endif
+
+
+                                                    @endif
 
                                                     @if (!Auth::user()->hasRole('warga'))
                                                         <a class="dropdown-item"
-                                                        href="{{ route('dashboard.surat.ubah', $data->id) }}"><i
-                                                        class="bx bx-edit-alt me-1"></i> Ubah</a>
-                                                        
-                                                    <form action="{{ route('dashboard.surat.hapus', $data->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                                                        @csrf
-                                                        @method('DELETE')
+                                                            href="{{ route('dashboard.surat.ubah', $data->id) }}"><i
+                                                                class="bx bx-edit-alt me-1"></i> Ubah</a>
 
-                                                        <button type="submit" class="dropdown-item text-danger">
-                                                            <i class="bx bx-trash me-1"></i> Hapus
-                                                        </button>
-                                                    </form>
+                                                        <form action="{{ route('dashboard.surat.hapus', $data->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit" class="dropdown-item text-danger">
+                                                                <i class="bx bx-trash me-1"></i> Hapus
+                                                            </button>
+                                                        </form>
                                                     @endif
 
                                                     @if ($data->status_rw == 'Disetujui' && $data->status_rt == 'Disetujui' && $data->status_kepala == 'Disetujui')
-                                                            <a target="_blank" class="dropdown-item"
-                                                        href="{{ route('dashboard.surat.pdf', $data->id) }}">
-                                 
-                                                        <i class="bx bxs-file me-1"></i> PDF
-                                                    
-                                                    </a>
+                                                        <a target="_blank" class="dropdown-item"
+                                                            href="{{ route('dashboard.surat.pdf', $data->id) }}">
+
+                                                            <i class="bx bxs-file me-1"></i> PDF
+
+                                                        </a>
                                                     @endif
                                                 </div>
                                             </div>
