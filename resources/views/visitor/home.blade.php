@@ -499,15 +499,19 @@
                                     </button>
                                 @endif
 
-                                <a href="{{ route('dashboard.review') }}"
+                                {{-- <a href="{{ route('dashboard.review') }}"
                                     class="btn btn-light px-4 rounded-pill border ms-2 shadow-sm">
                                     KEMBALI
-                                </a>
+                                </a> --}}
                             </div>
 
                         </form>
                     </div>
                 </div>
+                @else
+                    <div class="text-center">
+                   <a href="{{ route('login') }}" class="btn btn-custom px-5 rounded-pill shadow-sm">  Login untuk berikan Penilaian</a>
+                    </div>
                 @endauth
             </div>
         </div>
