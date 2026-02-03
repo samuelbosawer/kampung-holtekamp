@@ -63,8 +63,19 @@
 
                                                     @if (!Auth::user()->hasRole('admin|warga'))
 
+
+
+                                                    @if (Auth::user()->hasRole('rt') ) 
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('dashboard.surat.validasi', $data->id) }}">
+
+                                                                <i class="bx bxs-report me-1"></i> Validasi
+                                                                {{ Auth::user()->roles->first()->name ?? '-' }}
+                                                            </a>
+                                                        @endif
+
                                                     
-                                                        @if (Auth::user()->hasRole('rw') && $data->status_kepala == 'Disetujui') 
+                                                        @if (Auth::user()->hasRole('rw') && $data->status_rt == 'Disetujui') 
                                                             <a class="dropdown-item"
                                                                 href="{{ route('dashboard.surat.validasi', $data->id) }}">
 
@@ -74,7 +85,7 @@
                                                         @endif
 
 
-                                                         @if (Auth::user()->hasRole('rt') && $data->status_kepala == 'Disetujui'  && $data->status_rw == 'Disetujui') 
+                                                         @if (Auth::user()->hasRole('kepala') && $data->status_rt == 'Disetujui'  && $data->status_rw == 'Disetujui') 
                                                             <a class="dropdown-item"
                                                                 href="{{ route('dashboard.surat.validasi', $data->id) }}">
 
@@ -86,7 +97,15 @@
 
                                                     @endif
 
-                                                    @if (!Auth::user()->hasRole('warga'))
+
+                                                       @if (Auth::user()->hasRole('kepala') && $data->status_rt == 'Disetujui'  && $data->status_rw == 'Disetujui' && $data->status_kepala == 'Disetujui') 
+
+                                                       @else 
+
+                                                               @if (!Auth::user()->hasRole('warga'))
+
+
+
                                                         <a class="dropdown-item"
                                                             href="{{ route('dashboard.surat.ubah', $data->id) }}"><i
                                                                 class="bx bx-edit-alt me-1"></i> Ubah</a>
@@ -102,6 +121,9 @@
                                                             </button>
                                                         </form>
                                                     @endif
+                                                       @endif
+
+                                                 
 
                                                     @if ($data->status_rw == 'Disetujui' && $data->status_rt == 'Disetujui' && $data->status_kepala == 'Disetujui')
                                                         <a target="_blank" class="dropdown-item"

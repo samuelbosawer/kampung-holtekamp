@@ -2,60 +2,84 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Surat {{ $surat->nama_surat }}</title>
+    <title>Surat {{ $surat->jenisSurat->nama }}</title>
     <style>
+        /* Pengaturan Kertas */
+        @page {
+            margin: 1cm 2cm;
+        }
+
         body {
             font-family: "Times New Roman", serif;
             font-size: 12pt;
-            line-height: 1.6;
+            line-height: 1.5;
+            color: #000;
         }
 
-        .header {
+        /* Kop Surat */
+        .header-table {
             width: 100%;
-            border-bottom: 3px solid #000;
+            border-bottom: 3px double #000;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
 
-        .logo {
-            float: left;
-            width: 80px;
-        }
-
-        .kop {
-            text-align: center;
-        }
-
-        .kop h2, .kop h3 {
-            margin: 0;
-        }
-
-        .title {
-            text-align: center;
-            margin: 20px 0;
-        }
-
+        /* Konten Isi */
         .content {
-            margin-top: 20px;
+            text-align: justify;
         }
 
-        table {
+        .data-table {
             width: 100%;
+            margin: 15px 0 15px 20px;
             border-collapse: collapse;
         }
 
-        td {
-            padding: 4px;
+        .data-table td {
+            padding: 3px;
             vertical-align: top;
         }
 
-        .ttd {
-            margin-top: 50px;
+        /* Area Tanda Tangan */
+        .ttd-container {
             width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+            page-break-inside: avoid;
         }
 
-        .ttd td {
+        .ttd-box {
+            width: 50%;
             text-align: center;
+            vertical-align: top;
+        }
+
+        .signature-wrapper {
+            height: 110px; /* Tinggi tetap agar nama pejabat sejajar */
+            display: block;
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .img-ttd {
+            max-height: 100px; /* Membatasi tinggi gambar */
+            max-width: 180px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .nama-pejabat {
+            font-weight: bold;
+            text-decoration: underline;
+            text-transform: uppercase;
+        }
+
+        .footer-info {
+            margin-top: 50px;
+            font-size: 9pt;
+            color: #555;
+            border-top: 1px solid #ccc;
+            padding-top: 5px;
         }
     </style>
 </head>
@@ -63,123 +87,89 @@
 <body>
 
     @php
-    $nomorSurat = 
-        $surat->id . '/' .
-        $surat->jenis_surat_id .
-        '-RW' . $surat->warga->rw_id .
-        '-RT' . $surat->warga->rt_id .
-        '-W' . $surat->warga->id .'/KH/' . date('Y');
-@endphp
+        $nomorSurat = $surat->id . '/' . 
+                     $surat->jenis_surat_id . 
+                     '-RW' . $surat->warga->rw_id . 
+                     '-RT' . $surat->warga->rt_id . 
+                     '-W' . $surat->warga->id .'/KH/' . date('Y');
+    @endphp
 
-
-
-
-<table width="100%" style="border-bottom:3px solid #000; padding-bottom:10px; margin-bottom:10px;">
-    <tr>
-        <td width="15%" align="center">
-            <img src="{{ public_path('assets/img/logo.png') }}" style="width:80px;">
-        </td>
-        <td width="85%" align="center">
-            <h3 style="margin:0;">PEMERINTAH KAMPUNG HOLTEKAMP</h3>
-            <h2 style="margin:0;">SISTEM MANAJEMEN PELAYANAN DESA</h2>
-            <p style="margin:0;">Alamat: Kampung Holtekamp</p>
-        </td>
-    </tr>
-</table>
-
-
-{{-- ================= JUDUL SURAT ================= --}}
-<div style="text-align:center; margin-bottom:10px;">
-    <h3 style="margin:0;"><u>SURAT {{ strtoupper($surat->jenisSurat->nama) }}</u></h3>
-    <p style="margin-top:5px;">Nomor: {{ $nomorSurat }}</p>
-</div>
-
-
-{{-- ================= ISI SURAT ================= --}}
-<div class="content">
-
-    <p>Yang bertanda tangan di bawah ini, Pemerintah Kampung Holtekamp, menerangkan bahwa:</p>
-
-    <table>
+    <table class="header-table">
         <tr>
-            <td width="30%">NIK</td>
-            <td width="2%">:</td>
-            <td>{{ $surat->warga->nik }}</td>
-        </tr>
-        <tr>
-            <td>Nama Lengkap</td>
-            <td>:</td>
-            <td>{{ $surat->warga->nama_lengkap }}</td>
-        </tr>
-        <tr>
-            <td>Jenis Kelamin</td>
-            <td>:</td>
-            <td>{{ $surat->warga->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
-        </tr>
-        <tr>
-            <td>Tempat / Tanggal Lahir</td>
-            <td>:</td>
-            <td>{{ $surat->warga->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->warga->tanggal_lahir)->isoFormat('D MMMM Y') }}</td>
-        </tr>
-        <tr>
-            <td>Pekerjaan</td>
-            <td>:</td>
-            <td>{{ $surat->warga->pekerjaan }}</td>
-        </tr>
-        <tr>
-            <td>Status Perkawinan</td>
-            <td>:</td>
-            <td>{{ $surat->warga->status }}</td>
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td>:</td>
-            <td>
-                {{ $surat->warga->alamat }} <br>
-                RT {{ $surat->warga->rt->nama_rt }} / RW {{ $surat->warga->rw->nama_rw }}
+            <td width="15%" align="center">
+                <img src="{{ public_path('assets/img/logo.png') }}" style="width:80px;">
+            </td>
+            <td width="85%" align="center">
+                <h3 style="margin:0; text-transform: uppercase;">PEMERINTAH KAMPUNG HOLTEKAMP</h3>
+                <h2 style="margin:0; text-transform: uppercase;">SISTEM MANAJEMEN PELAYANAN DESA</h2>
+                <p style="margin:0; font-size: 11pt;">Alamat: Kampung Holtekamp, Distrik Muara Tami, Kota Jayapura</p>
             </td>
         </tr>
     </table>
 
-    <br>
+    <div style="text-align:center; margin-bottom:20px;">
+        <h3 style="margin:0;"><u>SURAT {{ strtoupper($surat->jenisSurat->nama) }}</u></h3>
+        <p style="margin:5px 0 0 0;">Nomor: {{ $nomorSurat }}</p>
+    </div>
 
-    <p>
-        Dengan ini mengajukan permohonan pembuatan
-        <strong>{{ $surat->jenisSurat->nama }}</strong>
-        pada tanggal {{ \Carbon\Carbon::parse($surat->tanggal_pengajuan)->translatedFormat('d F Y') }}.
-    </p>
+    <div class="content">
+        <p>Yang bertanda tangan di bawah ini, Pemerintah Kampung Holtekamp, menerangkan bahwa:</p>
 
-    <p>
-        Demikian surat pengajuan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya.
-    </p>
+        <table class="data-table">
+            <tr><td width="30%">NIK</td><td width="2%">:</td><td>{{ $surat->warga->nik }}</td></tr>
+            <tr><td>Nama Lengkap</td><td>:</td><td>{{ $surat->warga->nama_lengkap }}</td></tr>
+            <tr><td>Jenis Kelamin</td><td>:</td><td>{{ $surat->warga->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td></tr>
+            <tr><td>Tempat / Tanggal Lahir</td><td>:</td><td>{{ $surat->warga->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->warga->tanggal_lahir)->isoFormat('D MMMM Y') }}</td></tr>
+            <tr><td>Pekerjaan</td><td>:</td><td>{{ $surat->warga->pekerjaan }}</td></tr>
+            <tr><td>Status Perkawinan</td><td>:</td><td>{{ $surat->warga->status }}</td></tr>
+            <tr>
+                <td>Alamat</td>
+                <td>:</td>
+                <td>
+                    {{ $surat->warga->alamat }}<br>
+                    RT {{ $surat->warga->rt->nama_rt }} / RW {{ $surat->warga->rw->nama_rw }}
+                </td>
+            </tr>
+        </table>
 
-</div>
+        <p>Dengan ini mengajukan permohonan pembuatan <strong>{{ $surat->jenisSurat->nama }}</strong> pada tanggal {{ \Carbon\Carbon::parse($surat->tanggal_pengajuan)->translatedFormat('d F Y') }}.</p>
+        <p>Demikian surat pengajuan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya.</p>
+    </div>
 
-{{-- ================= TANDA TANGAN ================= --}}
-<table class="ttd">
-    <tr>
-        <td width="50%">
-            Mengetahui,<br>
-            Ketua RT<br><br><br><br>
-            <b>{{ $surat->warga->rt->kepala_rt ?? '......................' }}</b>
-        </td>
+    <table class="ttd-container">
+        <tr>
+            <td class="ttd-box">
+                Mengetahui,<br>
+                <strong>Ketua RT {{ $surat->warga->rt->nama_rt }}</strong>
+                
+                <div class="signature-wrapper">
+                    @if(file_exists(public_path('assets/img/ttd_1.png')))
+                        <img src="{{ public_path('assets/img/ttd_1.png') }}" class="img-ttd">
+                    @endif
+                </div>
+                
+                <span class="nama-pejabat">{{ $surat->warga->rt->kepala_rt ?? '......................' }}</span>
+            </td>
 
-        <td width="50%">
-            Kampung Holtekamp, {{ now()->translatedFormat('d F Y') }}<br>
-            Kepala Kampung<br><br><br><br>
-            <b>{{ $surat->warga->rw->kepala_rw ?? '......................' }}</b>
-        </td>
-    </tr>
-</table>
+            <td class="ttd-box">
+                Kampung Holtekamp, {{ now()->translatedFormat('d F Y') }}<br>
+                <strong>Kepala Kampung</strong>
+                
+                <div class="signature-wrapper">
+                    @if(file_exists(public_path('assets/img/ttd_2.png')))
+                        <img src="{{ public_path('assets/img/ttd_2.png') }}" class="img-ttd">
+                    @endif
+                </div>
+                
+                <span class="nama-pejabat">{{ $surat->warga->rw->kepala_rw ?? '......................' }}</span>
+            </td>
+        </tr>
+    </table>
 
-<br>
-
-<p style="font-size:11px;">
-    Status Validasi: <br>
-    RT : {{ $surat->status_rt }} <br>
-    RW : {{ $surat->status_rw }} <br>
-    Kepala Kampung : {{ $surat->status_kepala }}
-</p>
+    <div class="footer-info">
+        <strong>Status Validasi Digital:</strong><br>
+        RT: {{ $surat->status_rt }} | RW: {{ $surat->status_rw }} | Kepala Kampung: {{ $surat->status_kepala }}
+    </div>
 
 </body>
 </html>
