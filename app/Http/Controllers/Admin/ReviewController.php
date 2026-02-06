@@ -88,10 +88,12 @@ class ReviewController extends Controller
     // ================= SHOW =================
     public function show($id)
     {
+        $judul = 'Detail Review';
         $data = Review::with('user')->findOrFail($id);
         return view('admin.review.create-update-show', [
             'data' => $data,
             'mode' => 'detail'
+            ,'judul' => $judul
         ]);
     }
 

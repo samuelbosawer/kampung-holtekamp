@@ -138,18 +138,7 @@
 
     <table class="ttd-container">
         <tr>
-            <td class="ttd-box">
-                Mengetahui,<br>
-                <strong>Ketua RT {{ $surat->warga->rt->nama_rt }}</strong>
-                
-                <div class="signature-wrapper">
-                    @if(file_exists(public_path('assets/img/ttd_1.png')))
-                        <img src="{{ public_path('assets/img/ttd_1.png') }}" class="img-ttd">
-                    @endif
-                </div>
-                
-                <span class="nama-pejabat">{{ $surat->warga->rt->kepala_rt ?? '......................' }}</span>
-            </td>
+           
 
             <td class="ttd-box">
                 Kampung Holtekamp, {{ now()->translatedFormat('d F Y') }}<br>
