@@ -1,6 +1,30 @@
 @extends('admin.layout.tamplate')
 
 @section('content')
+
+<style>
+    .dropdown-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #566a7f;
+    background: #f6f6f9;
+}
+
+.dropdown-icon:hover {
+    background: #eaeaf0;
+    color: #000;
+}
+
+.dropdown-menu {
+    border-radius: 12px !important;
+}
+
+</style>
     <div class="container-xxl flex-grow-1 container-p-y">
         {{-- <h4 class="text-muted py-3 mb-4"><a href="/{{ Request::segment(1).'/'.Request::segment(2) }}" class=" fw-light">{{  Request::segment(2) }}</a> </h4> --}}
 
@@ -51,92 +75,76 @@
                                         <td>{{ $data->status_rt ?? 'Belum ada' }}</td>
                                         <td>{{ $data->warga->nama_lengkap }}</td>
                                         <td class="text-center">
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('dashboard.surat.detail', $data->id) }}">
-                                                        <i class="bx bx-box me-1"></i> Detail</a>
+    <div class="dropdown">
+        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+            <i class="bx bx-dots-vertical-rounded"></i>
+        </button>
 
-                                                    @if (!Auth::user()->hasRole('admin|warga'))
+        <div class="dropdown-menu dropdown-menu-end p-2" style="min-width: auto;">
+            <div class="d-flex flex-column gap-2">
 
+                {{-- DETAIL --}}
+                <a class="dropdown-icon" href="{{ route('dashboard.surat.detail', $data->id) }}">
+                    <i class="bx bx-box"></i>
+                </a>
 
+                {{-- VALIDASI --}}
+                @if (!Auth::user()->hasRole('admin|warga'))
 
-                                                    @if (Auth::user()->hasRole('rt') ) 
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('dashboard.surat.validasi', $data->id) }}">
+                    @if (Auth::user()->hasRole('rt'))
+                        <a class="dropdown-icon" href="{{ route('dashboard.surat.validasi', $data->id) }}">
+                            <i class="bx bxs-report"></i>
+                        </a>
+                    @endif
 
-                                                                <i class="bx bxs-report me-1"></i> Validasi
-                                                                {{ Auth::user()->roles->first()->name ?? '-' }}
-                                                            </a>
-                                                        @endif
+                    @if (Auth::user()->hasRole('rw') && $data->status_rt == 'Disetujui')
+                        <a class="dropdown-icon" href="{{ route('dashboard.surat.validasi', $data->id) }}">
+                            <i class="bx bxs-report"></i>
+                        </a>
+                    @endif
 
-                                                    
-                                                        @if (Auth::user()->hasRole('rw') && $data->status_rt == 'Disetujui') 
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('dashboard.surat.validasi', $data->id) }}">
+                    @if (Auth::user()->hasRole('kepala') && $data->status_rt == 'Disetujui' && $data->status_rw == 'Disetujui')
+                        <a class="dropdown-icon" href="{{ route('dashboard.surat.validasi', $data->id) }}">
+                            <i class="bx bxs-report"></i>
+                        </a>
+                    @endif
 
-                                                                <i class="bx bxs-report me-1"></i> Validasi
-                                                                {{ Auth::user()->roles->first()->name ?? '-' }}
-                                                            </a>
-                                                        @endif
+                @endif
 
+                {{-- EDIT + HAPUS --}}
+                @if (!Auth::user()->hasRole('warga'))
 
-                                                         @if (Auth::user()->hasRole('kepala') && $data->status_rt == 'Disetujui'  && $data->status_rw == 'Disetujui') 
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('dashboard.surat.validasi', $data->id) }}">
+                    @if (!($data->status_rt == 'Disetujui' && $data->status_rw == 'Disetujui' && $data->status_kepala == 'Disetujui'))
 
-                                                                <i class="bx bxs-report me-1"></i> Validasi
-                                                                {{ Auth::user()->roles->first()->name ?? '-' }}
-                                                            </a>
-                                                        @endif
+                        <a class="dropdown-icon" href="{{ route('dashboard.surat.ubah', $data->id) }}">
+                            <i class="bx bx-edit-alt"></i>
+                        </a>
 
+                        <form action="{{ route('dashboard.surat.hapus', $data->id) }}" method="POST"
+                            onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                            @csrf
+                            @method('DELETE')
 
-                                                    @endif
+                            <button type="submit" class="dropdown-icon text-danger border-0 bg-transparent">
+                                <i class="bx bx-trash"></i>
+                            </button>
+                        </form>
 
+                    @endif
+                @endif
 
-                                                       @if (Auth::user()->hasRole('kepala') && $data->status_rt == 'Disetujui'  && $data->status_rw == 'Disetujui' && $data->status_kepala == 'Disetujui') 
+                {{-- PDF --}}
+                @if ($data->status_rw == 'Disetujui' && $data->status_rt == 'Disetujui' && $data->status_kepala == 'Disetujui')
+                    <a target="_blank" class="dropdown-icon" href="{{ route('dashboard.surat.pdf', $data->id) }}">
+                        <i class="bx bxs-file"></i>
+                    </a>
+                @endif
 
-                                                       @else 
+            </div>
+        </div>
+    </div>
+</td>
 
-                                                               @if (!Auth::user()->hasRole('warga'))
-
-
-
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('dashboard.surat.ubah', $data->id) }}"><i
-                                                                class="bx bx-edit-alt me-1"></i> Ubah</a>
-
-                                                        <form action="{{ route('dashboard.surat.hapus', $data->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button type="submit" class="dropdown-item text-danger">
-                                                                <i class="bx bx-trash me-1"></i> Hapus
-                                                            </button>
-                                                        </form>
-                                                    @endif
-                                                       @endif
-
-                                                 
-
-                                                    @if ($data->status_rw == 'Disetujui' && $data->status_rt == 'Disetujui' && $data->status_kepala == 'Disetujui')
-                                                        <a target="_blank" class="dropdown-item"
-                                                            href="{{ route('dashboard.surat.pdf', $data->id) }}">
-
-                                                            <i class="bx bxs-file me-1"></i> PDF
-
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

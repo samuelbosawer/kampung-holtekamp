@@ -46,14 +46,21 @@
 
                     <tbody>
                         @forelse($datas as $index => $data)
-
                             @php
                                 // TOTAL SKOR (q1 - q12)
-                                $total = (
-                                    ($data->q1 ?? 0) + ($data->q2 ?? 0) + ($data->q3 ?? 0) + ($data->q4 ?? 0) +
-                                    ($data->q5 ?? 0) + ($data->q6 ?? 0) + ($data->q7 ?? 0) + ($data->q8 ?? 0) +
-                                    ($data->q9 ?? 0) + ($data->q10 ?? 0) + ($data->q11 ?? 0) + ($data->q12 ?? 0)
-                                );
+                                $total =
+                                    ($data->q1 ?? 0) +
+                                    ($data->q2 ?? 0) +
+                                    ($data->q3 ?? 0) +
+                                    ($data->q4 ?? 0) +
+                                    ($data->q5 ?? 0) +
+                                    ($data->q6 ?? 0) +
+                                    ($data->q7 ?? 0) +
+                                    ($data->q8 ?? 0) +
+                                    ($data->q9 ?? 0) +
+                                    ($data->q10 ?? 0) +
+                                    ($data->q11 ?? 0) +
+                                    ($data->q12 ?? 0);
 
                                 $maxSkor = 12 * 5; // 60
                                 $rata = $total / 12;
@@ -148,6 +155,117 @@
                         @endforelse
                     </tbody>
                 </table>
+
+                @php
+                    $rekap = [
+                        'Sangat Baik' => 0,
+                        'Baik' => 0,
+                        'Cukup' => 0,
+                        'Kurang' => 0,
+                        'Buruk' => 0,
+                    ];
+
+                    foreach ($datas as $r) {
+                        $total =
+                            ($r->q1 ?? 0) +
+                            ($r->q2 ?? 0) +
+                            ($r->q3 ?? 0) +
+                            ($r->q4 ?? 0) +
+                            ($r->q5 ?? 0) +
+                            ($r->q6 ?? 0) +
+                            ($r->q7 ?? 0) +
+                            ($r->q8 ?? 0) +
+                            ($r->q9 ?? 0) +
+                            ($r->q10 ?? 0) +
+                            ($r->q11 ?? 0) +
+                            ($r->q12 ?? 0);
+
+                        $maxSkor = 12 * 5;
+                        $persen = ($total / $maxSkor) * 100;
+
+                        if ($persen >= 81) {
+                            $rekap['Sangat Baik']++;
+                        } elseif ($persen >= 61) {
+                            $rekap['Baik']++;
+                        } elseif ($persen >= 41) {
+                            $rekap['Cukup']++;
+                        } elseif ($persen >= 21) {
+                            $rekap['Kurang']++;
+                        } else {
+                            $rekap['Buruk']++;
+                        }
+                    }
+
+                    $totalData = $datas->count();
+                @endphp
+
+
+                @if (!Auth::user()->hasRole('warga'))
+                    {{-- REKAP KATEGORI --}}
+                    <div class="mt-4 p-3 rounded border bg-white">
+                        <p class="fw-bold mb-3">📊 Rekap Penilaian (Kategori Likert)</p>
+
+                        <div class="row g-2">
+                            <div class="col-md-2 col-6">
+                                <div class="p-3 rounded border text-center bg-light">
+                                    <div class="fw-bold text-success">Sangat Baik</div>
+                                    <h4 class="mb-0">{{ $rekap['Sangat Baik'] }}</h4>
+                                    <small class="text-muted">
+                                        {{ $totalData > 0 ? number_format(($rekap['Sangat Baik'] / $totalData) * 100, 0) : 0 }}%
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-6">
+                                <div class="p-3 rounded border text-center bg-light">
+                                    <div class="fw-bold text-primary">Baik</div>
+                                    <h4 class="mb-0">{{ $rekap['Baik'] }}</h4>
+                                    <small class="text-muted">
+                                        {{ $totalData > 0 ? number_format(($rekap['Baik'] / $totalData) * 100, 0) : 0 }}%
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-6">
+                                <div class="p-3 rounded border text-center bg-light">
+                                    <div class="fw-bold text-warning">Cukup</div>
+                                    <h4 class="mb-0">{{ $rekap['Cukup'] }}</h4>
+                                    <small class="text-muted">
+                                        {{ $totalData > 0 ? number_format(($rekap['Cukup'] / $totalData) * 100, 0) : 0 }}%
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-6">
+                                <div class="p-3 rounded border text-center bg-light">
+                                    <div class="fw-bold text-danger">Kurang</div>
+                                    <h4 class="mb-0">{{ $rekap['Kurang'] }}</h4>
+                                    <small class="text-muted">
+                                        {{ $totalData > 0 ? number_format(($rekap['Kurang'] / $totalData) * 100, 0) : 0 }}%
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-6">
+                                <div class="p-3 rounded border text-center bg-light">
+                                    <div class="fw-bold text-dark">Buruk</div>
+                                    <h4 class="mb-0">{{ $rekap['Buruk'] }}</h4>
+                                    <small class="text-muted">
+                                        {{ $totalData > 0 ? number_format(($rekap['Buruk'] / $totalData) * 100, 0) : 0 }}%
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 col-6">
+                                <div class="p-3 rounded border text-center bg-light">
+                                    <div class="fw-bold">Total</div>
+                                    <h4 class="mb-0">{{ $totalData }}</h4>
+                                    <small class="text-muted">Data</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
                 {{-- INFO LIKERT --}}
                 <div class="mt-3 p-3 rounded border bg-light">

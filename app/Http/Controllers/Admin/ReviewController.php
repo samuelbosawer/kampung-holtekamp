@@ -13,38 +13,49 @@ class ReviewController extends Controller
     // ================= INDEX =================
     public function index(Request $request)
     {
-        // $datas = Review::with('user')->orderBy('id','desc')->paginate(7);
+      $datas = Review::with('user')
 
+    // 🔍 FITUR SEARCH
+    ->when($request->s, function ($query) use ($request) {
+        $s = $request->s;
 
-        $datas = Review::with('user')
+        $query->where(function ($q) use ($s) {
 
-            // 🔍 FITUR SEARCH
-            ->when($request->s, function ($query) use ($request) {
-                $s = $request->s;
+            // cari tanggal
+            $q->where('tanggal', 'LIKE', "%{$s}%")
 
-                $query->where(function ($q) use ($s) {
-                    $q->where('review', 'LIKE', "%{$s}%")
-                        ->orWhere('tanggal', 'LIKE', "%{$s}%")
-                        // 🔍 tambahan search lewat warga
-                        ->orWhereHas('user', function ($wq) use ($s) {
-                            $wq->where('email', 'LIKE', "%{$s}%");
-                        });
-                });
-            })
+            // cari nilai likert q1 - q12
+            ->orWhere('q1', 'LIKE', "%{$s}%")
+            ->orWhere('q2', 'LIKE', "%{$s}%")
+            ->orWhere('q3', 'LIKE', "%{$s}%")
+            ->orWhere('q4', 'LIKE', "%{$s}%")
+            ->orWhere('q5', 'LIKE', "%{$s}%")
+            ->orWhere('q6', 'LIKE', "%{$s}%")
+            ->orWhere('q7', 'LIKE', "%{$s}%")
+            ->orWhere('q8', 'LIKE', "%{$s}%")
+            ->orWhere('q9', 'LIKE', "%{$s}%")
+            ->orWhere('q10', 'LIKE', "%{$s}%")
+            ->orWhere('q11', 'LIKE', "%{$s}%")
+            ->orWhere('q12', 'LIKE', "%{$s}%")
 
-            ->when(Auth::user()->hasRole('warga'), function ($query) {
-                if (Auth::user()->wargas) {
-                    $query->whereHas('user', function ($wq) {
-                        $wq->where('id', Auth::user()->id);
-                    });
-                }
-            })
+            // 🔍 search lewat user
+            ->orWhereHas('user', function ($wq) use ($s) {
+                $wq->where('email', 'LIKE', "%{$s}%");
+            });
+        });
+    })
 
-            ->orderBy('id', 'desc')
-            ->paginate(7);
+    // 🔐 warga hanya lihat data sendiri
+    ->when(Auth::user()->hasRole('warga'), function ($query) {
+        $query->where('user_id', Auth::id());
+    })
 
-        return view('admin.review.index', compact('datas'))
-            ->with('i', (request()->input('page', 1) - 1) * 7);
+    ->orderBy('id', 'desc')
+    ->paginate(7);
+
+return view('admin.review.index', compact('datas'))
+    ->with('i', (request()->input('page', 1) - 1) * 7);
+
     }
 
     // ================= CREATE =================
