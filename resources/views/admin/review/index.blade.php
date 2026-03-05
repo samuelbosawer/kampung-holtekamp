@@ -279,6 +279,79 @@
                     </small>
                 </div>
 
+
+
+                @php
+                    $totalSemua = 0;
+
+                    foreach ($datas as $r) {
+                        $totalSemua +=
+                            ($r->q1 ?? 0) +
+                            ($r->q2 ?? 0) +
+                            ($r->q3 ?? 0) +
+                            ($r->q4 ?? 0) +
+                            ($r->q5 ?? 0) +
+                            ($r->q6 ?? 0) +
+                            ($r->q7 ?? 0) +
+                            ($r->q8 ?? 0) +
+                            ($r->q9 ?? 0) +
+                            ($r->q10 ?? 0) +
+                            ($r->q11 ?? 0) +
+                            ($r->q12 ?? 0);
+                    }
+
+                    $maxTotal = $totalData * 60;
+
+                    $persenKesimpulan = $maxTotal > 0 ? ($totalSemua / $maxTotal) * 100 : 0;
+
+                    if ($persenKesimpulan >= 81) {
+                        $kategoriKesimpulan = 'Sangat Baik';
+                    } elseif ($persenKesimpulan >= 61) {
+                        $kategoriKesimpulan = 'Baik';
+                    } elseif ($persenKesimpulan >= 41) {
+                        $kategoriKesimpulan = 'Cukup';
+                    } elseif ($persenKesimpulan >= 21) {
+                        $kategoriKesimpulan = 'Kurang';
+                    } else {
+                        $kategoriKesimpulan = 'Buruk';
+                    }
+                @endphp
+
+                <div class="mt-3 p-3 rounded border bg-white">
+
+                    <p class="fw-bold mb-2">📊 Kesimpulan Penilaian Masyarakat</p>
+
+                    <p class="mb-1">
+                        Berdasarkan hasil pengolahan data penilaian masyarakat terhadap
+                        pelayanan, diperoleh nilai rata-rata
+                        persentase sebesar:
+
+                        <span class="fw-bold text-primary">
+                            {{ number_format($persenKesimpulan, 2) }}%
+                        </span>
+
+                        dengan kategori:
+
+                        @if ($kategoriKesimpulan == 'Sangat Baik')
+                            <span class="badge bg-success">Sangat Baik</span>
+                        @elseif ($kategoriKesimpulan == 'Baik')
+                            <span class="badge bg-primary">Baik</span>
+                        @elseif ($kategoriKesimpulan == 'Cukup')
+                            <span class="badge bg-warning text-dark">Cukup</span>
+                        @elseif ($kategoriKesimpulan == 'Kurang')
+                            <span class="badge bg-danger">Kurang</span>
+                        @else
+                            <span class="badge bg-dark">Buruk</span>
+                        @endif
+                    </p>
+
+                    <small class="text-muted">
+                        Kesimpulan ini dihitung dari seluruh jawaban responden terhadap
+                        12 pertanyaan menggunakan metode Skala Likert.
+                    </small>
+
+                </div>
+
             </div>
 
             {{-- PAGINATION --}}
