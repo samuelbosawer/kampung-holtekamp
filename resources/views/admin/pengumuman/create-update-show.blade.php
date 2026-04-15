@@ -118,10 +118,10 @@ function previewGambar(input) {
                 // Canvas resize 100x100 (sesuai kebutuhan cover)
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
-                canvas.width = 100;
-                canvas.height = 100;
+                canvas.width = 300;
+                canvas.height = 300;
 
-                ctx.drawImage(img, 0, 0, 100, 100);
+                ctx.drawImage(img, 0, 0, 300, 300);
 
                 // Convert ke base64
                 const base64Image = canvas.toDataURL('image/jpeg', 0.9);
