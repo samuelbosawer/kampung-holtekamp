@@ -34,7 +34,8 @@ class SuratSeeder extends Seeder
                 'warga_id'          => 2,
                 'status_rw'      => 'Disetujui',
                 'status_kepala'         => 'Disetujui',
-                // 'status_rt'         => '',
+                'status_rt'         => 'Disetujui',
+                'status_cetak'         => 'Rumah',
             ],
 
 
@@ -44,8 +45,10 @@ class SuratSeeder extends Seeder
                 'jenis_surat_id'    => 4, // Surat Keterangan Usaha
                 'tanggal_pengajuan' => now()->toDateString(),
                 'warga_id'          => 2,
-                // 'status_rw'      => '',
+                   'status_rw'      => 'Disetujui',
                 'status_kepala'         => 'Disetujui',
+                'status_rt'         => 'Disetujui',
+                'status_cetak'         => 'Kantor',
                 
             ],
 

@@ -186,6 +186,39 @@
     @endif
 </div>
 
+<div class="col-md-8 mb-3">
+    <label class="form-label">Lokasi Cetak Surat</label>
+
+    @php
+        $rtApproved = ($data->status_rt ?? null) === 'Disetujui';
+        $allApproved = $kepalaApproved && $rwApproved && $rtApproved;
+    @endphp
+
+    <select name="status_cetak" class="form-control"
+        @if(
+            $isDetail ||
+            !$isAdmin ||
+            !$allApproved
+        ) disabled @endif>
+
+        <option value="">-- Pilih Lokasi Cetak --</option>
+        <option value="Rumah"
+            {{ old('status_cetak', $data->status_cetak ?? '') == 'Rumah' ? 'selected' : '' }}>
+            Cetak di Rumah
+        </option>
+        <option value="Kantor"
+            {{ old('status_cetak', $data->status_cetak ?? '') == 'Kantor' ? 'selected' : '' }}>
+            Cetak di Kantor
+        </option>
+    </select>
+
+    @if($isAdmin && !$allApproved)
+        <small class="text-muted">
+            *Menunggu persetujuan Kepala Kampung, Ketua RW, dan Ketua RT.
+        </small>
+    @endif
+</div>
+
 
 
 
