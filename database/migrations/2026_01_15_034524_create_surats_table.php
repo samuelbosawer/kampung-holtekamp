@@ -17,7 +17,8 @@ return new class extends Migration
             $table->date('tanggal_pengajuan');
             $table->string('status_rw')->nullable();
             $table->string('status_kepala')->nullable();
-            $table->string('status_rt')->nullable();
+            $table->string('status_rt')->nullable(); 
+            // $table->string('status_cetak')->nullable(); 
             $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('warga_id');
             $table->unsignedBigInteger('jenis_surat_id');

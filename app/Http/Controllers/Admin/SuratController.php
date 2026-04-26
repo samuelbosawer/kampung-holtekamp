@@ -191,6 +191,7 @@ class SuratController extends Controller
             'status_rw'          => $request->status_rw,
             'status_rt'          => $request->status_rt,
             'status_kepala'     => $request->status_kepala,
+            // 'status_surat'     => $request->status_surat,
             'keterangan'        => $request->keterangan,
         ]);
 
@@ -250,6 +251,7 @@ class SuratController extends Controller
             'status_rw'          => $request->status_rw,
             'status_rt'          => $request->status_rt,
             'status_kepala'     => $request->status_kepala,
+            // 'status_surat'     => $request->status_surat,
             'keterangan'        => $request->keterangan,
         ]);
 
