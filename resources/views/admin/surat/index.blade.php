@@ -56,6 +56,7 @@
                                     <th class="text-white text-center  p-3 fw-bolder">Validasi RW</th>
                                     <th class="text-white text-center  p-3 fw-bolder">Validasi RT</th>
                                     <th class="text-white text-center  p-3 fw-bolder">Warga</th>
+                                    <th class="text-white text-center  p-3 fw-bolder">Status</th>
                                     <th class="text-white text-center  p-3 fw-bolder"></th>
                                 </tr>
                             </thead>
@@ -74,6 +75,15 @@
                                         <td>{{ $data->status_rt ?? 'Belum ada' }}</td>
                                         <td>{{ $data->warga->nama_lengkap }}</td>
                                         
+                                        <td class="text-center">
+                                            @if ($data->status_cetak == 'Rumah')
+                                                Cetak Sendiri
+                                            @elseif ($data->status_cetak == 'Kantor')
+                                                Cetak di Kantor
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <div class="dropdown">
                                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -147,7 +157,12 @@
                                                             @if (
                                                                 $data->status_rw == 'Disetujui' &&
                                                                     $data->status_rt == 'Disetujui' &&
+<<<<<<< HEAD
                                                                     $data->status_kepala == 'Disetujui' )
+=======
+                                                                    $data->status_kepala == 'Disetujui' &&
+                                                                    $data->status_cetak == 'Rumah')
+>>>>>>> 9d62fe819bb855bd313d269b72a3cd99bb9ac179
                                                                 <a target="_blank" class="dropdown-icon"
                                                                     href="{{ route('dashboard.surat.pdf', $data->id) }}">
                                                                     <i class="bx bxs-file"></i>
