@@ -35,11 +35,7 @@ class SuratSeeder extends Seeder
                 'status_rw'      => 'Disetujui',
                 'status_kepala'         => 'Disetujui',
                 'status_rt'         => 'Disetujui',
-<<<<<<< HEAD
                 // 'status_cetak'         => 'Rumah',
-=======
-                'status_cetak'         => 'Rumah',
->>>>>>> 9d62fe819bb855bd313d269b72a3cd99bb9ac179
             ],
 
 
@@ -52,11 +48,7 @@ class SuratSeeder extends Seeder
                    'status_rw'      => 'Disetujui',
                 'status_kepala'         => 'Disetujui',
                 'status_rt'         => 'Disetujui',
-<<<<<<< HEAD
                 // 'status_cetak'         => 'Kantor',
-=======
-                'status_cetak'         => 'Kantor',
->>>>>>> 9d62fe819bb855bd313d269b72a3cd99bb9ac179
                 
             ],
 
