@@ -171,6 +171,34 @@
             color: #ccc;
             padding: 30px 0;
         }
+
+
+        /* Underline dekoratif di bawah judul section */
+        .title-underline {
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        /* Tombol CTA pada setiap kartu */
+        .btn-layanan {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 18px;
+            border: 1.5px solid var(--primary);
+            border-radius: 6px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .btn-layanan:hover {
+            background-color: var(--primary);
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -201,8 +229,8 @@
                         @auth
                             <form action="{{ route('logout') }}" method="POST" class="m-0">
                                 @csrf
-                                <button type="submit"
-                                    class="btn btn-outline-danger btn-sm rounded-pill px-4"  onclick="return confirm('Anda yakin ingin keluar?');">Logout</button>
+                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-4"
+                                    onclick="return confirm('Anda yakin ingin keluar?');">Logout</button>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="btn btn-custom btn-sm rounded-pill px-4">Login</a>
@@ -321,51 +349,115 @@
                 <h2>Layanan Masyarakat</h2>
             </div>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="icon-box">
-                        <i class='bx bx-data'></i>
-                        <h5>Rekap Data Penduduk</h5>
-                        <p class="text-muted small">Penyediaan data kependudukan yang akurat dan terupdate untuk warga.
-                        </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-data'></i>
+                            <h5>Rekap Data Penduduk</h5>
+                            <p class="text-muted small">Penyediaan data kependudukan yang akurat dan terupdate untuk
+                                warga.</p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="{{ route('dashboard.warga') }}" class="btn-layanan">Lihat Data <i class='bx bx-chevron-right'></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="icon-box">
-                        <i class='bx bx-file-blank'></i>
-                        <h5>Surat Kependudukan</h5>
-                        <p class="text-muted small">Penanganan surat-surat administrasi dasar yang umum diajukan warga.
-                        </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-file-blank'></i>
+                            <h5>Surat Kependudukan</h5>
+                            <p class="text-muted small">Penanganan surat-surat administrasi dasar yang umum diajukan
+                                warga.</p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="{{ route('dashboard.surat') }}" class="btn-layanan">Ajukan Surat <i
+                                    class='bx bx-chevron-right'></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="icon-box">
-                        <i class='bx bx-check-double'></i>
-                        <h5>Validasi Berjenjang</h5>
-                        <p class="text-muted small">Validasi langsung dari Kepala Kampung dan Ketua RT setempat.</p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-check-double'></i>
+                            <h5>Validasi Berjenjang</h5>
+                            <p class="text-muted small">Validasi langsung dari Kepala Kampung dan Ketua RT setempat.
+                            </p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="{{ route('dashboard.surat') }}" class="btn-layanan">Proses Validasi <i
+                                    class='bx bx-chevron-right'></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="icon-box">
-                        <i class='bx bx-bolt-circle'></i>
-                        <h5>Penyederhanaan Pelayanan</h5>
-                        <p class="text-muted small">Memangkas birokrasi lama menjadi sistem digital yang lebih cepat.
-                        </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-bolt-circle'></i>
+                            <h5>Penyederhanaan Pelayanan</h5>
+                            <p class="text-muted small">Memangkas birokrasi lama menjadi sistem digital yang lebih
+                                cepat.</p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="{{ route('dashboard.surat.tambah') }}" class="btn-layanan">Mulai Layanan <i
+                                    class='bx bx-chevron-right'></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="icon-box">
-                        <i class='bx bx-info-square'></i>
-                        <h5>Informasi Publik</h5>
-                        <p class="text-muted small">Akses data dan informasi kependudukan secara terbuka dan mandiri.
-                        </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-info-square'></i>
+                            <h5>Informasi Publik</h5>
+                            <p class="text-muted small">Akses data dan informasi kependudukan secara terbuka dan
+                                mandiri.</p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="{{ route('dashboard.warga') }}" class="btn-layanan">Lihat Informasi <i
+                                    class='bx bx-chevron-right'></i></a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="icon-box">
-                        <i class='bx bx-news'></i>
-                        <h5>Pusat Pengumuman</h5>
-                        <p class="text-muted small">Penyebaran informasi pelayanan desa secara real-time kepada warga.
-                        </p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-news'></i>
+                            <h5>Pusat Pengumuman</h5>
+                            <p class="text-muted small">Penyebaran informasi pelayanan desa secara real-time kepada
+                                warga.</p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="#pengumuman" class="btn-layanan">Baca Pengumuman <i
+                                    class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-message-dots'></i>
+                            <h5>Pengaduan Masyarakat</h5>
+                            <p class="text-muted small">Wadah bagi warga untuk menyampaikan keluhan, aspirasi, dan
+                                laporan.</p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="{{ route('dashboard.review') }}" class="btn-layanan">Kirim Pengaduan <i
+                                    class='bx bx-chevron-right'></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="icon-box d-flex flex-column h-100">
+                        <div>
+                            <i class='bx bx-search-alt'></i>
+                            <h5>Tracking Status Surat</h5>
+                            <p class="text-muted small">Pantau proses pengajuan surat mulai dari diterima hingga
+                                selesai secara online.</p>
+                        </div>
+                        <div class="mt-auto pt-3">
+                            <a href="{{ route('dashboard.surat') }}" class="btn-layanan">Cek Status Surat <i
+                                    class='bx bx-chevron-right'></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -373,150 +465,156 @@
     </section>
 
 
-<section id="review" class="bg-white">
-    <div class="container">
-        <div class="section-title text-center mb-5">
-            <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Suara Warga</h6>
-            <h2>Penilaian Sistem</h2>
-            <p class="text-muted">
-                Berikan penilaian Anda untuk membantu meningkatkan kualitas pelayanan Kampung Holtekamp.
-            </p>
-        </div>
+    <section id="review" class="bg-white">
+        <div class="container">
+            <div class="section-title text-center mb-5">
+                <h6 class="text-uppercase fw-bold" style="color: var(--primary);">Suara Warga</h6>
+                <h2>Penilaian Sistem</h2>
+                <p class="text-muted">
+                    Berikan penilaian Anda untuk membantu meningkatkan kualitas pelayanan Kampung Holtekamp.
+                </p>
+            </div>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                @auth
-                <div class="card border-0 shadow-sm"
-                    style="border-radius: 20px; border: 1px solid #f0f0f0 !important;">
-                    <div class="card-body p-4 p-md-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    @auth
+                        <div class="card border-0 shadow-sm"
+                            style="border-radius: 20px; border: 1px solid #f0f0f0 !important;">
+                            <div class="card-body p-4 p-md-5">
 
-                        {{-- FORM OPEN --}}
-                        @if (Request::segment(4) == 'ubah')
-                            <form action="{{ route('dashboard.review.update', $data->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                        @elseif (Request::segment(3) == 'tambah' || Request::segment(1) == '')
-                            <form action="{{ route('dashboard.review.store') }}" method="POST">
-                                @csrf
-                        @else
-                            <form>
-                        @endif
-
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                            <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
-
-                            <p class="fw-bold mb-4">
-                                <i class="bx bx-edit-alt me-2 text-primary"></i>
-                                Berikan penilaian sesuai pengalaman Anda
-                            </p>
-
-                            @php
-                                $pertanyaan = [
-                                    1  => 'Sistem ini membantu mempermudah pengurusan surat saya',
-                                    2  => 'Sistem sesuai dengan kebutuhan pelayanan kampung',
-                                    3  => 'Bahasa dan istilah yang digunakan mudah dipahami',
-                                    4  => 'Navigasi sistem mudah digunakan',
-                                    5  => 'Tampilan sistem menarik dan rapi',
-                                    6  => 'Sistem membantu mempercepat proses pelayanan',
-                                    7  => 'Fitur-fitur sistem berjalan dengan baik',
-                                    8  => 'Sistem lebih efektif dibandingkan cara manual',
-                                    9  => 'Saya merasa puas menggunakan sistem ini',
-                                    10 => 'Sistem ini layak digunakan secara berkelanjutan',
-                                    11 => 'Sistem membantu petugas kampung dalam pelayanan',
-                                    12 => 'Sistem meningkatkan kualitas pelayanan kampung',
-                                ];
-                            @endphp
-
-                            {{-- TABEL PERTANYAAN --}}
-                            <div class="table-responsive">
-                                <table class="table table-bordered text-center align-middle">
-                                    <thead class="table-primary text-white"
-                                        style="background-color: var(--primary) !important;">
-                                        <tr>
-                                            <th width="50">No</th>
-                                            <th class="text-start">Pernyataan</th>
-                                            <th>STS<br>(1)</th>
-                                            <th>TS<br>(2)</th>
-                                            <th>N<br>(3)</th>
-                                            <th>S<br>(4)</th>
-                                            <th>SS<br>(5)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($pertanyaan as $no => $label)
-                                            <tr>
-                                                <td>{{ $no }}</td>
-                                                <td class="text-start">{{ $label }}</td>
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <td>
-                                                        <input type="radio"
-                                                            name="q{{ $no }}"
-                                                            value="{{ $i }}"
-                                                            {{ old("q$no", $data->{"q$no"} ?? '') == $i ? 'checked' : '' }}
-                                                            @if (Request::segment(3) == 'detail') disabled @endif>
-                                                    </td>
-                                                @endfor
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            {{-- KETERANGAN SKALA --}}
-                            <div class="mt-2 small text-muted">
-                                <strong>Keterangan:</strong>
-                                STS (1) = Sangat Tidak Setuju,
-                                TS (2) = Tidak Setuju,
-                                N (3) = Netral,
-                                S (4) = Setuju,
-                                SS (5) = Sangat Setuju
-                            </div>
-
-                            {{-- ERROR GLOBAL --}}
-                            @if (
-                                $errors->has('q1') || $errors->has('q2') || $errors->has('q3') ||
-                                $errors->has('q4') || $errors->has('q5') || $errors->has('q6') ||
-                                $errors->has('q7') || $errors->has('q8') || $errors->has('q9') ||
-                                $errors->has('q10') || $errors->has('q11') || $errors->has('q12')
-                            )
-                                <small class="text-danger d-block mt-2">
-                                    <i class="bx bx-error-circle"></i>
-                                    Semua pernyataan wajib diisi.
-                                </small>
-                            @endif
-
-                            {{-- BUTTON --}}
-                            <div class="text-end mt-4">
-                                @if (Request::segment(3) == 'detail')
-                                    <a href="{{ route('dashboard.review.ubah', $data->id) }}"
-                                        class="btn btn-warning px-4 rounded-pill text-white shadow-sm">
-                                        <i class="bx bx-pencil"></i> UBAH DATA
-                                    </a>
-                                @else
-                                    <button type="submit"
-                                        class="btn btn-custom px-5 rounded-pill shadow-sm">
-                                        SIMPAN PENILAIAN <i class="bx bx-save ms-1"></i>
-                                    </button>
+                                {{-- FORM OPEN --}}
+                                @if (Request::segment(4) == 'ubah')
+                                    <form action="{{ route('dashboard.review.update', $data->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                    @elseif (Request::segment(3) == 'tambah' || Request::segment(1) == '')
+                                        <form action="{{ route('dashboard.review.store') }}" method="POST">
+                                            @csrf
+                                        @else
+                                            <form>
                                 @endif
 
-                                {{-- <a href="{{ route('dashboard.review') }}"
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="tanggal" value="{{ date('Y-m-d') }}">
+
+                                <p class="fw-bold mb-4">
+                                    <i class="bx bx-edit-alt me-2 text-primary"></i>
+                                    Berikan penilaian sesuai pengalaman Anda
+                                </p>
+
+                                @php
+                                    $pertanyaan = [
+                                        1 => 'Sistem ini membantu mempermudah pengurusan surat saya',
+                                        2 => 'Sistem sesuai dengan kebutuhan pelayanan kampung',
+                                        3 => 'Bahasa dan istilah yang digunakan mudah dipahami',
+                                        4 => 'Navigasi sistem mudah digunakan',
+                                        5 => 'Tampilan sistem menarik dan rapi',
+                                        6 => 'Sistem membantu mempercepat proses pelayanan',
+                                        7 => 'Fitur-fitur sistem berjalan dengan baik',
+                                        8 => 'Sistem lebih efektif dibandingkan cara manual',
+                                        9 => 'Saya merasa puas menggunakan sistem ini',
+                                        10 => 'Sistem ini layak digunakan secara berkelanjutan',
+                                        11 => 'Sistem membantu petugas kampung dalam pelayanan',
+                                        12 => 'Sistem meningkatkan kualitas pelayanan kampung',
+                                    ];
+                                @endphp
+
+                                {{-- TABEL PERTANYAAN --}}
+                                <div class="table-responsive">
+                                    <table class="table table-bordered text-center align-middle">
+                                        <thead class="table-primary text-white"
+                                            style="background-color: var(--primary) !important;">
+                                            <tr>
+                                                <th width="50">No</th>
+                                                <th class="text-start">Pernyataan</th>
+                                                <th>STS<br>(1)</th>
+                                                <th>TS<br>(2)</th>
+                                                <th>N<br>(3)</th>
+                                                <th>S<br>(4)</th>
+                                                <th>SS<br>(5)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($pertanyaan as $no => $label)
+                                                <tr>
+                                                    <td>{{ $no }}</td>
+                                                    <td class="text-start">{{ $label }}</td>
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <td>
+                                                            <input type="radio" name="q{{ $no }}"
+                                                                value="{{ $i }}"
+                                                                {{ old("q$no", $data->{"q$no"} ?? '') == $i ? 'checked' : '' }}
+                                                                @if (Request::segment(3) == 'detail') disabled @endif>
+                                                        </td>
+                                                    @endfor
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {{-- KETERANGAN SKALA --}}
+                                <div class="mt-2 small text-muted">
+                                    <strong>Keterangan:</strong>
+                                    STS (1) = Sangat Tidak Setuju,
+                                    TS (2) = Tidak Setuju,
+                                    N (3) = Netral,
+                                    S (4) = Setuju,
+                                    SS (5) = Sangat Setuju
+                                </div>
+
+                                {{-- ERROR GLOBAL --}}
+                                @if (
+                                    $errors->has('q1') ||
+                                        $errors->has('q2') ||
+                                        $errors->has('q3') ||
+                                        $errors->has('q4') ||
+                                        $errors->has('q5') ||
+                                        $errors->has('q6') ||
+                                        $errors->has('q7') ||
+                                        $errors->has('q8') ||
+                                        $errors->has('q9') ||
+                                        $errors->has('q10') ||
+                                        $errors->has('q11') ||
+                                        $errors->has('q12'))
+                                    <small class="text-danger d-block mt-2">
+                                        <i class="bx bx-error-circle"></i>
+                                        Semua pernyataan wajib diisi.
+                                    </small>
+                                @endif
+
+                                {{-- BUTTON --}}
+                                <div class="text-end mt-4">
+                                    @if (Request::segment(3) == 'detail')
+                                        <a href="{{ route('dashboard.review.ubah', $data->id) }}"
+                                            class="btn btn-warning px-4 rounded-pill text-white shadow-sm">
+                                            <i class="bx bx-pencil"></i> UBAH DATA
+                                        </a>
+                                    @else
+                                        <button type="submit" class="btn btn-custom px-5 rounded-pill shadow-sm">
+                                            SIMPAN PENILAIAN <i class="bx bx-save ms-1"></i>
+                                        </button>
+                                    @endif
+
+                                    {{-- <a href="{{ route('dashboard.review') }}"
                                     class="btn btn-light px-4 rounded-pill border ms-2 shadow-sm">
                                     KEMBALI
                                 </a> --}}
-                            </div>
+                                </div>
 
-                        </form>
-                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <a href="{{ route('login') }}" class="btn btn-custom px-5 rounded-pill shadow-sm"> Login
+                                untuk berikan Penilaian</a>
+                        </div>
+                    @endauth
                 </div>
-                @else
-                    <div class="text-center">
-                   <a href="{{ route('login') }}" class="btn btn-custom px-5 rounded-pill shadow-sm">  Login untuk berikan Penilaian</a>
-                    </div>
-                @endauth
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
 
