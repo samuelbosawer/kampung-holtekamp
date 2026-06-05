@@ -220,6 +220,7 @@
                     <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pengumuman">Pengumuman</a></li>
                     <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('pengaduan') }}">Pengaduan</a></li>
                     <li class="nav-item"><a class="nav-link" href="#review">Saran</a></li>
                     <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
                     @auth
@@ -252,6 +253,7 @@
                             <p class="fs-5 mb-4 opacity-75">Sistem Manajemen Pelayanan Desa yang transparan, efisien,
                                 dan modern <br> untuk masyarakat Muara Tami.</p>
                             <a href="#layanan" class="btn btn-custom">Mulai Layanan</a>
+                             <a href="{{ route('prosedur') }}" class="btn btn-custom">Prosedur Layanan</a>
                         </div>
                     </div>
                 </div>
@@ -399,7 +401,7 @@
                                 cepat.</p>
                         </div>
                         <div class="mt-auto pt-3">
-                            <a href="{{ route('dashboard.surat.tambah') }}" class="btn-layanan">Mulai Layanan <i
+                            <a href="{{ route('prosedur') }}" class="btn-layanan">Prosedur Layanan <i
                                     class='bx bx-chevron-right'></i></a>
                         </div>
                     </div>
@@ -441,7 +443,7 @@
                                 laporan.</p>
                         </div>
                         <div class="mt-auto pt-3">
-                            <a href="{{ route('dashboard.review') }}" class="btn-layanan">Kirim Pengaduan <i
+                            <a href="{{ route('pengaduan') }}" class="btn-layanan">Kirim Pengaduan <i
                                     class='bx bx-chevron-right'></i></a>
                         </div>
                     </div>

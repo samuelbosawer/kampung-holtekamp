@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengaduan;
 use App\Models\Pengumuman;
 use App\Models\User;
 use App\Models\Warga;
@@ -60,6 +61,37 @@ class HomeController extends Controller
 
     Alert::success('Berhasil', 'Pendaftaran Akun Berhail');
     return redirect()->route('login');
+    }
+
+    public function pengaduan()
+    {
+        return view('visitor.pengaduan');
+    }
+
+    public function pengaduanSubmit(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'nomor_hp' => 'required|string|max:25',
+            'pesan' => 'required|string',
+        ]);
+
+        // Simpan data pengaduan ke database
+        Pengaduan::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'nomor_hp' => $request->nomor_hp,
+            'pesan' => $request->pesan,
+        ]);
+
+        Alert::success('Berhasil', 'Pengaduan Anda Berhasil Dikirim');
+        return redirect()->route('pengaduan');
+    }
+
+    public function prosedur()
+    {
+        return view('visitor.prosedur');
     }
     
 }

@@ -8,6 +8,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('home');
+        // Route::get('/pelayanan', [DashboardController::class, 'pelayanan'])->name('pelayanan');
 
 
        
@@ -19,6 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
         require_once 'admin/warga.php';
         require_once 'admin/user.php';
         require_once 'admin/review.php';
+        require_once 'admin/pengaduan.php';
 
     });
 });

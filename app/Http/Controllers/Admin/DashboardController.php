@@ -80,6 +80,12 @@ class DashboardController extends Controller
         return view('admin.crud_tamplate.create-update-show');
     }
 
+
+    public function pelayanan()
+    {
+        return view('admin.dashboard.pelayanan');
+    }
+
     // Simpan data baru
     public function store(Request $request)
     {
