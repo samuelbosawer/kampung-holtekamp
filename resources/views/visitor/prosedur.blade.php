@@ -295,7 +295,7 @@
       @php
         $steps = [
           ['icon' => 'bx-laptop',       'num' => 1, 'title' => 'Warga Ajukan Permohonan',       'desc' => 'Login & isi form pengajuan surat secara online'],
-          ['icon' => 'bx-home-check',   'num' => 2, 'title' => 'RT/RW Validasi Data Warga',     'desc' => 'Ketua RT & RW memeriksa dan memverifikasi data pemohon'],
+          ['icon' => 'bx-user-check',   'num' => 2, 'title' => 'RT/RW Validasi Data Warga',     'desc' => 'Ketua RT & RW memeriksa dan memverifikasi data pemohon'],
           ['icon' => 'bx-user-check',   'num' => 3, 'title' => 'Kepala Kampung Validasi Surat', 'desc' => 'Kepala Kampung meninjau dan menyetujui surat'],
           ['icon' => 'bx-medal',        'num' => 4, 'title' => 'Sistem Menerbitkan Surat',      'desc' => 'Surat digital diterbitkan otomatis oleh sistem'],
           ['icon' => 'bx-printer',      'num' => 5, 'title' => 'Warga Download & Cetak',        'desc' => 'Unduh PDF dan cetak secara mandiri'],
