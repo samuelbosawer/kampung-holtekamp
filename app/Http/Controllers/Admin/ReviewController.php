@@ -68,7 +68,7 @@ return view('admin.review.index', compact('datas'))
     // ================= STORE =================
     public function store(Request $request)
     {
-        abort_unless(Auth::user()->hasRole('warga'), 403);
+        // abort_unless(Auth::user()->hasRole('warga'), 403);
 
         $request->validate([
             'q1' => 'required|integer|min:1|max:5',
